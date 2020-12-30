@@ -1,6 +1,6 @@
 {
     "name": "ioBroker",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "webui": "http://[HOST]:[PORT:8081]/",
     "slug": "iobroker",
     "description": "Open source automation platform",
