@@ -15,6 +15,7 @@
     "ports": {
       "8081/tcp": 8081
     },
-    "stage": "experimental" 
+    "stage": "experimental",
+    "url": "https://github.com/MaxWinterstein/homeassistant-addons/"
     
   }
