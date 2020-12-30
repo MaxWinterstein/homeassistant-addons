@@ -1,0 +1,30 @@
+{
+  "name":"eufy-ha-mqtt-bridge",
+  "version":"0.1.0",
+  "slug":"eufy-ha-mqtt-bridge",
+  "description":"eufy-ha-mqtt-bridge",
+  "arch":[
+     "armhf",
+     "armv7",
+     "aarch64",
+     "amd64",
+     "i386"
+  ],
+  "startup":"application",
+  "boot":"auto",
+  "options":{
+     "eufy":{
+        "username":"mail@example.org",
+        "password":"iliketurtles"
+     },
+     "mqtt":{
+        "url":"mqtt://192.168.x.x:1883",
+        "username":"homeassistant",
+        "password":"homeassistant"
+     }
+  },
+  "schema":false,
+  "stage":"experimental",
+  "url":"https://github.com/matijse/eufy-ha-mqtt-bridge/",
+  "map": ["share:rw"]
+}
