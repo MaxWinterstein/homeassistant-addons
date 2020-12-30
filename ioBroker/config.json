@@ -1,0 +1,20 @@
+{
+    "name": "ioBroker",
+    "version": "0.1.0",
+    "webui": "http://[HOST]:[PORT:8081]/",
+    "slug": "iobroker",
+    "description": "Open source automation platform",
+    "ingress": false,
+    "ingress_port": 8081,
+    "panel_icon": "mdi:iobroker",
+    "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+    "startup": "application",
+    "boot": "auto",
+    "options": {},
+    "schema": {},
+    "ports": {
+      "8081/tcp": 8081
+    },
+    "stage": "experimental" 
+    
+  }
