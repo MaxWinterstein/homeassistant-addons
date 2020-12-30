@@ -16,6 +16,10 @@ If your HA instance is running with SSL support, the `OPEN WEB UI` button might 
 **Note:** As this image is not based on the official home assistant add-on images the Supervisor has some delay on the add-on state (i guess this is the reason).  
 It might be up and running while the `Info` tab is not aware of this right now. Page reload might help.
 
+## TODO
+* Get the panel integration working (if this is possible)
+* Use some official base image (maybe running the buanet dockerfile onto office image work)
+
 ## Technical notes
 The `buanet` docker image contains some pretty useful startup script.
 
