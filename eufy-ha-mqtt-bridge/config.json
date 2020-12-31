@@ -1,6 +1,6 @@
 {
   "name":"eufy-ha-mqtt-bridge",
-  "version":"0.1.0",
+  "version":"0.2.0",
   "slug":"eufy-ha-mqtt-bridge",
   "description":"eufy-ha-mqtt-bridge",
   "arch":[
