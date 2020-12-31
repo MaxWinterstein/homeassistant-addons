@@ -1,4 +1,4 @@
-# Home Assistant Add-on: eufy-ha-mqtt-bridge
+# Home Assistant Add-on: Eufy Home Assistant MQTT Bridge
 
 ---
 ## 🚨 This is some experimental release! 🚨

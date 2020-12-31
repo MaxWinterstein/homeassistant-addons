@@ -1,8 +1,8 @@
 {
-  "name":"eufy-ha-mqtt-bridge",
-  "version":"0.2.0",
+  "name":"Eufy Home Assistant MQTT Bridge",
+  "version":"0.3.0",
   "slug":"eufy-ha-mqtt-bridge",
-  "description":"eufy-ha-mqtt-bridge",
+  "description":"Publish events as MQTT messages",
   "arch":[
      "armhf",
      "armv7",
