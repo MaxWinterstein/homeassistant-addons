@@ -2,6 +2,7 @@
 
 ## [0.5.0] - 2021-01-02
 - Improve image recration by adding some cache buster
+- Change to bashio logs
 
 ## [0.4.0] - 2021-01-02
 - Change base image to `hassioaddons/debian-base`
