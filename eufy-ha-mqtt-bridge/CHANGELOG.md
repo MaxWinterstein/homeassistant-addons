@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.0] - 2021-01-02
+- Improve image recration by adding some cache buster
+
 ## [0.4.0] - 2021-01-02
 - Change base image to `hassioaddons/debian-base`
 - Add icon (thx to [davida72](https://github.com/matijse/eufy-ha-mqtt-bridge/issues/1#issuecomment-753333591]))
