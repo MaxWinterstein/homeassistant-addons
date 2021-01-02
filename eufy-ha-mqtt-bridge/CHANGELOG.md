@@ -5,6 +5,7 @@
 - Change to bashio logs
 - Add `log_level` cofiguration option
 - Add schema validation to configuration
+- Add some build date information
 
 ## [0.4.0] - 2021-01-02
 - Change base image to `hassioaddons/debian-base`
