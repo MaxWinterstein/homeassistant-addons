@@ -1,30 +1,44 @@
 {
-  "name":"Eufy Home Assistant MQTT Bridge",
-  "version":"0.4.0",
-  "slug":"eufy-ha-mqtt-bridge",
-  "description":"Publish events as MQTT messages",
-  "arch":[
-     "armhf",
-     "armv7",
-     "aarch64",
-     "amd64",
-     "i386"
+  "name": "Eufy Home Assistant MQTT Bridge",
+  "version": "0.5.0",
+  "slug": "eufy-ha-mqtt-bridge",
+  "description": "Publish events as MQTT messages",
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
   ],
-  "startup":"application",
-  "boot":"auto",
-  "options":{
-     "eufy":{
-        "username":"mail@example.org",
-        "password":"iliketurtles"
-     },
-     "mqtt":{
-        "url":"mqtt://192.168.x.x:1883",
-        "username":"homeassistant",
-        "password":"homeassistant"
-     }
+  "startup": "application",
+  "boot": "auto",
+  "options": {
+    "eufy": {
+      "username": "mail@example.org",
+      "password": "iliketurtles"
+    },
+    "mqtt": {
+      "url": "mqtt://192.168.x.x:1883",
+      "username": "homeassistant",
+      "password": "homeassistant"
+    },
+    "log_level": "info"
   },
-  "schema":false,
-  "stage":"experimental",
-  "url":"https://github.com/matijse/eufy-ha-mqtt-bridge/",
-  "map": ["share:rw"]
+  "schema": {
+    "eufy": {
+      "username": "str",
+      "password": "str"
+    },
+    "mqtt": {
+      "url": "str",
+      "username": "str?",
+      "password": "str?"
+    },
+    "log_level": "list(error|warn|info|http|verbose|debug|silly)"
+  },
+  "stage": "experimental",
+  "url": "https://github.com/matijse/eufy-ha-mqtt-bridge/",
+  "map": [
+    "share:rw"
+  ]
 }

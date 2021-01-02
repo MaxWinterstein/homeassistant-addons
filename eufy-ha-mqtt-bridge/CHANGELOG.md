@@ -4,6 +4,7 @@
 - Improve image recration by adding some cache buster
 - Change to bashio logs
 - Add `log_level` cofiguration option
+- Add schema validation to configuration
 
 ## [0.4.0] - 2021-01-02
 - Change base image to `hassioaddons/debian-base`
