@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.6.0] - 2021-01-02
+- Add `hassio_role` and `hassio_api` to config to prevent error message
+
 ## [0.5.0] - 2021-01-02
 - Improve image recration by adding some cache buster
 - Change to bashio logs

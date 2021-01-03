@@ -1,6 +1,6 @@
 {
   "name": "Eufy Home Assistant MQTT Bridge",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "slug": "eufy-ha-mqtt-bridge",
   "description": "Publish events as MQTT messages",
   "arch": [
@@ -40,5 +40,7 @@
   "url": "https://github.com/matijse/eufy-ha-mqtt-bridge/",
   "map": [
     "share:rw"
-  ]
+  ],
+    "hassio_role": "default",
+    "hassio_api": true
 }
