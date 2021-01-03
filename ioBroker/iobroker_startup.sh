@@ -3,7 +3,7 @@
 # begin hass addon custom mount block
 echo "Symlinking data dir"
 mv /opt/iobroker /opt/iobroker_ori # move image brought folder away
-mkdir /data/iobroker || echo 'Thats fine, data folder already exists'
+mkdir -p /data/iobroker
 ln -s /data/iobroker /opt/iobroker # symlink /data mount 
 if find /data/iobroker -maxdepth 0 -empty | read v; then 
   echo "Data folder looks unused, will copy initial stuff"

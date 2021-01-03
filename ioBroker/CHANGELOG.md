@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.5.0] - 2021-01-04
+- Fix two superflous warnings
+
 ## [0.4.0] - 2020-12-30
 - Change from sha image tag to v5.1.0
 
