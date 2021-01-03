@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.7.0] - 2021-01-02
+- Updated logo
+
 ## [0.6.0] - 2021-01-02
 - Add `hassio_role` and `hassio_api` to config to prevent error message
 
