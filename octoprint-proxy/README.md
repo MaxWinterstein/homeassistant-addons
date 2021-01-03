@@ -5,3 +5,5 @@ Small *haproxy* based reverse proxy to have OctoPrint accessible from Home Assis
 Works great with OctoPi based installations, others not tested. Feedback welcome.
 
 **Remember to enable the *Show in sidebar* option.**
+
+Webcam is not working right now, will fix asap.
