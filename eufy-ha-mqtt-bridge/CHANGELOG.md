@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.8.0] - 2021-01-05
+- Moved to dockerhub located images
+
 ## [0.7.0] - 2021-01-02
 - Updated logo
 

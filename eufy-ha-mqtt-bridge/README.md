@@ -1,10 +1,12 @@
 # Home Assistant Add-on: Eufy Home Assistant MQTT Bridge
+## Based on https://github.com/matijse/eufy-ha-mqtt-bridge/
 
 ---
 ## 🚨 This is some experimental release! 🚨
 ---
 
-**As this add-on will be build locally it might take some time (8min on my rpi4). This will be solved by pre-build images soon.**
+**The underlaying docker image will be build every night until there is some kind of versioning available.**
+**If a feature was released at eufy-ha-mqtt-bridge, it might be available as recently as the next day.**
 
 Quick wrapp around https://github.com/matijse/eufy-ha-mqtt-bridge.
 

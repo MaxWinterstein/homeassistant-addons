@@ -1,14 +1,13 @@
 {
   "name": "Eufy Home Assistant MQTT Bridge",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "slug": "eufy-ha-mqtt-bridge",
   "description": "Publish events as MQTT messages",
   "arch": [
     "armhf",
     "armv7",
     "aarch64",
-    "amd64",
-    "i386"
+    "amd64"
   ],
   "startup": "application",
   "boot": "auto",
@@ -41,6 +40,6 @@
   "map": [
     "share:rw"
   ],
-    "hassio_role": "default",
-    "hassio_api": true
+  "hassio_role": "default",
+  "hassio_api": true
 }
