@@ -1,0 +1,42 @@
+{
+  "name": "TooGoodToGo Home Assistant MQTT Bridge",
+  "version": "0.1.0",
+  "slug": "tgtg-ha-mqtt-bridge",
+  "description": "Publish TooGoodToGo stock as MQTT messages",
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64"
+  ],
+  "startup": "application",
+  "boot": "auto",
+  "options": {
+    "mqtt": {
+      "host": "homeassistant",
+      "port": 1883,
+      "username": "mqtt",
+      "password": "mqtt"
+    },
+    "tgtg": {
+      "email": "me@example.ocm",
+      "password": "iliketurtles"
+    }
+  },
+  "schema": {
+    "mqtt": {
+      "host": "str",
+      "port": "int",
+      "username": "str?",
+      "password": "str?"
+    },
+    "tgtg": {
+      "email": "str",
+      "password": "str"
+    }
+  },
+  "stage": "experimental",
+  "url": "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge",
+  "hassio_role": "default",
+  "hassio_api": true
+}

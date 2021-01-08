@@ -7,6 +7,9 @@ Home Assistant Addon repository containing
 ## <img src="eufy-ha-mqtt-bridge/icon.png" width="40px"> Eufy Home Assistant MQTT Bridge ([matijse/eufy-ha-mqtt-bridge](https://github.com/matijse/eufy-ha-mqtt-bridge))
 Forwards Eufy Security push notifications to Home Assistant via MQTT. 
 
+## <img src="toogoodtogo-ha-mqtt-bridge/icon.png" width="40px"> TooGoodToGo Home Assistant MQTT Bridge ([maxwinterstein/toogoodtogo-ha-mqtt-bridge](https://github.com/maxwinterstein/toogoodtogo-ha-mqtt-bridge))
+Integrate your TooGoodToGo favourites to Home Assistant via MQTT. 
+
 ## <img src="ioBroker/icon.png" width="40px"> ioBroker ([iobroker.net](http://iobroker.net))
 Run ioBroker as Add-on. 
 
