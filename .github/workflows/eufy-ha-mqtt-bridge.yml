@@ -1,4 +1,4 @@
-name: build-and-push
+name: eufy-ha-mqtt-bridge
 
 on:
   # Allows you to run this workflow manually from the Actions tab
