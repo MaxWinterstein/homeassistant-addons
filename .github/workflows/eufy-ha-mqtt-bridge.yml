@@ -37,4 +37,4 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:${{ github.event.inputs.tags }}
+            maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:${{ github.event.inputs.version }}
