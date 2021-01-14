@@ -1,14 +1,12 @@
 name: toogoodtogo-ha-mqtt-bridge
 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  push:
-    branches: [ main ]
-  schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '17 3 * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Image Tag'     
+        required: true
 
 
 jobs:
@@ -41,4 +39,4 @@ jobs:
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: true
           tags: |
-            maxwinterstein/homeassistant-addon-toogoodtogo-ha-mqtt-bridge:latest
+            maxwinterstein/homeassistant-addon-toogoodtogo-ha-mqtt-bridge:${{ github.event.inputs.version }}
