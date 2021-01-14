@@ -34,7 +34,7 @@
     "tgtg": {
       "email": "str",
       "password": "str",
-      "every_n_minutes": "float(0.5,)"
+      "every_n_minutes": "float(0.1,)"
     }
   },
   "stage": "experimental",
