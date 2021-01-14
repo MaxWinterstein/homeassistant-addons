@@ -5,4 +5,15 @@
 ## 🚨 This is some experimental release! 🚨
 ---
 
-**The underlaying docker image will be build every night until there is some kind of versioning available.**
+Example Config:
+```toml
+mqtt:
+  host: homeassistant
+  port: 1883
+  username: mqtt
+  password: mqtt
+tgtg:
+  email: me@example.ocm
+  password: iliketurtles
+  every_n_minutes: 10
+```
