@@ -1,0 +1,19 @@
+name: eufy-ha-mqtt-bridge-release-trigger
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [createMR]
+jobs:
+  createMR:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: 'sed -i "s|\"version\": \".*$|\"version\": \"${{ github.event.client_payload.version }}\",|" eufy-ha-mqtt-bridge/config.json'
+      - run: 'sed -i "s|VERSION=.*$|VERSION=${{ github.event.client_payload.version }}|" eufy-ha-mqtt-bridge/Dockerfile-real'
+      - run: sed -i "2 a $(head -n3 eufy-ha-mqtt-bridge/CHANGELOG.md | tail -n1 | perl -pe 's/(\d+\.)(\d+)(.*)/$1.($2+1).".0]"/e') - $(date +%Y-%m-%d)" eufy-ha-mqtt-bridge/CHANGELOG.md
+      - run: sed -i "3 a - Update \`eufy-ha-mqtt-bridge\` to \`${{ github.event.client_payload.version }}\` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)\n" eufy-ha-mqtt-bridge/CHANGELOG.md
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          title: Update eufy-mqtt-ha-bridge to version ${{ github.event.client_payload.version }}
