@@ -1,6 +1,6 @@
 {
   "name": "TooGoodToGo Home Assistant MQTT Bridge",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "slug": "tgtg-ha-mqtt-bridge",
   "description": "Publish TooGoodToGo stock as MQTT messages",
   "arch": [
@@ -22,7 +22,9 @@
       "email": "me@example.com",
       "password": "iliketurtles",
       "every_n_minutes": 5
-    }
+    },
+    "timezone": "Europe/Berlin",
+    "locale": "en_us"
   },
   "schema": {
     "mqtt": {
@@ -35,7 +37,9 @@
       "email": "str",
       "password": "str",
       "every_n_minutes": "float(0.1,)"
-    }
+    },
+    "timezone": "str?",
+    "locale": "str?"
   },
   "stage": "experimental",
   "url": "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge",

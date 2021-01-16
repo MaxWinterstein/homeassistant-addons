@@ -11,7 +11,7 @@ RUN poetry config virtualenvs.create false
 ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
 
 # add source and unpack
-ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.0.0.tar.gz" /src.tar.gz
+ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.1.0.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install
