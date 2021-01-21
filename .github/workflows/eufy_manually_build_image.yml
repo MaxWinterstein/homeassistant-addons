@@ -1,4 +1,4 @@
-name: eufy-ha-mqtt-bridge
+name: eufy_manually_build_image
 
 on:
   # Allows you to run this workflow manually from the Actions tab
