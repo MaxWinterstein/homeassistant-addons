@@ -2,6 +2,8 @@ name: eufy_create_mr_and_build_image
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 6,18 * * *"
 jobs:
   create_mr_and_build_image:
     runs-on: ubuntu-latest
