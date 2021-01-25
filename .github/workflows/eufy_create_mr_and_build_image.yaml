@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [create_mr_and_build_image]
-  schedule:
-    - cron: "0 6,18 * * *"
+#  schedule:
+#    - cron: "0 6,18 * * *"
 jobs:
   create_mr_and_build_image:
     runs-on: ubuntu-latest
