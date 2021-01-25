@@ -1,3 +1,3 @@
 # sneaky trick to get around the requirement of {arch}-variabe based docker repositories
 
-FROM maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:1.5.0
+FROM maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:1.6.0
