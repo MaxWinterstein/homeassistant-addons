@@ -1,7 +1,7 @@
 FROM hassioaddons/debian-base
 ENV LANG C.UTF-8
 
-ARG VERSION=0.2.7
+ARG VERSION=0.2.8
 
 # install node and build tools (needed by node-pre-gy)
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt install -y nodejs g++ make python
