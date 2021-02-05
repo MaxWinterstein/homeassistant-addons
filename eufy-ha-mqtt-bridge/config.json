@@ -1,6 +1,6 @@
 {
   "name": "Eufy Home Assistant MQTT Bridge",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "slug": "eufy-ha-mqtt-bridge",
   "description": "Publish events as MQTT messages",
   "arch": [
@@ -19,7 +19,8 @@
     "mqtt": {
       "url": "mqtt://192.168.x.x:1883",
       "username": "homeassistant",
-      "password": "homeassistant"
+      "password": "homeassistant",
+      "keepalive": 60
     },
     "log_level": "info"
   },
@@ -31,7 +32,9 @@
     "mqtt": {
       "url": "str",
       "username": "str?",
-      "password": "str?"
+      "password": "str?",
+      "keepalive": "int?"
+
     },
     "log_level": "list(error|warn|info|http|verbose|debug|silly)"
   },
