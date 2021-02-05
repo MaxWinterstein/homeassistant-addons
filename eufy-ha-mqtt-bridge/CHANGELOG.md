@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.9.0] - 2021-02-05
+- Update `eufy-ha-mqtt-bridge` to `0.2.10` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
+- Add new configration option `mqtt.keepalive`
+
 ## [1.8.0] - 2021-01-28
 - Update `eufy-ha-mqtt-bridge` to `0.2.9` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
 
