@@ -1,6 +1,6 @@
 {
   "name": "TooGoodToGo Home Assistant MQTT Bridge",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "slug": "tgtg-ha-mqtt-bridge",
   "description": "Publish TooGoodToGo stock as MQTT messages",
   "arch": [

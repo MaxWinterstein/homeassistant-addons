@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.2.0] - 2021-01-16
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.2.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+
 ## [1.1.0] - 2021-01-16
 - Update `toogoodtogo-ha-mqtt-bridge` to `1.1.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
