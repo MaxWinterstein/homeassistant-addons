@@ -1,6 +1,12 @@
 # Changelog
 
-## [1.2.0] - 2021-02-08
+## [1.4.0] - 2021-02-10
+- Use Pre-build containers (no more unused docker images, yay).  
+  **🚨 !!Important Update Notice!! 🚨**  
+  The Update progress might fail when the installed version is <1.4.0.  
+  Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
+
+## [1.3.0] - 2021-02-08
 - Update `toogoodtogo-ha-mqtt-bridge` to `1.3.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 ## [1.2.0] - 2021-02-07
