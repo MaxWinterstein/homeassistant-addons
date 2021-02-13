@@ -4,8 +4,6 @@ This addon recently switched to pre-build images. The Update progress might fail
 Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
 ---
 
-
-
 # Home Assistant Add-on: TooGoodToGo Home Assistant MQTT Bridge
 ## Based on https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge
 

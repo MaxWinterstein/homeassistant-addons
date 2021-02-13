@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.6.0] - 2021-02-12
+- Use Pre-build containers (no more unused docker images, yay).  
+  **🚨 !!Important Update Notice!! 🚨**  
+  The Update progress might fail when the installed version is <1.4.0.  
+  Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
+
 ## [0.5.0] - 2021-01-04
 - Fix two superflous warnings
 

@@ -1,3 +1,9 @@
+---
+# 🚨 !!Important Update Notice!! 🚨
+This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.  
+Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
+---
+
 # Home Assistant Add-on: ioBroker
 
 ---
