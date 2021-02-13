@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.7.0] - 2021-02-13
+- Added some more ports to be possibly exposed  
+
 ## [0.6.0] - 2021-02-12
 - Use Pre-build containers (no more unused docker images, yay).  
   **🚨 !!Important Update Notice!! 🚨**  

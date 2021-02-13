@@ -1,6 +1,6 @@
 {
     "name": "ioBroker",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "image": "maxwinterstein/homeassistant-addon-iobroker-{arch}",
     "webui": "http://[HOST]:[PORT:8081]/",
     "slug": "iobroker",
@@ -19,7 +19,10 @@
       "8083/tcp": null,
       "8084/tcp": null,
       "8085/tcp": null,
-      "8086/tcp": null
+      "8086/tcp": null,
+      "8087/tcp": null,
+      "8088/tcp": null,
+      "8089/tcp": null
     },
     "ports_description": {
       "8081/tcp": "Admin interface",
@@ -27,7 +30,10 @@
       "8083/tcp": "reserved for addition addons",
       "8084/tcp": "reserved for addition addons",
       "8085/tcp": "reserved for addition addons",
-      "8086/tcp": "reserved for addition addons"
+      "8086/tcp": "reserved for addition addons",
+      "8087/tcp": "reserved for addition addons",
+      "8088/tcp": "reserved for addition addons",
+      "8089/tcp": "reserved for addition addons"
     },
     "stage": "experimental",
     "url": "https://github.com/MaxWinterstein/homeassistant-addons/",

@@ -13,6 +13,10 @@ Copy your *Configuration* to your clipboard and Uninstall/Install manually.
 This is a pretty basic implementation of ioBroker as Home Assistant Add-on. 
 It is meant to provide some playground.
 
+Mostly created as playfield for: https://blog.fuzzymistborn.com/controlling-eufy-security-devices-with-iobroker/  
+and https://community.home-assistant.io/t/eufy-camera-integration/121758  
+
+
 **This is no official add-on, neither from Home Assisant, nor from ioBroker.**
 
 ## Installation
