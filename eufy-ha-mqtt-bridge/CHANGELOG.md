@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.11.0] - 2021-02-15
+- Update `eufy-ha-mqtt-bridge` to `0.2.11` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
+
 ## [1.10.0] - 2021-02-14
 - Use Pre-build containers (no more unused docker images, yay).  
   **🚨 !!Important Update Notice!! 🚨**  
