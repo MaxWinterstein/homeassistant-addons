@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0] - 2021-02-14
+- Use Pre-build containers (no more unused docker images, yay).  
+  **🚨 !!Important Update Notice!! 🚨**  
+  The Update progress might fail when the installed version is <1.10.0.  
+  Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
+
+
 ## [1.9.0] - 2021-02-05
 - Update `eufy-ha-mqtt-bridge` to `0.2.10` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
 - Add new configration option `mqtt.keepalive`
