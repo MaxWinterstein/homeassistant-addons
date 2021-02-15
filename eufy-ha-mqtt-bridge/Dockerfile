@@ -1,3 +1,18 @@
-# sneaky trick to get around the requirement of {arch}-variabe based docker repositories
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
-FROM maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:1.9.0
+ARG VERSION=0.2.10
+
+RUN apk add --no-cache nodejs npm make g++
+
+# add source and unpack
+ADD "https://github.com/matijse/eufy-ha-mqtt-bridge/archive/${VERSION}.tar.gz" /src.tar.gz
+RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
+
+# install all (and json2yaml for cofiguration parsing)
+WORKDIR /app
+RUN npm install && npm install -g json2yaml && echo ${VERSION} > /version
+
+COPY run.sh /
+RUN chmod a+x /run.sh
+CMD [ "/run.sh" ]

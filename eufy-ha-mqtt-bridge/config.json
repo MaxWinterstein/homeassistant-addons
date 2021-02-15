@@ -1,13 +1,15 @@
 {
   "name": "Eufy Home Assistant MQTT Bridge",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "slug": "eufy-ha-mqtt-bridge",
+  "image": "maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge-{arch}",
   "description": "Publish events as MQTT messages",
   "arch": [
     "armhf",
     "armv7",
     "aarch64",
-    "amd64"
+    "amd64",
+    "i386"
   ],
   "startup": "application",
   "boot": "auto",
