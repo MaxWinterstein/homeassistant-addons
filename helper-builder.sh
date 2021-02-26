@@ -2,28 +2,34 @@
 
 # see https://github.com/home-assistant/builder
 
+# thx https://stackoverflow.com/a/51911626
+__usage="
+Usage: $(basename $0) [OPTIONS]
+
+Options:
+  push              Build all possible and push
+  test <arch>       Build for <arch>
+
+Example:
+  $(basename $0) test amd64
+"
+
 if [[ $1 = "push" ]]; then
-    echo 'build and push...'
-    sleep 5
-    echo -n Dockerhub password for maxwinterstein: 
+    echo 'Build all and push...'
+    echo -n "Dockerhub password for maxwinterstein: "
     read -s password
-    echo
     docker run --privileged \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
         -v $PWD/:/data homeassistant/amd64-builder \
         --all -t /data --docker-user maxwinterstein --docker-password $password #--docker-hub-check
 elif [[ $1 = "test" ]]; then
-    echo 'Just testing all...'
+    arch=${2:-all}
+    echo "Build for $arch..."
     sleep 5
-    docker run --privileged -v ~/.docker:/root/.docker \
+    docker run --privileged \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
         -v $PWD/:/data homeassistant/amd64-builder \
-        --all --test -t /data
+        --$arch --test -t /data
 else
-    echo 'Just testing all...'
-    sleep 5
-    docker run --privileged -v ~/.docker:/root/.docker \
-        -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        -v $PWD/:/data homeassistant/amd64-builder \
-        --amd64 --test -t /data
+    echo "$__usage"
 fi
