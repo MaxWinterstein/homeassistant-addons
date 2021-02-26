@@ -1,5 +1,8 @@
 # Changelog
 
+## [0.8.0] - 2021-02-26
+- Introduce `eval` configuration option (see *Documentation* for more)
+
 ## [0.7.0] - 2021-02-13
 - Added some more ports to be possibly exposed  
 

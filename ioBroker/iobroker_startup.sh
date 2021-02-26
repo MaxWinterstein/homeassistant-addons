@@ -10,13 +10,7 @@ if find /data/iobroker -maxdepth 0 -empty | read v; then
   cp -r -v /opt/iobroker_ori/* /opt/iobroker/
   chown -R $SETUID:$SETGID /data/iobroker/
 fi
-## some debugging stuff
-#echo ---
-#ls -liah /opt/
-#echo ---
-#ls -liah /data/iobroker
-#echo ---
-#ls -liah /opt/iobroker/
+
 # end hass addon custom mount block
 
 # Setting healthcheck status to "starting"
@@ -496,6 +490,9 @@ echo "$(printf -- '-%.0s' {1..60})"
 echo ' '
 echo "Starting ioBroker..."
 echo ' '
+
+echo "Running 'eval' commands"
+eval $(jq -r .eval /data/options.json)
 
 # Setting healthcheck status to "running"
 echo "running" > /opt/scripts/.docker_config/.healthcheck

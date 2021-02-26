@@ -1,6 +1,6 @@
 {
     "name": "ioBroker",
-    "version": "0.7.0",
+    "version": "0.8.0",
     "image": "maxwinterstein/homeassistant-addon-iobroker-{arch}",
     "webui": "http://[HOST]:[PORT:8081]/",
     "slug": "iobroker",
@@ -11,8 +11,12 @@
     "arch": ["armv7", "aarch64", "amd64"],
     "startup": "application",
     "boot": "auto",
-    "options": {},
-    "schema": {},
+    "options": {
+      "eval" : ""
+    },
+    "schema": {
+      "eval" : "str?"
+    },
     "ports": {
       "8081/tcp": 8081,
       "8082/tcp": null,

@@ -1,14 +1,20 @@
----
-# 🚨 !!Important Update Notice!! 🚨
-This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.  
-Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
+
+### 🚨 Important Inforation 🚨
+* This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.
+  Copy your *Configuration* to your clipboard and Uninstall/Install manually.
+* I do not guarantee that your ioBroker configuration will not get deleted! This is some experimental release!
 ---
 
 # Home Assistant Add-on: ioBroker
 
----
-## 🚨 I do not guarantee that your ioBroker configuration will not get deleted! This is some experimental release! 🚨
----
+![Supports aarch64 Architecture][aarch64-shield]
+![Supports amd64 Architecture][amd64-shield]
+![Supports armv7 Architecture][armv7-shield]
+![Supports armhf Architecture][armhf-shield]
+![Supports i386 Architecture][i386-shield]
+
+<a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 
 This is a pretty basic implementation of ioBroker as Home Assistant Add-on. 
 It is meant to provide some playground.
@@ -16,23 +22,12 @@ It is meant to provide some playground.
 Mostly created as playfield for: https://blog.fuzzymistborn.com/controlling-eufy-security-devices-with-iobroker/  
 and https://community.home-assistant.io/t/eufy-camera-integration/121758  
 
+See the Documentation (DOCS.md) for more info.
 
 **This is no official add-on, neither from Home Assisant, nor from ioBroker.**
 
-## Installation
-After installation, and successful startup, the ioBroker instance should be available at port `8081`.  
-If your HA instance is running with SSL support, the `OPEN WEB UI` button might not work correctly.  
-
-**Note:** As this image is not based on the official home assistant add-on images the Supervisor has some delay on the add-on state (i guess this is the reason).  
-It might be up and running while the `Info` tab is not aware of this right now. Page reload might help.
-
-## TODO
-* Get the panel integration working (if this is possible)
-* Use some official base image (maybe running the buanet dockerfile onto office image work)
-
-## Technical notes
-The `buanet` docker image contains some pretty useful startup script.
-
-To ensure data stays persistent across restarts I simply softlink `/data` to `/opt/iobroker`.  
-I removed some check that was not compatible with the symlink and not needed in our case.  
-I added the unmodified version as a reference.
+[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
+[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
+[armhf-shield]: https://img.shields.io/badge/armhf-no-red.svg
+[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-no-red.svg
