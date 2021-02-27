@@ -1,5 +1,5 @@
 
-### 🚨 Important Inforation 🚨
+### 🚨 Important Information 🚨
 * This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.
   Copy your *Configuration* to your clipboard and Uninstall/Install manually.
 * I do not guarantee that your ioBroker configuration will not get deleted! This is some experimental release!

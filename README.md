@@ -1,5 +1,7 @@
 # Home Assistant Add-On repository (by Max Winterstein)
 
+<a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
 *Everything here is ment to be **experimental**. Happy to see feedback!*
 
 Home Assistant Addon repository containing
