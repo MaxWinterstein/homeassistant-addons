@@ -6,12 +6,6 @@
 
 # Home Assistant Add-on: Eufy Home Assistant MQTT Bridge
 
-Based on https://github.com/matijse/eufy-ha-mqtt-bridge.
-
-Application data will be written to `/share/eufy-ha-mqtt-bridge/` so log and other files can be accessed from other addons, e.g. the `Samba share` addon, or view it at the `Visual Studio Code` add-on.  
-
-🚨 This also contains some plaintext configuration file with login credentials, so take care who can access your files! 🚨
-
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 ![Supports armv7 Architecture][armv7-shield]
@@ -19,6 +13,14 @@ Application data will be written to `/share/eufy-ha-mqtt-bridge/` so log and oth
 ![Supports i386 Architecture][i386-shield]
 
 <a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+
+Based on https://github.com/matijse/eufy-ha-mqtt-bridge.
+
+Application data will be written to `/share/eufy-ha-mqtt-bridge/` so log and other files can be accessed from other addons, e.g. the `Samba share` addon, or view it at the `Visual Studio Code` add-on.  
+
+🚨 This also contains some plaintext configuration file with login credentials, so take care who can access your files! 🚨
+
+
 
 
 ## ♥
