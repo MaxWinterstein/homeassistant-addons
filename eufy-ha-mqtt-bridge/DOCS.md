@@ -20,6 +20,13 @@ eval: |
   ln -s /share/eufy-ha-mqtt-bridge/data /app;
 ```
 
+#### Example: Copy logs to `shares`
+```yaml
+eval: cp -v /data/*.log /share;
+```
+
+Logs can now easily be accessed via e.g. _Visual Studio Code Add-on_.
+
 #### Example: Export payloads to file 
 To help adding more devices it is crucial to provide some information, see https://github.com/matijse/eufy-ha-mqtt-bridge/issues/7.
 
