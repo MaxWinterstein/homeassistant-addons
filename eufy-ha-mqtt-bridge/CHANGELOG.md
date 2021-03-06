@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.12.0] - 2021-03-06
+- Introduce new `eval` options
+- Do no longer store `/data` inside `share` folder
+
 ## [1.11.0] - 2021-02-15
 - Update `eufy-ha-mqtt-bridge` to `0.2.11` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
 

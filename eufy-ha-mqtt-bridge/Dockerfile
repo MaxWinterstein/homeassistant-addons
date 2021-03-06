@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 ARG VERSION=0.2.11
 
-RUN apk add --no-cache nodejs npm make g++
+RUN apk add --no-cache nodejs npm make g++ sqlite
 
 # add source and unpack
 ADD "https://github.com/matijse/eufy-ha-mqtt-bridge/archive/${VERSION}.tar.gz" /src.tar.gz

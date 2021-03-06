@@ -1,6 +1,6 @@
 {
   "name": "Eufy Home Assistant MQTT Bridge",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "slug": "eufy-ha-mqtt-bridge",
   "image": "maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge-{arch}",
   "description": "Publish events as MQTT messages",
@@ -24,7 +24,8 @@
       "password": "homeassistant",
       "keepalive": 60
     },
-    "log_level": "info"
+    "log_level": "info",
+    "eval": ""
   },
   "schema": {
     "eufy": {
@@ -36,9 +37,9 @@
       "username": "str?",
       "password": "str?",
       "keepalive": "int?"
-
     },
-    "log_level": "list(error|warn|info|http|verbose|debug|silly)"
+    "log_level": "list(error|warn|info|http|verbose|debug|silly)",
+    "eval": "str?"
   },
   "stage": "experimental",
   "url": "https://github.com/matijse/eufy-ha-mqtt-bridge/",
