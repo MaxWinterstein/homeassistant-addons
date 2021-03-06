@@ -14,11 +14,7 @@
 
 <a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-Based on https://github.com/matijse/eufy-ha-mqtt-bridge.
-
-Application data will be written to `/share/eufy-ha-mqtt-bridge/` so log and other files can be accessed from other addons, e.g. the `Samba share` addon, or view it at the `Visual Studio Code` add-on.  
-
-🚨 This also contains some plaintext configuration file with login credentials, so take care who can access your files! 🚨
+**Based on https://github.com/matijse/eufy-ha-mqtt-bridge.**
 
 
 
