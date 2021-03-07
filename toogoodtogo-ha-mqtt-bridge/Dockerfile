@@ -6,12 +6,8 @@ RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-
 ENV PATH=$HOME/.poetry/bin/:${PATH}
 RUN poetry config virtualenvs.create false
 
-# Calls for a random number to bust the cache
-# (https://stackoverflow.com/questions/35134713/disable-cache-for-specific-run-commands/58801213#58801213)
-ADD "https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h" skipcache
-
 # add source and unpack
-ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.3.0.tar.gz" /src.tar.gz
+ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.4.0.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install
@@ -20,4 +16,5 @@ RUN poetry install --no-dev
 
 COPY run.sh /
 RUN chmod a+x /run.sh
+ENV DYNACONF_DATA_DIR=/data
 CMD [ "/run.sh" ]

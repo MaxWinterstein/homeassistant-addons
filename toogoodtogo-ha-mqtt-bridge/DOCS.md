@@ -16,3 +16,5 @@ tgtg:
 timezone: Europe/Berlin
 locale: en_us
 ```
+
+See https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge for more configuration options.
