@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG VERSION=0.2.12
+ARG VERSION=0.2.13
 
 RUN apk add --no-cache nodejs npm make g++ sqlite
 
