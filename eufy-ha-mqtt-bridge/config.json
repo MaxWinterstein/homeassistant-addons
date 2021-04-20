@@ -38,6 +38,9 @@
       "password": "str?",
       "keepalive": "int?"
     },
+    "home_assistant": {
+      "off_delay": "int?"
+    }
     "log_level": "list(error|warn|info|http|verbose|debug|silly)",
     "eval": "str?"
   },
