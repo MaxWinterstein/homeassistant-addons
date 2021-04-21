@@ -28,13 +28,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        uses: docker/build-push-action@v2
+      - name: Test build
+        uses: home-assistant/builder@master
         with:
-          context: eufy-ha-mqtt-bridge/
-          file: eufy-ha-mqtt-bridge/Dockerfile-real
-          platforms: linux/amd64,linux/arm/v7,linux/arm64
-          push: true
-          tags: |
-            maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge:${{ github.event.inputs.version }}
+          args: |
+            --all \
+            --aarch64 \
+            --target eufy-ha-mqtt-bridge \
+            --docker-hub maxwinterstein
