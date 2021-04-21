@@ -23,6 +23,9 @@
       "username": "homeassistant",
       "password": "homeassistant",
       "keepalive": 60
+    },    
+    "home_assistant": {
+      "off_delay": 5
     },
     "log_level": "info",
     "eval": ""
