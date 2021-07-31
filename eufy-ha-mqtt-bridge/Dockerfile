@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG VERSION=0.2.20
+ARG VERSION=0.2.21
 
 RUN apk add --no-cache nodejs npm make g++ sqlite
 RUN apk add vips-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
