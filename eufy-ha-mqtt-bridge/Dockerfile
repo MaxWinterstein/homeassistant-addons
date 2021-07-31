@@ -3,8 +3,8 @@ FROM $BUILD_FROM
 
 ARG VERSION=0.2.21
 
-RUN apk add --no-cache nodejs npm make g++ sqlite
-RUN apk add vips-dev --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
+RUN apk add --no-cache nodejs npm make g++
+
 # add source and unpack
 ADD "https://github.com/matijse/eufy-ha-mqtt-bridge/archive/${VERSION}.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
