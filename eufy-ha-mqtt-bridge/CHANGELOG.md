@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.21.0] - 2021-07-31
+- Update `eufy-ha-mqtt-bridge` to `0.2.21` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
+
 ## [1.20.0] - 2021-07-07
 - Update `eufy-ha-mqtt-bridge` to `0.2.20` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
 
