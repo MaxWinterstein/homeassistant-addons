@@ -4,13 +4,7 @@
   "image": "maxwinterstein/homeassistant-addon-toogoodtogo-ha-mqtt-bridge-{arch}",
   "slug": "tgtg-ha-mqtt-bridge",
   "description": "Publish TooGoodToGo stock as MQTT messages",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
   "options": {

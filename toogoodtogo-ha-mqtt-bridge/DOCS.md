@@ -3,6 +3,7 @@
 ## Configuration
 
 Example Config:
+
 ```toml
 mqtt:
   host: homeassistant

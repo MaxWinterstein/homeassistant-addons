@@ -4,13 +4,7 @@
   "slug": "eufy-ha-mqtt-bridge",
   "image": "maxwinterstein/homeassistant-addon-eufy-ha-mqtt-bridge-{arch}",
   "description": "Publish events as MQTT messages",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
   "options": {
@@ -23,7 +17,7 @@
       "username": "homeassistant",
       "password": "homeassistant",
       "keepalive": 60
-    },    
+    },
     "home_assistant": {
       "off_delay": 5
     },
@@ -49,9 +43,7 @@
   },
   "stage": "experimental",
   "url": "https://github.com/matijse/eufy-ha-mqtt-bridge/",
-  "map": [
-    "share:rw"
-  ],
+  "map": ["share:rw"],
   "hassio_role": "default",
   "hassio_api": true
 }

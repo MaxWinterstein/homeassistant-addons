@@ -1,8 +1,9 @@
-
 ### 🚨 Important Information 🚨
-* This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.
-  Copy your *Configuration* to your clipboard and Uninstall/Install manually.
-* I do not guarantee that your ioBroker configuration will not get deleted! This is some experimental release!
+
+- This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.
+  Copy your _Configuration_ to your clipboard and Uninstall/Install manually.
+- I do not guarantee that your ioBroker configuration will not get deleted! This is some experimental release!
+
 ---
 
 # Home Assistant Add-on: ioBroker
@@ -15,12 +16,11 @@
 
 <a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
-
-This is a pretty basic implementation of ioBroker as Home Assistant Add-on. 
+This is a pretty basic implementation of ioBroker as Home Assistant Add-on.
 It is meant to provide some playground.
 
 Mostly created as playfield for: https://blog.fuzzymistborn.com/controlling-eufy-security-devices-with-iobroker/  
-and https://community.home-assistant.io/t/eufy-camera-integration/121758  
+and https://community.home-assistant.io/t/eufy-camera-integration/121758
 
 See the Documentation (DOCS.md) for more info.
 

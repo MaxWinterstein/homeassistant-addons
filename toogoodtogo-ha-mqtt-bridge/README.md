@@ -1,7 +1,9 @@
 ### 🚨 Important Information 🚨
-* This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.4.0.  
-  Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
-* This is some experimental release!  
+
+- This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.4.0.  
+  Copy your _Configuration_ to your clipboard and Uninstall/Install manually.
+- This is some experimental release!
+
 ---
 
 # Home Assistant Add-on: TooGoodToGo Home Assistant MQTT Bridge
@@ -15,7 +17,6 @@
 <a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 Based on https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge
-
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg

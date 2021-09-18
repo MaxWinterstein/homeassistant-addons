@@ -28,7 +28,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
         if: ${{ env.CONTINUE }}
-      
+
       - name: Test build
         uses: home-assistant/builder@master
         with:
@@ -38,7 +38,7 @@ jobs:
             --target eufy-ha-mqtt-bridge \
             --docker-hub maxwinterstein
         if: ${{ env.CONTINUE }}
-      
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:

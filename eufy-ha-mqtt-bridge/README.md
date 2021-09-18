@@ -1,7 +1,9 @@
 ### 🚨 Important Information 🚨
-* This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.10.0.  
-  Copy your *Configuration* to your clipboard and Uninstall/Install manually. 
-* This is some experimental release!  
+
+- This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.10.0.  
+  Copy your _Configuration_ to your clipboard and Uninstall/Install manually.
+- This is some experimental release!
+
 ---
 
 # Home Assistant Add-on: Eufy Home Assistant MQTT Bridge
@@ -16,10 +18,8 @@
 
 **Based on https://github.com/matijse/eufy-ha-mqtt-bridge.**
 
-
-
-
 ## ♥
+
 - [@matijse](https://github.com/matijse/) for coding this awesome bridge
 - [@davida72](https://github.com/matijse/eufy-ha-mqtt-bridge/issues/1#issuecomment-753333591]) for the awesome icon
 

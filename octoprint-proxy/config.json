@@ -8,26 +8,20 @@
   "ingress_port": 80,
   "panel_title": "OctoPrint",
   "panel_icon": "mdi:printer-3d-nozzle",
-  "arch": [
-    "armhf",
-    "armv7",
-    "aarch64",
-    "amd64",
-    "i386"
-  ],
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "application",
   "boot": "auto",
   "options": {
-    "octoprint_host" : "octopi",
-    "octoprint_port" : "443",
+    "octoprint_host": "octopi",
+    "octoprint_port": "443",
     "ssl": {
       "enabled": true,
       "verify": false
     }
   },
   "schema": {
-    "octoprint_host" : "str",
-    "octoprint_port" : "port",
+    "octoprint_host": "str",
+    "octoprint_port": "port",
     "ssl": {
       "enabled": "bool",
       "verify": "bool"
