@@ -1,0 +1,42 @@
+{
+  "name": "Flightradar24 Feeder",
+  "version": "0.1.7",
+  "ximage": "maxwinterstein/homeassistant-addon-f24-{arch}",
+  "slug": "frfeeder",
+  "description":  "Receive ADS-B signals from RTL2832U and feed them to Flightradar24",
+  "url": "https://github.com/MaxWinterstein/homeassistant-addons/",
+  "ingress": true,
+  "ingress_port": 8754,
+  "panel_title": "OctoPrint",
+  "panel_icon": "mdi:printer-3d-nozzle",
+  "arch": [
+    "armhf",
+    "armv7",
+    "aarch64",
+    "amd64",
+    "i386"
+  ],
+  "startup": "application",
+  "boot": "auto",
+  "options": {
+    "fr24key" : null
+  },
+  "schema": {
+    "fr24key" : "str"
+  },
+  "hassio_api": false,
+  "usb": true,
+  "udev": true,
+  "gpio": true,
+  "apparmor": false,
+  "privileged": ["SYS_RAWIO"],
+  "ports": {
+    "8080/tcp": 8080,
+    "8754/tcp": 8754,
+    "30001/tcp": 30001,
+    "30002/tcp": 30002,
+    "30003/tcp": 30003,
+    "30004/tcp": 30004,
+    "30005/tcp": 30005
+  }
+}
