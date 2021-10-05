@@ -1,0 +1,7 @@
+{
+    "build_from": {
+      "aarch64": "thomx/fr24feed-piaware@6ead21dce3cc6f13695cb897ebee49d04c52f338ef3997bc4437710e3d7e0404",
+      "amd64": "thomx/fr24feed-piaware@6d3c0d9c7d1b1ec8dd8c5804175f48b2d0d17b36ebb4e79d17c44a15c5a54fa8",
+      "armv7": "buanet/iobroker:v5.1.0-armv7hf"
+    }
+  }
