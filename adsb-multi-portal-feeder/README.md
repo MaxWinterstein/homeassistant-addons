@@ -2,7 +2,7 @@
 
 Add-on to feed ADS-B data from a cheap USB ADS-B Stick (e.g. [Nooelec NESDR Mini](https://www.amazon.com/gp/product/B009U7WZCA)) to FlightRadar24 or FlightAware.
 
-![screenshot](https://github.com/MaxWinterstein/homeassistant-addons/blob/main/adsb-multi-portal-feeder/images/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/screenshot.png)
 
 ## Prolog
 
@@ -14,7 +14,7 @@ I just added a few sprinkles to make it work with Home Assistant.
 
 If you would like some nice statistics you can use a rest sensor with some template magic to show e.g. the number of aircrafts currently tracked:
 
-![sensor aircraft tracked](https://github.com/MaxWinterstein/homeassistant-addons/blob/main/adsb-multi-portal-feeder/images/sensor_aircraft_tracked.png)
+![sensor aircraft tracked](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/sensor_aircraft_tracked.png)
 
 <figure>Example of 'Aircrafts tracked' sensor</figure>
 
