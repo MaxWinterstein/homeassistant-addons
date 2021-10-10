@@ -10,6 +10,12 @@ This Add-On is based on the incredible [docker-fr24feed-piaware-dump1090](https:
 
 I just added a few sprinkles to make it work with Home Assistant.
 
+## Installation
+
+- If not already done, add the Add-on repostitory ([see](https://github.com/MaxWinterstein/homeassistant-addons#installation))
+- If you want to share to FlightRadar24 and/or FlightAware, generate needed keys ([see below](https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#flightaware-feeder-id--flightrader24-key))
+- If you want to use the dump1090 WebInterface (like the screenshot above) you need to set Lat/Lon for your location ([see below(https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#latitude--longitude))
+
 ## Sensors for Home Assistant
 
 If you would like some nice statistics you can use a rest sensor with some template magic to show e.g. the number of aircrafts currently tracked:
@@ -65,8 +71,9 @@ SERVICE_ENABLE_HTTP: false
 
 - This Add-On provides ingress functionality to some nice map of received data.  
   Simply enable the _Show in sidebar_ function or access vie the _OPEN WEB UI_ button.
-- fr24feed (the feeder of FlightRader24) provides some stats at :8754.  
-  You need to add some port mapping at the configuration page to access it.
+- fr24feed (the feeder of FlightRader24) provides some stats at its internal port 8754.  
+  To access add some external port at the `configuration` tab at `Network` like this:
+  ![network](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/port-8754.png)
 
 ## Credits:
 
