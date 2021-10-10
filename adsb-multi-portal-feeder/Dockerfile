@@ -11,11 +11,12 @@ RUN apt-get update && apt-get install -y curl jq && mkdir /tmp/bashio \
     && ln -s /usr/lib/bashio/bashio /usr/bin/bashio
 
 # add the options.json to environment variable magic
-COPY root/usr/bin/export-env-from-config.sh /export-env-from-config.sh
+COPY export-env-from-config.sh /export-env-from-config.sh
 
 RUN find /etc/services.d/ -name run | xargs sed -i '1 a\source /export-env-from-config.sh' && \
     find /etc/cont-init.d/ -type f | xargs sed -i '1 a\source /export-env-from-config.sh'
 
+ENV TZ=UTC
 
 # Add the nice banner
 ADD https://raw.githubusercontent.com/hassio-addons/addon-debian-base/v5.1.0/base/rootfs/etc/cont-init.d/00-banner.sh /etc/cont-init.d/
