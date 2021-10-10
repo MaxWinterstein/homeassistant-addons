@@ -1,0 +1,51 @@
+{
+  "name": "ADS-B Multi-Portal Feeder",
+  "version": "0.1.32",
+  "stage": "experimental",
+  "ximage": "maxwinterstein/homeassistant-addon-adsbmultiportalfeeder-{arch}",
+  "slug": "adsb-multi-portal-feeder",
+  "description": "Dump1090 based feeder for FlightRadar24 and FlightAware",
+  "url": "https://github.com/MaxWinterstein/homeassistant-addons/",
+  "ingress": true,
+  "ingress_port": 8080,
+  "panel_title": "ADS-B Feeder",
+  "panel_icon": "mdi:airplane",
+  "arch": ["armhf", "armv7", "aarch64", "amd64"],
+  "boot": "auto",
+  "options": {
+    "SERVICE_ENABLE_FR24FEED": false,
+    "FR24FEED_FR24KEY": "",
+    "PIAWARE_FEEDER_DASH_ID": "",
+    "SERVICE_ENABLE_PIAWARE": false,
+    "HTML_SITE_LAT": 50.033056,
+    "HTML_SITE_LON": 8.570556
+  },
+  "schema": {
+    "SERVICE_ENABLE_FR24FEED": "bool",
+    "FR24FEED_FR24KEY": "str?",
+    "SERVICE_ENABLE_PIAWARE": "bool",
+    "PIAWARE_FEEDER_DASH_ID": "str?",
+    "HTML_SITE_LAT": "float?",
+    "HTML_SITE_LON": "float?"
+  },
+  "hassio_api": false,
+  "usb": true,
+  "ports": {
+    "8080/tcp": null,
+    "8754/tcp": null,
+    "30001/tcp": null,
+    "30002/tcp": null,
+    "30003/tcp": null,
+    "30004/tcp": null,
+    "30005/tcp": null
+  },
+  "ports_description": {
+    "8080/tcp": "Dump1090 status site",
+    "8754/tcp": "Flightrader24 feeder status site",
+    "30001/tcp": "TCP raw input",
+    "30002/tcp": "TCP raw output",
+    "30003/tcp": "TCP BaseStation output",
+    "30004/tcp": "TCP Beast input",
+    "30005/tcp": "TCP Beast output"
+  }
+}

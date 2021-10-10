@@ -6,6 +6,12 @@ _Everything here is ment to be **experimental**. Happy to see feedback!_
 
 Home Assistant Addon repository containing
 
+## <img src="adsb-multi-portal-feeder/icon.png" width="40px"> ADB-S Multi Portal Feeder
+
+Observe flight traffic using some cheap ADB-S USB-Stick and feed towards FlightRadar24 and FlightAware.
+
+Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
+
 ## <img src="eufy-ha-mqtt-bridge/icon.png" width="40px"> Eufy Home Assistant MQTT Bridge ([matijse/eufy-ha-mqtt-bridge](https://github.com/matijse/eufy-ha-mqtt-bridge))
 
 Forwards Eufy Security push notifications to Home Assistant via MQTT.
