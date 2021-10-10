@@ -22,7 +22,7 @@ See this [Home Assistant Community post](https://community.home-assistant.io/t/f
 Just replace the `<raspberry pi>` ip with
 
 ```yaml
-resource: http://f1c878cb-adsbmultiportalfeeder:8754/monitor.json
+resource: http://f1c878cb-adsb-multi-portal-feeder:8754/monitor.json
 ```
 
 ## Configuration
