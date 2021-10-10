@@ -73,7 +73,8 @@ SERVICE_ENABLE_HTTP: false
   Simply enable the _Show in sidebar_ function or access vie the _OPEN WEB UI_ button.
 - fr24feed (the feeder of FlightRader24) provides some stats at its internal port 8754.  
   To access add some external port at the `configuration` tab at `Network` like this:
-  ![network](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/port-8754.png)
+  ![network](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/port-8754.png)  
+  ![fr24stats](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/adsb-multi-portal-feeder/images/flightradar24-stats.png
 
 ## Credits:
 
