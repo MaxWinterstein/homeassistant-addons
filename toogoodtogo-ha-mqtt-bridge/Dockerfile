@@ -7,12 +7,12 @@ ENV PATH=$HOME/.poetry/bin/:${PATH}
 RUN poetry config virtualenvs.create false
 
 # add source and unpack
-ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.7.0.tar.gz" /src.tar.gz
+ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/v1.8.0.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install
 WORKDIR /app
-RUN poetry install --no-dev
+RUN poetry update && poetry install --no-dev
 
 COPY run.sh /
 RUN chmod a+x /run.sh

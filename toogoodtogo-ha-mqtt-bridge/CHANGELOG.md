@@ -1,20 +1,24 @@
 # Changelog
 
+## [1.9.0] - 2021-11-15
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.8.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+
 ## [1.8.0] - 2021-11-02
 
-- Update `toogoodtogo-ha-mqtt-bridge` to `1.7.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.7.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 ## [1.7.0] - 2021-10-06
 
-- Update `toogoodtogo-ha-mqtt-bridge` to `1.6.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.6.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 ## [1.6.0] - 2021-03-08
 
-- Update `toogoodtogo-ha-mqtt-bridge` to `1.5.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.5.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 ## [1.5.0] - 2021-03-06
 
-- Update `toogoodtogo-ha-mqtt-bridge` to `1.4.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+- Update `toogoodtogo-ha-mqtt-bridge` to `1.4.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 ## [1.4.0] - 2021-02-10
 
