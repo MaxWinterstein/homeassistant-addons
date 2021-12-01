@@ -1,3 +1,9 @@
+# DEPRECATED
+
+## I would no longer suggest to use this. There are way better alternatives out there, e.g. https://github.com/alexbelgium/hassio-addons/tree/master/portainer
+
+---
+
 ⚠️⚠️⚠️⚠️⚠️
 
 This is a complete copy of https://github.com/hassio-addons/addon-portainer/tree/v1.5.2

@@ -1,5 +1,5 @@
 {
-  "name": "Portainer Addon v1.5.2",
+  "name": "(DEPRECATED) Portainer Addon v1.5.2",
   "version": "1.5.2.2",
   "slug": "portainer",
   "description": "Manage your Docker environment with ease",
@@ -7,6 +7,7 @@
   "advanced": true,
   "ingress": true,
   "ingress_port": 1337,
+  "stage": "deprecated",
   "startup": "services",
   "panel_icon": "mdi:docker",
   "homeassistant": "0.92.0b2",
