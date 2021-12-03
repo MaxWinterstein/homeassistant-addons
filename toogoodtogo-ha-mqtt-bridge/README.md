@@ -18,6 +18,9 @@
 
 Based on https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge
 
+Since Too Good To Go changed to the new password-less login, you will get a email after startup.  
+Just open the mail and hit `Login`.
+
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg

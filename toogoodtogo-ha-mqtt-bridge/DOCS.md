@@ -12,7 +12,6 @@ mqtt:
   password: mqtt
 tgtg:
   email: me@example.ocm
-  password: iliketurtles
   every_n_minutes: 10
 timezone: Europe/Berlin
 locale: en_us
