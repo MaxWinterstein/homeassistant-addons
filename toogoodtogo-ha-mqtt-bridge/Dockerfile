@@ -14,7 +14,4 @@ RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 WORKDIR /app
 RUN poetry update && poetry install --no-dev
 
-COPY run.sh /
-RUN chmod a+x /run.sh
-ENV DYNACONF_DATA_DIR=/data
-CMD [ "/run.sh" ]
+ADD rootfs /
