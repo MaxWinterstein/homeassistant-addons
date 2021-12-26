@@ -15,21 +15,21 @@ Example:
 "
 
 if [[ $1 = "push" ]]; then
-    echo 'Build all and push...'
-    echo -n "Dockerhub password for maxwinterstein: "
-    read -s password
-    docker run --privileged \
-        -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        -v $PWD/:/data homeassistant/amd64-builder \
-        --all -t /data --docker-user maxwinterstein --docker-password $password #--docker-hub-check
+	echo 'Build all and push...'
+	echo -n "Dockerhub password for maxwinterstein: "
+	read -s password
+	docker run --privileged \
+		-v /var/run/docker.sock:/var/run/docker.sock:ro \
+		-v $PWD/:/data homeassistant/amd64-builder \
+		--all -t /data --docker-user maxwinterstein --docker-password $password #--docker-hub-check
 elif [[ $1 = "test" ]]; then
-    arch=${2:-all}
-    echo "Build for $arch..."
-    sleep 5
-    docker run --privileged \
-        -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        -v $PWD/:/data homeassistant/amd64-builder \
-        --$arch --test -t /data
+	arch=${2:-all}
+	echo "Build for $arch..."
+	sleep 5
+	docker run --privileged \
+		-v /var/run/docker.sock:/var/run/docker.sock:ro \
+		-v $PWD/:/data homeassistant/amd64-builder \
+		--$arch --test -t /data
 else
-    echo "$__usage"
+	echo "$__usage"
 fi
