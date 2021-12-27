@@ -1,7 +1,7 @@
 #!/usr/bin/env bashio
 
 bashio::log.info "Exporting log level for nodejs: $(bashio::config log_level)"
-export NODE_CONSOLE_LOG_LEVEL=`bashio::config log_level`
+export NODE_CONSOLE_LOG_LEVEL=$(bashio::config log_level)
 
 bashio::log.info "Symlinking data dir"
 rm -rf /app/data
