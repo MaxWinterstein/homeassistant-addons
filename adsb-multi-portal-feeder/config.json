@@ -1,6 +1,6 @@
 {
   "name": "ADS-B Multi-Portal Feeder",
-  "version": "0.1.32",
+  "version": "0.1.36",
   "stage": "experimental",
   "ximage": "maxwinterstein/homeassistant-addon-adsbmultiportalfeeder-{arch}",
   "slug": "adsb-multi-portal-feeder",
