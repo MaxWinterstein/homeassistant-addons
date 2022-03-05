@@ -1,5 +1,6 @@
 ### 🚨 Important Information 🚨
 
+- 🚨 Take care of the new `polling_schedule` setting! See [README](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge) for more.
 - This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.4.0.  
   Copy your _Configuration_ to your clipboard and Uninstall/Install manually.
 - This is some experimental release!
