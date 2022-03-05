@@ -14,7 +14,7 @@
 ![Supports armhf Architecture][armhf-shield]
 ![Supports i386 Architecture][i386-shield]
 
-<a href="https://www.buymeacoffee.com/MaxWinterstein" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+<a href='https://ko-fi.com/supportkofi' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com'></a>
 
 This is a pretty basic implementation of ioBroker as Home Assistant Add-on.
 It is meant to provide some playground.
