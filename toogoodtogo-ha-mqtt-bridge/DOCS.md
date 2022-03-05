@@ -11,8 +11,9 @@ mqtt:
   username: mqtt
   password: mqtt
 tgtg:
-  email: me@example.ocm
-  every_n_minutes: 10
+  email: me@example.com
+  language: en-US
+  polling_schedule: "*/10 * * * *"
 timezone: Europe/Berlin
 locale: en_us
 ```

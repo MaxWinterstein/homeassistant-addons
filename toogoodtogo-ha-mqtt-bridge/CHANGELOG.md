@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0] - 2022-03-05
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `2.0.0` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+- Ensure login tokens are stored across reboot.
+- Align Add-on version with bridge version.
+
 ## [1.9.2] - 2021-11-03
 
 - Update `toogoodtogo-ha-mqtt-bridge` to `1.9.2` (see [release notes])(https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
