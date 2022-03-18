@@ -1,8 +1,8 @@
-# Home Assistant Add-On: dump1090 based feeder for FlightRadar24 and FlightAware
+# Home Assistant Add-On: dump1090 based feeder for FlightRadar24, FlightAware and ADSBexchange
 
 <a href='https://ko-fi.com/supportkofi' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com'></a>
 
-Add-on to feed ADS-B data from a cheap USB ADS-B Stick (e.g. [Nooelec NESDR Mini](https://www.amazon.com/gp/product/B009U7WZCA)) to FlightRadar24 or FlightAware.
+Add-on to feed ADS-B data from a cheap USB ADS-B Stick (e.g. [Nooelec NESDR Mini](https://www.amazon.com/gp/product/B009U7WZCA)) to FlightRadar24,  FlightAware or ADSBexchange.
 
 ![screenshot](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/screenshot.png)
 
@@ -15,7 +15,7 @@ I just added a few sprinkles to make it work with Home Assistant.
 ## Installation
 
 - If not already done, add the Add-on repostitory ([see](https://github.com/MaxWinterstein/homeassistant-addons#installation))
-- If you want to share to FlightRadar24 and/or FlightAware, generate needed keys ([see below](https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#flightaware-feeder-id--flightrader24-key))
+- If you want to share to FlightRadar24 and/or FlightAware and/or ADSBexchange, generate needed keys ([see below](https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#flightaware-feeder-id--flightrader24-key--adsbexchange-uuid))
 - If you want to use the dump1090 WebInterface (like the screenshot above) you need to set Lat/Lon for your location ([see below(https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#latitude--longitude))
 
 ## Sensors for Home Assistant
@@ -38,9 +38,9 @@ resource: http://f1c878cb-adsb-multi-portal-feeder:8754/monitor.json
 The whole configuration is meant to work alike the original docker image.  
 See [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) for more info.
 
-I pre-provivde the (i guess) most used workflow: Send data from USB ADB-S stick to FlightRadar24 and FlightAware and have a nice little web based overview as Home Assistant menu entry.
+I pre-provivde the (i guess) most used workflow: Send data from USB ADB-S stick to FlightRadar24, FlightAware and ADSBexchange and have a nice little web based overview as Home Assistant menu entry.
 
-### FlightAware Feeder ID / FlightRader24 KEY
+### FlightAware Feeder ID / FlightRader24 KEY / ADSBexchange UUID
 
 There are multiple options to obtain the needed keys to supply data towards the platforms.  
 Running the original image as interactive docker container is one of them.  
