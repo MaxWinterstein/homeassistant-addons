@@ -1,12 +1,13 @@
 {
   "name": "ADS-B Multi-Portal Feeder",
-  "version": "0.1.36",
+  "version": "0.1.37",
   "stage": "experimental",
   "ximage": "maxwinterstein/homeassistant-addon-adsbmultiportalfeeder-{arch}",
   "slug": "adsb-multi-portal-feeder",
   "description": "Dump1090 based feeder for FlightRadar24 and FlightAware",
   "url": "https://github.com/MaxWinterstein/homeassistant-addons/",
   "ingress": true,
+  "init": false,
   "ingress_port": 8080,
   "panel_title": "ADS-B Feeder",
   "panel_icon": "mdi:airplane",
@@ -18,7 +19,13 @@
     "PIAWARE_FEEDER_DASH_ID": "",
     "SERVICE_ENABLE_PIAWARE": false,
     "HTML_SITE_LAT": 50.033056,
-    "HTML_SITE_LON": 8.570556
+    "HTML_SITE_LON": 8.570556,
+    "SERVICE_ENABLE_ADSBEXCHANGE": false,
+    "ADSBEXCHANGE_UUID": "" ,
+    "ADSBEXCHANGE_STATION_NAME": "",
+    "MLAT_EXACT_LAT": 50.033056,
+    "MLAT_EXACT_LON": 8.570556,
+    "MLAT_ALTITUDE_MSL_METERS": 0
   },
   "schema": {
     "SERVICE_ENABLE_FR24FEED": "bool",
@@ -26,7 +33,13 @@
     "SERVICE_ENABLE_PIAWARE": "bool",
     "PIAWARE_FEEDER_DASH_ID": "str?",
     "HTML_SITE_LAT": "float?",
-    "HTML_SITE_LON": "float?"
+    "HTML_SITE_LON": "float?",
+    "SERVICE_ENABLE_ADSBEXCHANGE": "bool",
+    "ADSBEXCHANGE_UUID": "str?" ,
+    "ADSBEXCHANGE_STATION_NAME": "str?",
+    "MLAT_EXACT_LAT": "float?",
+    "MLAT_EXACT_LON": "float?",
+    "MLAT_ALTITUDE_MSL_METERS": "float?"
   },
   "hassio_api": false,
   "usb": true,
