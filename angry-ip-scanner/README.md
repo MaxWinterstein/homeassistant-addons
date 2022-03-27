@@ -4,6 +4,6 @@
 
 Wraps the well known [Angry IP Scanner](https://angryip.org/) to make it usable as Add-on.
 
-![screenshot](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/angryipscanner/screenshot.png)
+![screenshot](https://github.com/MaxWinterstein/homeassistant-addons/blob/main/angry-ip-scanner/screenshot.png?raw=true)
 
 Most of this add-on code is shamelessly stolen from https://github.com/home-assistant/addons/tree/master/deconz. Thanks ✌️
