@@ -14,7 +14,10 @@ if [ ! -f '/data/options.json' ]; then
      exit 1
 fi
 
-# export add-on configuration so it can be sourced and used as login var
-for s in $(cat /data/options.json | jq -r "to_entries|map(\"\(.key)=\(.value|tostring)\")|.[]" ); do
-    export $s
-done
+# export add-on configuration so it can be sourced and used as env vars later
+# thx https://stackoverflow.com/a/48513046/635876
+while read -rd $'' line
+do
+    export "$line"
+done < <(jq -r <<<"$(cat /data/options.json)" \
+         'to_entries|map("\(.key)=\(.value)\u0000")[]')

@@ -1,0 +1,116 @@
+slug: adsb-multi-portal-feeder
+stage: experimental
+url: https://github.com/MaxWinterstein/homeassistant-addons/
+usb: true
+version: 1.0.0
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+boot: auto
+description: Dump1090 based feeder for FlightRadar24, FlightAware and more
+hassio_api: false
+ingress: true
+ingress_port: 8080
+init: false
+name: ADS-B Multi-Portal Feeder
+options:
+  # Common
+  SERVICE_ENABLE_DUMP1090: true
+  SERVICE_ENABLE_PIAWARE: true
+  SERVICE_ENABLE_FR24FEED: true
+  SERVICE_ENABLE_HTTP: true
+
+  PIAWARE_FEEDER_DASH_ID: ""
+  FR24FEED_FR24KEY: ""
+  ADSBEXCHANGE_UUID: ""
+  PLANEFINDER_SHARECODE: ""
+
+  HTML_SITE_LAT: 50.033056
+  HTML_SITE_LON: 8.570556
+
+panel_icon: mdi:airplane
+panel_title: ADS-B Feeder
+ports:
+  30001/tcp: null
+  30002/tcp: null
+  30003/tcp: null
+  30004/tcp: null
+  30005/tcp: null
+  8080/tcp: null
+  8754/tcp: null
+ports_description:
+  30001/tcp: TCP raw input
+  30002/tcp: TCP raw output
+  30003/tcp: TCP BaseStation output
+  30004/tcp: TCP Beast input
+  30005/tcp: TCP Beast output
+  8080/tcp: Dump1090 status site
+  8754/tcp: Flightrader24 feeder status site
+schema:
+  # Common
+  SERVICE_ENABLE_DUMP1090: bool
+  SERVICE_ENABLE_PIAWARE: bool
+  SERVICE_ENABLE_FR24FEED: bool
+  SERVICE_ENABLE_HTTP: bool
+  SERVICE_ENABLE_IMPORT_OVER_NETCAT: bool?
+  SERVICE_ENABLE_ADSBEXCHANGE: bool?
+  SERVICE_ENABLE_PLANEFINDER: bool?
+
+  # FlightAware (piaware)
+  PIAWARE_FEEDER_DASH_ID: str?
+  PIAWARE_RECEIVER_DASH_TYPE: str?
+  PIAWARE_RECEIVER_DASH_HOST: str?
+  PIAWARE_RECEIVER_DASH_PORT: port?
+
+  # Flightradar24
+  FR24FEED_RECEIVER: str?
+  FR24FEED_FR24KEY: str?
+  FR24FEED_HOST: str?
+  FR24FEED_BS: str?
+  FR24FEED_RAW: str?
+  FR24FEED_LOGMODE: int?
+  FR24FEED_LOGPATH: str?
+  FR24FEED_MLAT: str?
+  FR24FEED_MLAT_DASH_WITHOUT_DASH_GPS: str?
+
+  # ADS-B Exchange
+  ADSBEXCHANGE_UUID: str?
+  ADSBEXCHANGE_STATION_NAME: str?
+  ADSBEXCHANGE_MLAT: str?
+
+  # Exact coordinates for MLAT
+  MLAT_EXACT_LAT: float?
+  MLAT_EXACT_LONG: float?
+  MLAT_ALTITUDE_MSL_METERS: int?
+
+  # Plane Finder
+  PLANEFINDER_SHARECODE: str?
+
+  # Dump1090 & Web UI
+  HTML_SITE_LAT: float?
+  HTML_SITE_LON: float?
+  HTML_SITE_NAME: str?
+  HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24)?
+  HTML_RECEIVER_STATS_PAGE_FLIGHTAWARE: url?
+  HTML_RECEIVER_STATS_PAGE_FLIGHTRADAR24: url?
+  HTML_FR24_FEEDER_STATUS_PAGE: url?
+  DUMP1090_ADDITIONAL_ARGS: str?
+
+  # DUMP1090 forwarding
+  DUMP1090_LOCAL_PORT: port?
+  DUMP1090_REMOTE_HOST: str?
+  DUMP1090_REMOTE_PORT: port?
+
+  # RTL_TCP forwarding
+  RTL_TCP_OVER_NETCAT: bool?
+  RTL_TCP_REMOTE_HOST: str?
+  RTL_TCP_REMOTE_PORT: port?
+
+  # Terrain-limit rings (optional):
+  PANORAMA_ID: str?
+  PANORAMA_ALTS: str?
+
+  # Open Weather Map layers
+  LAYERS_OWM_API_KEY: str?
