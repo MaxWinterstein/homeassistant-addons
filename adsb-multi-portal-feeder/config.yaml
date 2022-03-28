@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 stage: experimental
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 usb: true
-version: 1.0.0
+version: 1.0.1
 arch:
   - armhf
   - armv7
@@ -40,6 +40,7 @@ ports:
   30005/tcp: null
   8080/tcp: null
   8754/tcp: null
+  30053/tcp: null
 ports_description:
   30001/tcp: TCP raw input
   30002/tcp: TCP raw output
@@ -48,6 +49,7 @@ ports_description:
   30005/tcp: TCP Beast output
   8080/tcp: Dump1090 status site
   8754/tcp: Flightrader24 feeder status site
+  30053/tcp: Plane Finder feeder status site
 schema:
   # Common
   SERVICE_ENABLE_DUMP1090: bool
