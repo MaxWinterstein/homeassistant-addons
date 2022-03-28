@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.1] - 2021-03-28
+
+- Add port for plane finder status page
+
 ## [1.0.0] - 2021-03-28
 
 - Update to 1.12.0 (now with planefinder support)
