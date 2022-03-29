@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.2] - 2021-03-29
+
+- Fix typ0 in config template, should be `MLAT_EXACT_LON` instead `MLAT_EXACT_LONG`.  
+  Thx again to [@Delta1977](https://github.com/Delta1977)
+
 ## [1.0.1] - 2021-03-28
 
 - Add port for plane finder status page
@@ -12,7 +17,7 @@
 ## [0.1.37] - 2021-03-18
 
 - Update to 1.10.1 - now with adsbexchange support. See [#67](https://github.com/MaxWinterstein/homeassistant-addons/issues/67#).  
-  Thx to [Delta1977](https://github.com/Delta1977) for his work ❤️
+  Thx to [@Delta1977](https://github.com/Delta1977) for his work ❤️
 
 ## [0.1.36] - 2021-01-03
 

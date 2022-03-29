@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 stage: experimental
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 usb: true
-version: 1.0.1
+version: 1.0.2
 arch:
   - armhf
   - armv7
@@ -84,7 +84,7 @@ schema:
 
   # Exact coordinates for MLAT
   MLAT_EXACT_LAT: float?
-  MLAT_EXACT_LONG: float?
+  MLAT_EXACT_LON: float?
   MLAT_ALTITUDE_MSL_METERS: int?
 
   # Plane Finder
