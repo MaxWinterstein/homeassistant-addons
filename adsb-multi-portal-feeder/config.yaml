@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 stage: experimental
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 usb: true
-version: 1.0.2
+version: 1.0.3
 arch:
   - armhf
   - armv7
@@ -10,7 +10,8 @@ arch:
   - amd64
 boot: auto
 description: Dump1090 based feeder for FlightRadar24, FlightAware and more
-hassio_api: false
+hassio_api: true
+homeassistant_api: true
 ingress: true
 ingress_port: 8080
 init: false
@@ -27,8 +28,8 @@ options:
   ADSBEXCHANGE_UUID: ""
   PLANEFINDER_SHARECODE: ""
 
-  HTML_SITE_LAT: 50.033056
-  HTML_SITE_LON: 8.570556
+  HTML_SITE_LAT: HOMEASSISTANT_LATITUDE
+  HTML_SITE_LON: HOMEASSISTANT_LONGITUDE
 
 panel_icon: mdi:airplane
 panel_title: ADS-B Feeder
@@ -80,19 +81,19 @@ schema:
   # ADS-B Exchange
   ADSBEXCHANGE_UUID: str?
   ADSBEXCHANGE_STATION_NAME: str?
-  ADSBEXCHANGE_MLAT: str?
+  ADSBEXCHANGE_MLAT: bool?
 
   # Exact coordinates for MLAT
-  MLAT_EXACT_LAT: float?
-  MLAT_EXACT_LON: float?
-  MLAT_ALTITUDE_MSL_METERS: int?
+  MLAT_EXACT_LAT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LATITUDE)?
+  MLAT_EXACT_LON: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LONGITUDE)?
+  MLAT_ALTITUDE_MSL_METERS: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_ELEVATION)?
 
   # Plane Finder
   PLANEFINDER_SHARECODE: str?
 
   # Dump1090 & Web UI
-  HTML_SITE_LAT: float?
-  HTML_SITE_LON: float?
+  HTML_SITE_LAT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LATITUDE)?
+  HTML_SITE_LON: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LONGITUDE)?
   HTML_SITE_NAME: str?
   HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24)?
   HTML_RECEIVER_STATS_PAGE_FLIGHTAWARE: url?

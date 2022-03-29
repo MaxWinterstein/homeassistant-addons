@@ -40,6 +40,12 @@ See [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed
 
 I pre-provivde the (i guess) most used workflow: Send data from USB ADB-S stick to FlightRadar24, FlightAware, ADSBexchange and Plane Finder and have a nice little web based overview as Home Assistant menu entry.
 
+It it possible to retrive and use the location information of home assistant itself, using some magic variables, which will be replaced automatically:
+
+- `HOMEASSISTANT_LATITUDE`
+- `HOMEASSISTANT_LONGITUDE`
+- `HOMEASSISTANT_ELEVATION`
+
 If you want to add anything else just add the corresponding environment variable as config option.  
 You might need to press the three little dots in the upper right corner and choose `Edit in YAML`.
 

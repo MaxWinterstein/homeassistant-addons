@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.3] - 2021-03-29
+
+- Introduce magic variables (`HOMEASSISTANT_LATITUDE`, `HOMEASSISTANT_LONGITUDE`, `HOMEASSISTANT_ELEVATION`)
+- Optimize config schema
+
 ## [1.0.2] - 2021-03-29
 
 - Fix typ0 in config template, should be `MLAT_EXACT_LON` instead `MLAT_EXACT_LONG`.  
