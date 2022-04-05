@@ -21,6 +21,6 @@ Small proxy to add OctoPrint or similar to the Home Assistant.(Based on Max Wint
 
 ## Installation
 
-Go to the _Supervisor_ Panel, select _Add-on Store_, click the three little dots on the upper right and select _Repositories_. Now fill the _Add repository_ testbox with `https://github.com/MaxWinterstein/homeassistant-addons/` and click _Add_.
+Go to the _Supervisor_ Panel, select _Add-on Store_, click the three little dots on the upper right and select _Repositories_. Now fill the _Add repository_ testbox with `https://github.com/0nikola1/homeassistant-addons/` and click _Add_.
 
 ![installation](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/add_repository.png)
