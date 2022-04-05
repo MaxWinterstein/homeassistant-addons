@@ -1,6 +1,6 @@
 {
   "name": "Basic Proxy",
-  "version": "1.0.0",
+  "version": "2022.4.0",
   "slug": "octoprint_proxy",
   "description": "Access simple websites from within Home Assistant",
   "url": "https://github.com/0nikola1/homeassistant-addons/",
