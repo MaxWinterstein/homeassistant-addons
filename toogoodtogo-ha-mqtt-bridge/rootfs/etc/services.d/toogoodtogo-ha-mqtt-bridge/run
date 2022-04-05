@@ -1,4 +1,0 @@
-#!/usr/bin/with-contenv bashio
-
-bashio::log.info "Strating Bridge..."
-exec python /app/toogoodtogo_ha_mqtt_bridge/main.py
