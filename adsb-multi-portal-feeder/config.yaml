@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 stage: experimental
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 usb: true
-version: 1.0.3
+version: 1.15.0
 arch:
   - armhf
   - armv7

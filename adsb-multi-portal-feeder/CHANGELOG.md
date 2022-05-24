@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.15.0] - 2021-05-24
+
+- Update `thomx/fr24feed-piaware` to 1.15.0
+
 ## [1.0.3] - 2021-03-29
 
 - Introduce magic variables (`HOMEASSISTANT_LATITUDE`, `HOMEASSISTANT_LONGITUDE`, `HOMEASSISTANT_ELEVATION`)
