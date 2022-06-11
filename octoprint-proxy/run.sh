@@ -1,4 +1,4 @@
-#!/usr/bin/env bashio
+#!/usr/bin/with-contenv bashio
 set -e
 
 bashio::log.info "Setting octoprint host: $(bashio::config octoprint_host)"
