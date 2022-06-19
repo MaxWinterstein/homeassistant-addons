@@ -5,7 +5,7 @@
 - Update `toogoodtogo-ha-mqtt-bridge` to `2.2.2` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))  
   **Note:** If you encounter an error around  
   `token_version = version.parse(tokens["token_version"])`  
-  reinstalling the addon-on should fix the issue.
+  reinstalling the addon-on and/or starting it another time should fix the issue. See [#55](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/issues/55#)
 
 ## [2.1.0] - 2022-05-21
 
