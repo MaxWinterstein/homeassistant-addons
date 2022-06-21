@@ -15,7 +15,7 @@ jobs:
       - run: cd eufy-ha-mqtt-bridge && ./version-updater.sh
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         if: ${{ env.CONTINUE }}
 
       - name: Set up Docker Buildx
