@@ -1,6 +1,11 @@
 # Changelog
 
-## [2.2.3] - 2022-06.19
+## [2.3.0] - 2022-06-26
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `2.3.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))  
+  **Note:** This introduces the new [`intense_fetch`](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/blob/main/README.md#intense_fetch-optional)
+
+## [2.2.3] - 2022-06-19
 
 - Update `toogoodtogo-ha-mqtt-bridge` to `2.2.3` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
