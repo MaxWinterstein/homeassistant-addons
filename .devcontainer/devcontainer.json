@@ -1,16 +1,25 @@
 // Based on https://github.com/issacg/hassio-addon-devcontainer
 {
-	"name": "Home Assistant Add-Ons",
-	"context": "..",
-	"dockerFile": "Dockerfile",
+	"name": "Example devcontainer for add-on repositories",
+	"image": "ghcr.io/home-assistant/devcontainer:addons",
 	"appPort": ["7123:8123", "7357:4357"],
-    "postStartCommand": "service docker start",
+	"postStartCommand": "bash devcontainer_bootstrap",
 	"runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],
-	"extensions": [
-		"timonwong.shellcheck",
-		"esbenp.prettier-vscode"
-	],
+	"containerEnv": {
+	  "WORKSPACE_DIRECTORY": "${containerWorkspaceFolder}"
+	},
+	"extensions": ["timonwong.shellcheck", "esbenp.prettier-vscode"],
+	"mounts": [ "type=volume,target=/var/lib/docker" ],
 	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash"
+	  "terminal.integrated.profiles.linux": {
+		"zsh": {
+		  "path": "/usr/bin/zsh"
+		}
+	  },
+	  "terminal.integrated.defaultProfile.linux": "zsh",
+	  "editor.formatOnPaste": false,
+	  "editor.formatOnSave": true,
+	  "editor.formatOnType": true,
+	  "files.trimTrailingWhitespace": true
 	}
-}
+  }
