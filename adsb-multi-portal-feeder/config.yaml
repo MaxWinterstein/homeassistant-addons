@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 stage: experimental
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 usb: true
-version: 1.15.0
+version: 1.17.0
 arch:
   - armhf
   - armv7
@@ -98,6 +98,8 @@ schema:
   HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24)?
   HTML_RECEIVER_STATS_PAGE_FLIGHTAWARE: url?
   HTML_RECEIVER_STATS_PAGE_FLIGHTRADAR24: url?
+  HTML_RECEIVER_STATS_PAGE_ADSBEXCHANGE: url?
+  HTML_RECEIVER_STATS_PAGE_PLANEFINDER: url?
   HTML_FR24_FEEDER_STATUS_PAGE: url?
   DUMP1090_ADDITIONAL_ARGS: str?
 
