@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.17.0] - 2022-06-29
+
+- Update `thomx/fr24feed-piaware` to 1.17.0
+
 ## [1.15.0] - 2021-05-24
 
 - Update `thomx/fr24feed-piaware` to 1.15.0
