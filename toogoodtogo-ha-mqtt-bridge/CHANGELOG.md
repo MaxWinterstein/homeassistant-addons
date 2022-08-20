@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.4.0] - 2022-08-20
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `2.4.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))  
+
 ## [2.3.0] - 2022-06-26
 
 - Update `toogoodtogo-ha-mqtt-bridge` to `2.3.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))  
