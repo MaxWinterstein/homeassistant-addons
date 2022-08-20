@@ -1,4 +1,7 @@
+# ⚠️ This add-on will not receive any updates anymore. See [github.com/matijse/eufy-ha-mqtt-bridge](https://github.com/matijse/eufy-ha-mqtt-bridge#warning-no-longer-actively-maintained) ⚠️
+
 ### 🚨 Important Information 🚨
+
 
 - This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.10.0.  
   Copy your _Configuration_ to your clipboard and Uninstall/Install manually.

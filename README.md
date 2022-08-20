@@ -16,10 +16,6 @@ Observe flight traffic using some cheap ADB-S USB-Stick and feed towards FlightR
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
-### <img src="eufy-ha-mqtt-bridge/icon.png" width="40px"> Eufy Home Assistant MQTT Bridge ([matijse/eufy-ha-mqtt-bridge](https://github.com/matijse/eufy-ha-mqtt-bridge))
-
-Forwards Eufy Security push notifications to Home Assistant via MQTT.
-
 ### <img src="toogoodtogo-ha-mqtt-bridge/icon.png" width="40px"> TooGoodToGo Home Assistant MQTT Bridge ([maxwinterstein/toogoodtogo-ha-mqtt-bridge](https://github.com/maxwinterstein/toogoodtogo-ha-mqtt-bridge))
 
 Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
@@ -49,3 +45,9 @@ This is a complete copy of https://github.com/hassio-addons/addon-portainer/tree
 As the current version (`2.0.0` at this time) of this addon has problems with starting containers this clone simply provides easy access to v1.5.2.
 
 See https://community.home-assistant.io/t/portainer-v2-6-2-unable-to-start-containers/332356 or https://github.com/hassio-addons/addon-portainer/issues/127 for more.
+
+### <img src="eufy-ha-mqtt-bridge/icon.png" width="40px"> Eufy Home Assistant MQTT Bridge ([matijse/eufy-ha-mqtt-bridge](https://github.com/matijse/eufy-ha-mqtt-bridge))
+
+#### I would no longer suggest to use this. There are way better alternatives out there, e.g. https://github.com/fuatakgun/eufy_security_addon
+
+Forwards Eufy Security push notifications to Home Assistant via MQTT.
