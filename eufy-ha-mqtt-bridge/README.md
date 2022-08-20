@@ -2,7 +2,6 @@
 
 ### 🚨 Important Information 🚨
 
-
 - This addon recently switched to pre-build images. The Update progress might fail when the installed version is <1.10.0.  
   Copy your _Configuration_ to your clipboard and Uninstall/Install manually.
 - This is some experimental release!
