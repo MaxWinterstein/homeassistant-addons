@@ -38,7 +38,7 @@ resource: http://f1c878cb-adsb-multi-portal-feeder:8754/monitor.json
 The whole configuration is meant to work alike the original docker image.  
 See [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) for more info.
 
-I pre-provivde the (i guess) most used workflow: Send data from USB ADB-S stick to FlightRadar24, FlightAware, ADSBexchange and Plane Finder and have a nice little web based overview as Home Assistant menu entry.
+I pre-provivde the (i guess) most used workflow: Send data from USB ADS-B stick to FlightRadar24, FlightAware, ADSBexchange and Plane Finder and have a nice little web based overview as Home Assistant menu entry.
 
 It it possible to retrive and use the location information of home assistant itself, using some magic variables, which will be replaced automatically:
 

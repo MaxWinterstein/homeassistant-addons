@@ -10,9 +10,9 @@ _Everything here is ment to be **experimental**. Happy to see feedback!_
 
 Wraps the well known [Angry IP Scanner](https://angryip.org/) to make it usable as Add-on.
 
-### <img src="adsb-multi-portal-feeder/icon.png" width="40px"> ADB-S Multi Portal Feeder
+### <img src="adsb-multi-portal-feeder/icon.png" width="40px"> ADS-B Multi Portal Feeder
 
-Observe flight traffic using some cheap ADB-S USB-Stick and feed towards FlightRadar24 and FlightAware.
+Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightRadar24 and FlightAware.
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
