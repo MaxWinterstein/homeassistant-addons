@@ -25,7 +25,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: home-assistant/builder@2022.07.0
+        uses: home-assistant/builder@2022.09.0
         with:
           args: |
             --all \
