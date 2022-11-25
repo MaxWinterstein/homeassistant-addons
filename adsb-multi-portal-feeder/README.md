@@ -16,7 +16,7 @@ I just added a few sprinkles to make it work with Home Assistant.
 
 - If not already done, add the Add-on repostitory ([see](https://github.com/MaxWinterstein/homeassistant-addons#installation))
 - If you want to share to FlightRadar24 and/or FlightAware and/or ADSBexchange and/or Plane Finder, generate needed keys ([see below](https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#flightaware-feeder-id--flightrader24-key--adsbexchange-uuid))
-- If you want to use the dump1090 WebInterface (like the screenshot above) you need to set Lat/Lon for your location ([see below(https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#latitude--longitude))
+- If you want to use the dump1090 WebInterface (like the screenshot above) you need to set Lat/Lon for your location ([see below](https://github.com/MaxWinterstein/homeassistant-addons/tree/main/adsb-multi-portal-feeder#latitude--longitude))
 
 ## Sensors for Home Assistant
 
