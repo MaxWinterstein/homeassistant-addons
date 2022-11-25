@@ -1,12 +1,16 @@
 # Changelog
 
+## [1.18.0] - 2022-11-25
+
+- Update `thomx/fr24feed-piaware` to `1.18.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.18.0) for more
+
 ## [1.17.0] - 2022-06-29
 
-- Update `thomx/fr24feed-piaware` to 1.17.0
+- Update `thomx/fr24feed-piaware` to `1.17.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.17.0) for more
 
 ## [1.15.0] - 2021-05-24
 
-- Update `thomx/fr24feed-piaware` to 1.15.0
+- Update `thomx/fr24feed-piaware` to `1.15.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.15.0) for more
 
 ## [1.0.3] - 2021-03-29
 
