@@ -30,7 +30,7 @@ jobs:
         if: ${{ env.CONTINUE }}
 
       - name: Test build
-        uses: home-assistant/builder@2022.09.0
+        uses: home-assistant/builder@2022.11.0
         with:
           args: |
             --all \
