@@ -20,7 +20,7 @@ if [[ $1 = "push" ]]; then
     read -s password
     docker run --privileged \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        -v $PWD/:/data homeassistant/amd64-builder \
+        -v $PWD/:/data homeassistant/aarch64-builder \
         --all -t /data --docker-user maxwinterstein --docker-password $password #--docker-hub-check
 elif [[ $1 = "test" ]]; then
     arch=${2:-all}
@@ -28,7 +28,7 @@ elif [[ $1 = "test" ]]; then
     sleep 5
     docker run --privileged \
         -v /var/run/docker.sock:/var/run/docker.sock:ro \
-        -v $PWD/:/data homeassistant/amd64-builder \
+        -v $PWD/:/data homeassistant/aarch64-builder \
         --$arch --test -t /data
 else
     echo "$__usage"
