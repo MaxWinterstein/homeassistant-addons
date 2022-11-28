@@ -1,8 +1,7 @@
 {
   "build_from": {
-    "armhf": "thomx/fr24feed-piaware:1.18.0",
-    "armv7": "thomx/fr24feed-piaware:1.18.0",
-    "aarch64": "thomx/fr24feed-piaware:1.18.0",
-    "amd64": "thomx/fr24feed-piaware:1.18.0"
+    "armhf": "ghcr.io/home-assistant/armhf-base-raspbian:buster",
+    "aarch64": "ghcr.io/home-assistant/aarch64-base-debian:buster",
+    "amd64": "ghcr.io/home-assistant/amd64-base-debian:buster"
   }
 }
