@@ -1,0 +1,104 @@
+# yamllint disable rule:line-length
+# inspired from https://github.com/Poeschl/Hassio-Addons
+---
+name: Builder
+
+env:
+  BUILD_ARGS: ""
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "**/config.*"
+
+jobs:
+  check-addon-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changedAddons: ${{ steps.filter.outputs.changes }}
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v3
+
+      - name: 📂 Detect changed files
+        uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: .github/paths-filter.yml
+
+  lint_config:
+    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    needs: check-addon-changes
+    runs-on: ubuntu-latest 
+    strategy: 
+      fail-fast: false 
+      matrix: 
+        addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }} 
+    steps: 
+      - name: ↩️ Checkout 
+        uses: actions/checkout@v3
+      - name: 🔎 Run Home Assistant Add-on Lint 
+        uses: frenck/action-addon-linter@v2 
+        with: 
+          path: "./${{ matrix.addon }}"
+
+  build:
+    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    needs: check-addon-changes
+    runs-on: ubuntu-latest
+    environment: CR_PAT
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
+    strategy:
+      matrix:
+        addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
+        arch: ["aarch64", "amd64", "armv7"]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Get information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./${{ matrix.addon }}"
+
+      - name: Check if add-on should be built
+        id: check
+        env:
+          HEAD: "${{ github.head_ref }}"
+        run: |
+          # shellcheck disable=SC2157,SC2086 
+          if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
+             echo "::set-output name=build_arch::true";
+             echo "::set-output name=image::$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)";
+             if [[ -z "$HEAD" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
+                 echo "BUILD_ARGS=" >> $GITHUB_ENV;
+             fi
+           else
+             echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
+             echo "::set-output name=build_arch::false";
+          fi
+      - name: Login to GitHub Container Registry
+        if: env.BUILD_ARGS != '--test'
+        uses: docker/login-action@v2.1.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build ${{ matrix.addon }} add-on
+        if: steps.check.outputs.build_arch == 'true'
+        uses: home-assistant/builder@master
+        env:
+          CAS_API_KEY: ${{ secrets.CAS_API_KEY }}
+        with:
+          args: |
+            ${{ env.BUILD_ARGS }} \
+            --${{ matrix.arch }} \
+            --target /data/${{ matrix.addon }} \
+            --image "${{ steps.check.outputs.image }}" \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+            --addon
