@@ -28,5 +28,5 @@ RUN wget https://github.com/angryip/ipscan/releases/download/3.8.2/ipscan_3.8.2_
 
 COPY rootfs /
 
-# Fix missing permissions - not really shure why this is needed
+# Fix missing permissions - not really sure why this is needed
 RUN chmod +x /etc/cont-init.d/nginx.sh /etc/cont-init.d/novnc.sh
