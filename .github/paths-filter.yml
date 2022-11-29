@@ -2,4 +2,4 @@
 # From https://github.com/Poeschl/Hassio-Addons
 # name: slug/filename ; could be slug/config.* for all files
 adsb-multi-portal-feeder: adsb-multi-portal-feeder/config.* # Image : yes
-angry-ip-scanner: angry-ip-scanner/config.* # Image : yes
+angryipscanner: angryipscanner/config.* # Image : yes

@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base-debian:buster
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Set shell
