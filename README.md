@@ -6,7 +6,7 @@ _Everything here is ment to be **experimental**. Happy to see feedback!_
 
 ## Home Assistant Addon repository containing
 
-### <img src="angry-ip-scanner/icon.png" width="40px"> Angry IP Scanner
+### <img src="angryipscanner/icon.png" width="40px"> Angry IP Scanner
 
 Wraps the well known [Angry IP Scanner](https://angryip.org/) to make it usable as Add-on.
 
