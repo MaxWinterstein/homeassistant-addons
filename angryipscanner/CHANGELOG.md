@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2 // 01.12.2022
+
+- Fix permission error - part 3
+
 ## 1.1.1 // 01.12.2022
 
 - Fix permission error - part 2

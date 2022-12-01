@@ -30,3 +30,4 @@ COPY rootfs /
 
 # Fix missing permissions - not really sure why this is needed
 RUN chmod +x /etc/cont-init.d/nginx.sh /etc/cont-init.d/novnc.sh
+RUN chmod 777 /etc/services.d/*/*
