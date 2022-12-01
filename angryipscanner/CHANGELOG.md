@@ -4,7 +4,6 @@
 
 - Fix permission error - part 2
 
-
 ## 1.1.0 // 29.11.2022
 
 - Fix permission error
