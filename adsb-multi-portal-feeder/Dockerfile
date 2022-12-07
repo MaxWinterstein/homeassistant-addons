@@ -1,4 +1,5 @@
-FROM thomx/fr24feed-piaware:1.18.0
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
 # add bashio (thx https://github.com/hassio-addons/addon-debian-base/blob/main/base/Dockerfile#L47)
 ADD https://github.com/hassio-addons/bashio/archive/v0.14.3.tar.gz  /tmp/bashio.tar.gz
