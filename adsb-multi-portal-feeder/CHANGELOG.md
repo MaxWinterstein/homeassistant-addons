@@ -1,8 +1,12 @@
 # Changelog
 
+## [1.18.0.2] - 2022-12-07
+
+- Internal: Build image also for ARMv7
+
 ## [1.18.0.1] - 2022-12-07
 
-- Background change only: Change to ghcr container registry and new build process
+- Internal: Change to ghcr container registry and new build process
 
 ## [1.18.0] - 2022-11-25
 

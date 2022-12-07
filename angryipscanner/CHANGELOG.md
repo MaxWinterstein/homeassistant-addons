@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3 // 07.12.2022
+
+- Internal: Build image also for ARMv7
+
 ## 1.1.2 // 01.12.2022
 
 - Fix permission error - part 3
