@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.18.0.1] - 2022-12-07
+
+- Background change only: Change to ghcr container registry and new build process
+
 ## [1.18.0] - 2022-11-25
 
 - Update `thomx/fr24feed-piaware` to `1.18.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.18.0) for more

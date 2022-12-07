@@ -1,0 +1,7 @@
+{
+  "build_from": {
+    "armhf": "thomx/fr24feed-piaware:1.18.0",
+    "aarch64": "thomx/fr24feed-piaware:1.18.0",
+    "amd64": "thomx/fr24feed-piaware:1.18.0"
+  }
+}
