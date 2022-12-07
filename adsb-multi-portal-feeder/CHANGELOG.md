@@ -1,6 +1,7 @@
 # Changelog
 
 ## [1.18.0.1] - 2022-12-07
+
 - Background change only: Change to ghcr container registry and new build process
 
 ## [1.18.0] - 2022-11-25
