@@ -3,3 +3,4 @@
 # name: slug/filename ; could be slug/config.* for all files
 adsb-multi-portal-feeder: adsb-multi-portal-feeder/config.* # Image : yes
 angryipscanner: angryipscanner/config.* # Image : yes
+toogoodtogo-ha-mqtt-bridge: toogoodtogo-ha-mqtt-bridge/config.*
