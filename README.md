@@ -29,10 +29,9 @@ Run ioBroker as Add-on.
 Small proxy to add OctoPrint to the Home Assistant.
 
 ## Installation
+[![Add repository on my Home Assistant][repository-badge]][repository-url]
 
-Go to the _Supervisor_ Panel, select _Add-on Store_, click the three little dots on the upper right and select _Repositories_. Now fill the _Add repository_ testbox with `https://github.com/MaxWinterstein/homeassistant-addons/` and click _Add_.
-
-![installation](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/add_repository.png)
+If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: `https://github.com/MaxWinterstein/homeassistant-addons/`
 
 ## Deprecated add-ons
 
@@ -51,3 +50,6 @@ See https://community.home-assistant.io/t/portainer-v2-6-2-unable-to-start-conta
 #### I would no longer suggest to use this. There are way better alternatives out there, e.g. https://github.com/fuatakgun/eufy_security_addon
 
 Forwards Eufy Security push notifications to Home Assistant via MQTT.
+
+[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
+[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons
