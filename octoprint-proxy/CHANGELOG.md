@@ -8,7 +8,6 @@
 
 - Fix pid issue - thanks @0nikola1
 
-
 ## [1.0.0] - 2021-01-03
 
 - Initial release

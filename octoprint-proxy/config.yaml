@@ -9,17 +9,17 @@ ingress_port: 80
 panel_title: OctoPrint
 panel_icon: mdi:printer-3d-nozzle
 arch:
-- armhf
-- armv7
-- aarch64
-- amd64
-- i386
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
 startup: application
 boot: auto
 init: false
 options:
   octoprint_host: octopi
-  octoprint_port: '443'
+  octoprint_port: "443"
   ssl:
     enabled: true
     verify: false
