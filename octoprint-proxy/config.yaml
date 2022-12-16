@@ -1,8 +1,9 @@
 name: OctoPrint Proxy
-version: 1.0.1
+version: 1.0.2
 slug: octoprint_proxy
 description: Access OctoPrint from within Home Assistant
 url: https://github.com/MaxWinterstein/homeassistant-addons/
+image: ghcr.io/maxwinterstein/homeassistant-addon-octoprint-proxy-{arch}
 ingress: true
 ingress_port: 80
 panel_title: OctoPrint
