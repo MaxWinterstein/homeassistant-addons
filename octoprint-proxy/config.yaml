@@ -9,11 +9,9 @@ ingress_port: 80
 panel_title: OctoPrint
 panel_icon: mdi:printer-3d-nozzle
 arch:
-  - armhf
   - armv7
   - aarch64
   - amd64
-  - i386
 startup: application
 boot: auto
 init: false
