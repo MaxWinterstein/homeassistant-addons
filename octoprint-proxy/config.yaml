@@ -12,8 +12,6 @@ arch:
   - armv7
   - aarch64
   - amd64
-startup: application
-boot: auto
 init: false
 options:
   octoprint_host: octopi
@@ -27,4 +25,3 @@ schema:
   ssl:
     enabled: bool
     verify: bool
-hassio_api: false
