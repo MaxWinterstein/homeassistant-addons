@@ -10,19 +10,17 @@ arch:
   - armhf
   - aarch64
   - amd64
-startup: application
-boot: auto
-usb: "true"
-init: "false"
+usb: true
+init: false
 homeassistant_api: true
-# host_network: false
+# host_network: true
 ports:
   631/tcp: 631
   631/udp: 631
 ports_description:
   631/tcp: For other devices on the local network to print to this server
   631/udp: For other devices on the local network to print to this server
-ingress: false
+# ingress: false
 map:
   - ssl
 options:
