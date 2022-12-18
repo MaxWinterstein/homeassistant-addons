@@ -35,4 +35,5 @@ RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
 
 EXPOSE 631 445 137 139
 
+RUN chmod a+x /run.sh
 CMD ["/run.sh"]

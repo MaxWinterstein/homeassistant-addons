@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.2 -- 18.12.2022
+
+- Fix permisson error
+
 ## 2.0.1 -- 18.12.2022
 
 - Fix permisson error
