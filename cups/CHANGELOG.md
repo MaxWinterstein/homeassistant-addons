@@ -2,7 +2,7 @@
 
 ## 2.0.0 -- 18.12.2022
 
-* Changed `init` to `false` to make it at least starting. 
+- Changed `init` to `false` to make it at least starting.
 
 ---
 

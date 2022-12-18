@@ -7,13 +7,13 @@ image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
 description: A CUPS print server with Avahi installed
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 arch:
-- armhf
-- aarch64
-- amd64
+  - armhf
+  - aarch64
+  - amd64
 startup: application
 boot: auto
-usb: 'true'
-init: 'false'
+usb: "true"
+init: "false"
 homeassistant_api: true
 # host_network: false
 ports:
@@ -24,7 +24,7 @@ ports_description:
   631/udp: For other devices on the local network to print to this server
 ingress: false
 map:
-- ssl
+  - ssl
 options:
   ssl: true
   certfile: fullchain.pem
