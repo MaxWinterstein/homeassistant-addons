@@ -16,6 +16,12 @@ Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightR
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
+### <img src="cups/icon.png" width="40px"> ioBroker ([cups.org](http://www.cups.org))
+
+The well known printing server.
+
+(In early development)
+
 ### <img src="toogoodtogo-ha-mqtt-bridge/icon.png" width="40px"> TooGoodToGo Home Assistant MQTT Bridge ([maxwinterstein/toogoodtogo-ha-mqtt-bridge](https://github.com/maxwinterstein/toogoodtogo-ha-mqtt-bridge))
 
 Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
