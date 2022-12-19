@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3 -- 19.12.2022
+
+- Also build for armv7
+
 ## 2.0.2 -- 18.12.2022
 
 - Fix permisson error

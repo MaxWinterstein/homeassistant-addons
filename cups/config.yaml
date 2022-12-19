@@ -7,9 +7,9 @@ image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
 description: A CUPS print server with Avahi installed
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 arch:
-  - armhf
-  - aarch64
   - amd64
+  - armv7
+  - aarch64
 usb: true
 init: false
 homeassistant_api: true
