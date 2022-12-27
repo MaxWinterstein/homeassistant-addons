@@ -16,6 +16,14 @@ Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightR
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
+### <img src="awtrix/icon.png" width="40px"> AWTRIX Controller
+
+(AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
+
+Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
+
+Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
+
 ### <img src="cups/icon.png" width="40px"> ioBroker ([cups.org](http://www.cups.org))
 
 The well known printing server.
