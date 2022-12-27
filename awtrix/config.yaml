@@ -1,0 +1,35 @@
+name: AWTRIX
+version: 1.0.0-dev1
+# image: ghcr.io/maxwinterstein/homeassistant-addon-awtrix-{arch}
+arch:
+  - armv7
+  - aarch64
+  - amd64
+slug: awtrix
+description: (AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
+url: https://awtrixdocs.blueforcer.de/#/
+startup: system
+map:
+- config:rw
+ingress: true
+boot: auto
+init: 'false'
+panel_icon: mdi:solar-panel-large
+uart: false
+ports:
+  7000/tcp: 7000
+  7001/tcp: 7001
+  5568/udp: 5568
+backup_exclude:
+- "/data/www/*"
+ports_description:
+  7000/tcp: REST API
+  7001/tcp: communication matrix <-> server
+  5568/udp: E1.31 Communication (premium only)
+stage: experimental
+options:
+  version: stable
+  lang: en_EN
+schema:
+  version: list(stable)
+  lang: str
