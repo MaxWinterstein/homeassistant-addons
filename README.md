@@ -20,7 +20,7 @@ Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Th
 
 (AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
 
-Most of the work was done from/within https://github.com/lubeda/repository -  I just made it work and adjusted some little things.
+Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
 
 Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
 
