@@ -6,3 +6,4 @@ angryipscanner: angryipscanner/config.* # Image : yes
 toogoodtogo-ha-mqtt-bridge: toogoodtogo-ha-mqtt-bridge/config.*
 octoprint-proxy: octoprint-proxy/config.*
 cups: cups/config.*
+awtrix: atrix/config.*
