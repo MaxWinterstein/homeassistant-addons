@@ -1,6 +1,10 @@
 # Changelog
 
-## [1.0.0] - 2022-12-07
+## [1.0.1] - 2022-12-27
+
+- The good old permission issues....
+
+## [1.0.0] - 2022-12-27
 
 Changes from forked repo:
 
