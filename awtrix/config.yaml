@@ -12,10 +12,8 @@ startup: system
 map:
   - config:rw
 ingress: true
-boot: auto
-init: "false"
+init: false
 panel_icon: mdi:solar-panel-large
-uart: false
 ports:
   7000/tcp: 7000
   7001/tcp: 7001
