@@ -2,9 +2,9 @@
 
 <a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com'></a>
 
-## Based on (aka. stolen from) https://github.com/lubeda/repository 
+## Based on (aka. stolen from) https://github.com/lubeda/repository
 
-Thanks for the work! I just made it work again for Raspberry Pi, and did some tweaking here and there. 
+Thanks for the work! I just made it work again for Raspberry Pi, and did some tweaking here and there.
 
 ---
 
@@ -17,6 +17,7 @@ Original README.md below
 There is no arrangment with blueforcer, so i build this by try and error. It works on my HA and it should work on many other HA. But no guarranty. Be carefull.
 
 # Warning
+
 !!backup all your configs (premiumkey). uninstall the old version!!
 
 ## Usage
@@ -25,10 +26,10 @@ Access the server via ingress, so no port config is necesarry
 
 The config and the apps folder are accesible as /config/awtrix/apps and /config/awtrix/config. So no ftp is needed
 
-|option|default|usage|
-|---|---|---|
-|version|`beta`| select the awtrix host to run beta => https://blueforcer.de/awtrix/beta/awtrix.jar or stable => https://blueforcer.de/awtrix/stable/awtrix.jar
-|lang|`en_EN`| the language used e.g. for the DayOfTheWeeK App set "de_DE" for german|
+| option  | default | usage                                                                                                                                          |
+| ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| version | `beta`  | select the awtrix host to run beta => https://blueforcer.de/awtrix/beta/awtrix.jar or stable => https://blueforcer.de/awtrix/stable/awtrix.jar |
+| lang    | `en_EN` | the language used e.g. for the DayOfTheWeeK App set "de_DE" for german                                                                         |
 
 To go from stable to beta and vice versa you have to rebuild the addon!
 

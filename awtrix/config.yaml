@@ -10,10 +10,10 @@ description: (AWsome maTRIX) is a full color dot matrix that displays applicatio
 url: https://awtrixdocs.blueforcer.de/#/
 startup: system
 map:
-- config:rw
+  - config:rw
 ingress: true
 boot: auto
-init: 'false'
+init: "false"
 panel_icon: mdi:solar-panel-large
 uart: false
 ports:
@@ -21,7 +21,7 @@ ports:
   7001/tcp: 7001
   5568/udp: 5568
 backup_exclude:
-- "/data/www/*"
+  - "/data/www/*"
 ports_description:
   7000/tcp: REST API
   7001/tcp: communication matrix <-> server
