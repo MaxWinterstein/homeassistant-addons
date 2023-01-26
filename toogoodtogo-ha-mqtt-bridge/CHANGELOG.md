@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.5.1] - 2023-01-26
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `2.5.1` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+
 ## [2.4.0.1] - 2022-12-09
 
 - Internal: Change to ghcr container registry and new build process
