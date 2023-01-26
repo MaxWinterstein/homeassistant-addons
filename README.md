@@ -24,7 +24,7 @@ Most of the work was done from/within https://github.com/lubeda/repository - I j
 
 Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
 
-### <img src="cups/icon.png" width="40px"> ioBroker ([cups.org](http://www.cups.org))
+### <img src="cups/icon.png" width="40px"> CUPS ([cups.org](http://www.cups.org))
 
 The well known printing server.
 
