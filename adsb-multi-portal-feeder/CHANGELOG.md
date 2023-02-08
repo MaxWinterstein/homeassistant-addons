@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.20.0] - 2023-02-08
+
+- Update `thomx/fr24feed-piaware` to `1.20.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.20.0) for more
+
 ## [1.19.0] - 2023-01-20
 
 - Update `thomx/fr24feed-piaware` to `1.19.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.19.0) for more
