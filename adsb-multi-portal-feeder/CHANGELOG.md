@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.20.1] - 2023-04-20
+
+- Fix memory consumption issue for *Home Assistant OS 10* / *Docker v23* - - see [#149](https://github.com/MaxWinterstein/homeassistant-addons/issues/149) for more
+
+
 ## [1.20.0] - 2023-02-08
 
 - Update `thomx/fr24feed-piaware` to `1.20.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.20.0) for more
