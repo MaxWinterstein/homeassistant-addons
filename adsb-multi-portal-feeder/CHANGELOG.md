@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.20.1] - 2023-04-20
+## [1.20.2] - 2023-04-20
 
 - Fix memory consumption issue for *Home Assistant OS 10* / *Docker v23* - - see [#149](https://github.com/MaxWinterstein/homeassistant-addons/issues/149) for more
 

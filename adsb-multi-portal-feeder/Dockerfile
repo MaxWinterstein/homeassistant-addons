@@ -33,3 +33,6 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner && \
 
 # enhance timeout, as sometimes the api calls are slow (rate limited?)
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
+
+# Fix memory issue for e.g. HA OS 10 - see https://github.com/MaxWinterstein/homeassistant-addons/issues/149
+RUN ulimit -n 1048576
