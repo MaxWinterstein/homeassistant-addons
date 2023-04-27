@@ -1,6 +1,8 @@
 # Changelog
 
-**Fix for memory issues on Home Assistant OS 10 is in progress, pls wait and see [#149](https://github.com/MaxWinterstein/homeassistant-addons/issues/149) for more**
+## [1.21.0] - 2023-04-27
+
+- Remove my memory fix and update to `1.21.0` which includes it - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.21.0) for more
 
 ## [1.20.3] - 2023-04-21
 

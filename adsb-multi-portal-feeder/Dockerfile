@@ -18,9 +18,6 @@ COPY export-env-from-config.sh /export-env-from-config.sh
 RUN find /etc/s6-overlay/s6-rc.d/ -name script | xargs sed -i '1 a\source /export-env-from-config.sh'
 RUN find /etc/s6-overlay/s6-rc.d/ -name run | xargs sed -i '1 a\source /export-env-from-config.sh'
 
-# Fix memory issue for e.g. HA OS 10 - see https://github.com/MaxWinterstein/homeassistant-addons/issues/149
-RUN sed -i '5 a\    ulimit -n 1048576' /etc/s6-overlay/s6-rc.d/http/run
-
 ENV TZ=UTC
 
 # Add the nice banner
