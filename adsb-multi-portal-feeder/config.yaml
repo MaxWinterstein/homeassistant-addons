@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
-version: 1.21.0
+version: 1.23.0
 arch:
   - armv7
   - aarch64
@@ -28,6 +28,9 @@ options:
 
   HTML_SITE_LAT: HOMEASSISTANT_LATITUDE
   HTML_SITE_LON: HOMEASSISTANT_LONGITUDE
+
+  ULIMIT_N: 1048576
+  FR24FEED_ULIMIT_N: 1024
 
 panel_icon: mdi:airplane
 panel_title: ADS-B Feeder
@@ -75,6 +78,7 @@ schema:
   FR24FEED_LOGPATH: str?
   FR24FEED_MLAT: str?
   FR24FEED_MLAT_DASH_WITHOUT_DASH_GPS: str?
+  FR24FEED_ULIMIT_N: int?
 
   # ADS-B Exchange
   ADSBEXCHANGE_UUID: str?
@@ -117,3 +121,6 @@ schema:
 
   # Open Weather Map layers
   LAYERS_OWM_API_KEY: str?
+
+  # System
+  ULIMIT_N: int?
