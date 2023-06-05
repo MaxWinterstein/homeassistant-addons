@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.23.0] - 2023-06-05
+
+- Add default value for `ULIMIT_N` and add as configuration option, as the default was removed in the upstream - see [#119](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/issues/119) for more
+- Add new configuration option for `ulimit -n` at FR24Feed `FR24FEED_ULIMIT_N`.
+  Rolled the dice and deceided to start with 1024, very open for better values - see [#151](https://github.com/MaxWinterstein/homeassistant-addons/issues/151) for more
+- Update `thomx/fr24feed-piaware` to `1.23.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.23.0) for more
+
 ## [1.21.0] - 2023-04-27
 
 - Remove my memory fix and update to `1.21.0` which includes it - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.21.0) for more
