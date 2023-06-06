@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.0 -- 06.06.2023
+
+- Add more printer drivers - thx to [Eskander](https://github.com/Eskander)
+
 ## 2.0.3 -- 19.12.2022
 
 - Also build for armv7
