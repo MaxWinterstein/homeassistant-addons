@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
-version: 1.23.0
+version: 1.24.0
 arch:
   - armv7
   - aarch64
@@ -28,6 +28,7 @@ options:
 
   HTML_SITE_LAT: HOMEASSISTANT_LATITUDE
   HTML_SITE_LON: HOMEASSISTANT_LONGITUDE
+  HTML_SITE_ALT: HOMEASSISTANT_ELEVATION
 
   ULIMIT_N: 1048576
   FR24FEED_ULIMIT_N: 1024
@@ -61,6 +62,7 @@ schema:
   SERVICE_ENABLE_IMPORT_OVER_NETCAT: bool?
   SERVICE_ENABLE_ADSBEXCHANGE: bool?
   SERVICE_ENABLE_PLANEFINDER: bool?
+  SERVICE_ENABLE_OPENSKY: bool?
 
   # FlightAware (piaware)
   PIAWARE_FEEDER_DASH_ID: str?
@@ -93,15 +95,24 @@ schema:
   # Plane Finder
   PLANEFINDER_SHARECODE: str?
 
+  # Opensky
+  OPENSKY_USERNAME: str?
+  OPENSKY_SERIAL: str?
+  OPENSKY_DEVICE_TYPE: str?
+  OPENSKY_INPUT_HOST: str?
+  OPENSKY_INPUT_PORT: str?
+
   # Dump1090 & Web UI
   HTML_SITE_LAT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LATITUDE)?
   HTML_SITE_LON: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LONGITUDE)?
+  HTML_SITE_ALT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_ELEVATION)?
   HTML_SITE_NAME: str?
   HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24)?
   HTML_RECEIVER_STATS_PAGE_FLIGHTAWARE: url?
   HTML_RECEIVER_STATS_PAGE_FLIGHTRADAR24: url?
   HTML_RECEIVER_STATS_PAGE_ADSBEXCHANGE: url?
   HTML_RECEIVER_STATS_PAGE_PLANEFINDER: url?
+  HTML_RECEIVER_STATS_PAGE_OPENSKY_NETWORK: url?
   HTML_FR24_FEEDER_STATUS_PAGE: url?
   DUMP1090_ADDITIONAL_ARGS: str?
 

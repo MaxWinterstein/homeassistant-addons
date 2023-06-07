@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.24.0] - 2023-06-07
+
+- Update `thomx/fr24feed-piaware` to `1.24.0` that brings Opensky support - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.24.0) for more
+
 ## [1.23.0] - 2023-06-05
 
 - Add default value for `ULIMIT_N` and add as configuration option, as the default was removed in the upstream - see [#119](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/issues/119) for more
