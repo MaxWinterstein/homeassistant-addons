@@ -6,7 +6,6 @@
   If you have them configured before, you might need to fix your configuration. Sorry.
 - Update `thomx/fr24feed-piaware` to `1.25.0` - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.25.0) for more
 
-
 ## [1.24.0.1] - 2023-06-08
 
 - Add missing HTML_DEFAULT_TRACKER (the typo OpenskyNetowrk is intended) - see [#149](https://github.com/MaxWinterstein/homeassistant-addons/issues/163) for more
