@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
-version: 1.24.0.1
+version: 1.25.0
 arch:
   - armv7
   - aarch64
@@ -30,8 +30,8 @@ options:
   HTML_SITE_LON: HOMEASSISTANT_LONGITUDE
   HTML_SITE_ALT: HOMEASSISTANT_ELEVATION
 
-  ULIMIT_N: 1048576
-  FR24FEED_ULIMIT_N: 1024
+  SYSTEM_HTTP_ULIMIT_N: 1048576
+  SYSTEM_FR24FEED_ULIMIT_N: 1024
 
 panel_icon: mdi:airplane
 panel_title: ADS-B Feeder
@@ -107,7 +107,7 @@ schema:
   HTML_SITE_LON: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LONGITUDE)?
   HTML_SITE_ALT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_ELEVATION)?
   HTML_SITE_NAME: str?
-  HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24|Adsbexchange|Planefinder|OpenskyNetowrk)?
+  HTML_DEFAULT_TRACKER: list(FlightAware|Flightradar24|Adsbexchange|Planefinder|OpenskyNetwork)?
   HTML_RECEIVER_STATS_PAGE_FLIGHTAWARE: url?
   HTML_RECEIVER_STATS_PAGE_FLIGHTRADAR24: url?
   HTML_RECEIVER_STATS_PAGE_ADSBEXCHANGE: url?
@@ -134,4 +134,5 @@ schema:
   LAYERS_OWM_API_KEY: str?
 
   # System
-  ULIMIT_N: int?
+  SYSTEM_HTTP_ULIMIT_N: int?
+  SYSTEM_FR24FEED_ULIMIT_N: int?
