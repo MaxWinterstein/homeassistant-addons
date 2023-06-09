@@ -14,8 +14,6 @@ RUN apt-get update && apt-get install -y curl jq && mkdir /tmp/bashio \
 # add the options.json to environment variable magic
 COPY export-env-from-config.sh /export-env-from-config.sh
 
-ADD root/etc/s6-overlay/s6-rc.d/fr24feed /etc/s6-overlay/s6-rc.d/fr24feed 
-
 RUN find /etc/s6-overlay/s6-rc.d/ -name script | xargs sed -i '1 a\source /export-env-from-config.sh'
 RUN find /etc/s6-overlay/s6-rc.d/ -name run | xargs sed -i '1 a\source /export-env-from-config.sh'
 
