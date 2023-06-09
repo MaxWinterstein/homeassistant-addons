@@ -1,8 +1,10 @@
 #!/bin/sh
 
+ulimit -n 1048576
+
 # Wait until D-Bus is up and the init script has mapped in the external hostname
 until [ -e /var/run/dbus/system_bus_socket ] && [ -e /var/run/avahi_configured ]; do
   sleep 1s
 done
 
-exec avahi-daemon
+avahi-daemon 2>&1 | mawk -W interactive '{printf "%c[34m[avahi]%c[0m %s\n", 27, 27, $0}'

@@ -1,6 +1,6 @@
 ---
 name: CUPS Print Server
-version: "2.1.0"
+version: "2.2.0"
 stage: experimental
 slug: cups
 image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
