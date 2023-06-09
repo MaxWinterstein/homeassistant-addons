@@ -2,7 +2,7 @@
 
 ## 2.2.0 -- 09.06.2023
 
-- Try to fix startup issues with OS 10_ / _Docker v23_ - - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152) for more
+- Try to fix startup issues with OS 10* / \_Docker v23* - - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152) for more
 
 ## 2.1.0 -- 06.06.2023
 
