@@ -1,7 +1,7 @@
 {
   "build_from": {
-    "armv7": "thomx/fr24feed-piaware:1.25.0",
-    "aarch64": "thomx/fr24feed-piaware:1.25.0",
-    "amd64": "thomx/fr24feed-piaware:1.25.0"
+    "armv7": "thomx/fr24feed-piaware:1.26.1",
+    "aarch64": "thomx/fr24feed-piaware:1.26.1",
+    "amd64": "thomx/fr24feed-piaware:1.26.1"
   }
 }
