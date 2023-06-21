@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
-version: 1.25.0
+version: 1.26.1
 arch:
   - armv7
   - aarch64
@@ -63,6 +63,7 @@ schema:
   SERVICE_ENABLE_ADSBEXCHANGE: bool?
   SERVICE_ENABLE_PLANEFINDER: bool?
   SERVICE_ENABLE_OPENSKY: bool?
+  SERVICE_ENABLE_ADSBFI: bool?
 
   # FlightAware (piaware)
   PIAWARE_FEEDER_DASH_ID: str?
@@ -101,6 +102,11 @@ schema:
   OPENSKY_DEVICE_TYPE: str?
   OPENSKY_INPUT_HOST: str?
   OPENSKY_INPUT_PORT: str?
+
+  # adsb.fi
+  ADSBFI_UUID: str?
+  ADSBFI_STATION_NAME: str?
+  ADSBFI_MLAT: bool?
 
   # Dump1090 & Web UI
   HTML_SITE_LAT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LATITUDE)?
