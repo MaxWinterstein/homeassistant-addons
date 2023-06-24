@@ -65,7 +65,7 @@ schema:
   SERVICE_ENABLE_OPENSKY: bool?
   SERVICE_ENABLE_ADSBFI: bool?
   SERVICE_ENABLE_RADARBOX: bool?
-  
+
   # FlightAware (piaware)
   PIAWARE_FEEDER_DASH_ID: str?
   PIAWARE_RECEIVER_DASH_TYPE: str?

@@ -22,7 +22,7 @@ I just added a few sprinkles to make it work with Home Assistant.
 
 ### Automatically added sensors
 
-With version `1.27.0` I integrated the lovely project [adsb-hassio-sensors](https://github.com/plo53/adsb-hassio-sensors/tree/master) from [plo53](https://github.com/plo53). 
+With version `1.27.0` I integrated the lovely project [adsb-hassio-sensors](https://github.com/plo53/adsb-hassio-sensors/tree/master) from [plo53](https://github.com/plo53).
 
 This exposes sensors related to the feeder, e.g. `sensor.adsbfi_icao`, `sensor.adsbfi_mlat`, `sensor.adsbfi_mode_s`, `sensor.adsbfi_status` for the Adsb.fi feeder.
 
