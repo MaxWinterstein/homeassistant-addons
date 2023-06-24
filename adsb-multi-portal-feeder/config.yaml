@@ -64,7 +64,8 @@ schema:
   SERVICE_ENABLE_PLANEFINDER: bool?
   SERVICE_ENABLE_OPENSKY: bool?
   SERVICE_ENABLE_ADSBFI: bool?
-
+  SERVICE_ENABLE_RADARBOX: bool?
+  
   # FlightAware (piaware)
   PIAWARE_FEEDER_DASH_ID: str?
   PIAWARE_RECEIVER_DASH_TYPE: str?
@@ -107,6 +108,12 @@ schema:
   ADSBFI_UUID: str?
   ADSBFI_STATION_NAME: str?
   ADSBFI_MLAT: bool?
+
+  # RadarBox
+  RADARBOX_SHARING_KEY: str?
+  RADARBOX_INPUT_HOST: str?
+  RADARBOX_INPUT_PORT: port?
+  RADARBOX_MLAT: bool?
 
   # Dump1090 & Web UI
   HTML_SITE_LAT: match([+-]?(([1-9][0-9]*)|(0))([.,][0-9]+)?|HOMEASSISTANT_LATITUDE)?
