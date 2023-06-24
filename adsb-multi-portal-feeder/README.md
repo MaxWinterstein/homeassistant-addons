@@ -26,10 +26,10 @@ With version `1.27.0` I integrated the lovely project [adsb-hassio-sensors](http
 
 This exposes sensors related to the feeder, e.g. `sensor.adsbfi_icao`, `sensor.adsbfi_mlat`, `sensor.adsbfi_mode_s`, `sensor.adsbfi_status` for the Adsb.fi feeder.
 
-![Assistant ADS-B sensors](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home Assistant ADS-B sensors.jpg)
-![Assistant adsb.fi stats.jpg](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home Assistant adsb.fi stats.jpg)
+![Assistant ADS-B sensors](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home%20Assistant%20ADS-B%20sensors.jpg)  
+![Assistant adsb.fi stats.jpg](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home%20Assistant%20adsb.fi%20stats.jpg)
 
-Current discussion about that freshly added thing can be found within [#172](https://github.com/MaxWinterstein/homeassistant-addons/issues/172)
+The current discussion about that freshly added thing can be found within [#172](https://github.com/MaxWinterstein/homeassistant-addons/issues/172)
 
 ### Rest Sensors
 
