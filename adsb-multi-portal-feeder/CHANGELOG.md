@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.27.0] - 2023-06-24
+
+- Update `thomx/fr24feed-piaware` to `1.27.0` that brings RadarBox support - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.27.0) for more
+
 ## [1.26.1] - 2023-06-21
 
 - Update `thomx/fr24feed-piaware` to `1.26.1` that brings adsb.fi support - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.26.1) for more
