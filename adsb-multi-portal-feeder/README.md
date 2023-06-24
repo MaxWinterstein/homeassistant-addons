@@ -20,6 +20,19 @@ I just added a few sprinkles to make it work with Home Assistant.
 
 ## Sensors for Home Assistant
 
+### Automatically added sensors
+
+With version `1.27.0` I integrated the lovely project [adsb-hassio-sensors](https://github.com/plo53/adsb-hassio-sensors/tree/master) from [plo53](https://github.com/plo53). 
+
+This exposes sensors related to the feeder, e.g. `sensor.adsbfi_icao`, `sensor.adsbfi_mlat`, `sensor.adsbfi_mode_s`, `sensor.adsbfi_status` for the Adsb.fi feeder.
+
+![Assistant ADS-B sensors](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home Assistant ADS-B sensors.jpg)
+![Assistant adsb.fi stats.jpg](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/Home Assistant adsb.fi stats.jpg)
+
+Current discussion about that freshly added thing can be found within [#172](https://github.com/MaxWinterstein/homeassistant-addons/issues/172)
+
+### Rest Sensors
+
 If you would like some nice statistics you can use a rest sensor with some template magic to show e.g. the number of aircrafts currently tracked:
 
 ![sensor aircraft tracked](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/sensor_aircraft_tracked.png)
