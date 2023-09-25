@@ -24,7 +24,5 @@
       "automerge": true
     }
   ],
-  "ignorePaths": [
-      "/portainer/*"
-  ],
+  "ignorePaths": ["/portainer/*"]
 }
