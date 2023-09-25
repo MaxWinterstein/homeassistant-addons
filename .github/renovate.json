@@ -23,5 +23,8 @@
       "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     }
-  ]
+  ],
+  "ignorePaths": [
+      "/portainer/*"
+  ],
 }
