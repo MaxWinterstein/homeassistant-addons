@@ -1,3 +1,13 @@
+**Cups-dev**
+
+Test version of another try on cups.
+
+Based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint) - thanks for letting me steal it ❤️
+
+---
+
+Original README.md
+
 # homeassistant addon cups airprint
 CUPS addon with working Avahi in reflector mode 
 
