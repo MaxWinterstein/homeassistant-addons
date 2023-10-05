@@ -1,0 +1,21 @@
+name: CUPS
+version: "1.0"
+slug: cupsik
+description: A CUPS print server with working AirPrint
+arch:
+  - amd64
+  - aarch64
+usb: true
+init: false
+homeassistant_api: true
+host_network: true
+ports:
+  631/tcp: 631
+  631/udp: 631
+ports_description:
+  631/tcp: For other devices on the local network to print to this server
+  631/udp: For other devices on the local network to print to this server
+# ingress: false
+map:
+  - config:rw
+

@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bashio
+
+ulimit -n 1048576
+
+bashio::log.info "Starting CUPS server from S6"
+
+until [ -e /var/run/avahi-daemon/socket ]; do
+  sleep 1s
+done
+
+cupsd -f
+
