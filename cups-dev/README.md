@@ -9,7 +9,8 @@ Based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassi
 Original README.md
 
 # homeassistant addon cups airprint
-CUPS addon with working Avahi in reflector mode 
+
+CUPS addon with working Avahi in reflector mode
 
 Tested with Home Assistant version **2023.9**
 
