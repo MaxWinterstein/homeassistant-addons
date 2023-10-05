@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bashio
+
+ulimit -n 1048576
+
+bashio::log.info "Starting Avahi daemon from S6"
+
+until [ -e /run/dbus/system_bus_socket ]; do
+  sleep 1s
+done
+
+avahi-daemon
