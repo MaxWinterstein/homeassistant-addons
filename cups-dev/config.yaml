@@ -1,6 +1,8 @@
 name: CUPS
-version: "1.0"
-slug: cupsik
+version: dev-01
+slug: cups-dev
+url: https://github.com/MaxWinterstein/homeassistant-addons/
+image: ghcr.io/maxwinterstein/homeassistant-addon-cups-dev-{arch}
 description: A CUPS print server with working AirPrint
 arch:
   - amd64
@@ -18,4 +20,4 @@ ports_description:
 # ingress: false
 map:
   - config:rw
-
+stage: experimental
