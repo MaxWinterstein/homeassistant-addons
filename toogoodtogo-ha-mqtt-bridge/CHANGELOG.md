@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.5.1.3] - 2023-10-06
+
+- Update base-image
+
 ## [2.5.1.2] - 2023-01-26
 
 - Update `toogoodtogo-ha-mqtt-bridge` to `2.5.1` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
