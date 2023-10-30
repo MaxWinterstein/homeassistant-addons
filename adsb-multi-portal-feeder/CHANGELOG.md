@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.29.1] - 2023-10-30
+
+- Update `thomx/fr24feed-piaware` to `1.29.1` that brings ADSBHub support - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.28.0) for more
+
 ## [1.27.2.1] - 2023-07-17
 
 - Update [adsb-hassio-sensors](https://github.com/plo53/adsb-hassio-sensors) to `1.1.2-1` that brings more aircraft sensors - see INFO and [their repo](https://github.com/plo53/adsb-hassio-sensors) for more
