@@ -1,6 +1,5 @@
 {
   "build_from": {
-    "armv7": "ghcr.io/home-assistant/armv7-base-debian:bullseye",
     "aarch64": "ghcr.io/home-assistant/aarch64-base-debian:bullseye",
     "amd64": "ghcr.io/home-assistant/amd64-base-debian:bullseye"
   }

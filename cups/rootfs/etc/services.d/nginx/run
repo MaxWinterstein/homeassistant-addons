@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ulimit -n 1048576
-
-nginx -g "daemon off;" 2>&1 | mawk -W interactive '{printf "%c[35m[nginx]%c[0m %s\n", 27, 27, $0}'

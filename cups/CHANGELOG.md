@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.0 -- 16.11.2023
+
+- Rewrite based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint) - thanks for letting me steal it ❤️
+
 ## 2.2.0 -- 09.06.2023
 
 - Try to fix startup issues with OS 10* / \_Docker v23* - - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152) for more

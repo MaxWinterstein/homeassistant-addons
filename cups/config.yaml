@@ -1,19 +1,16 @@
----
-name: CUPS Print Server
-version: "2.2.0"
-stage: experimental
-slug: cups
-image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
-description: A CUPS print server with Avahi installed
+name: CUPS
+version: 3.0.0
 url: https://github.com/MaxWinterstein/homeassistant-addons/
+image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
+slug: cups
+description: A CUPS print server with working AirPrint
 arch:
   - amd64
-  - armv7
   - aarch64
 usb: true
 init: false
 homeassistant_api: true
-# host_network: true
+host_network: true
 ports:
   631/tcp: 631
   631/udp: 631
@@ -22,15 +19,6 @@ ports_description:
   631/udp: For other devices on the local network to print to this server
 # ingress: false
 map:
-  - ssl
-options:
-  ssl: true
-  certfile: fullchain.pem
-  keyfile: privkey.pem
-  require_ssl: true
-schema:
-  ssl: bool
-  cafile: str?
-  certfile: str
-  keyfile: str
-  require_ssl: bool
+  - config:rw
+stage: experimental
+

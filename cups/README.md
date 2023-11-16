@@ -1,12 +1,16 @@
-# Home Assistant Add-on: CUPS Printer server
+**Based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint) - thanks for letting me steal it ❤️**
 
-<a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com'></a>
+---
 
-## Credits
+Original README.md
 
-This Add-On is based on the work of https://github.com/Luk164/addon-repository - and just slighty adjusted to make it work. Thanks <3
+# homeassistant addon cups airprint
+CUPS addon with working Avahi in reflector mode 
 
-## Known Issues 🚨
+Tested with Home Assistant version **2023.9**
 
-- mDNS is not working, therefore e.g. printeres are not announced via Avahi / Bonjour - see [#128](https://github.com/MaxWinterstein/homeassistant-addons/issues/128)
-- Ingress is not working, so I disabled it for now. Please access the Webinterface via port 631, e.g. https://192.168.1.2:631 - see [#129](https://github.com/MaxWinterstein/homeassistant-addons/issues/129)
+CUPS administrator login: **print**, password: **print** (can be changed in the Dockerfile)
+
+Configuration data is stored in **/data/cups** folder
+
+[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fzajac-grzegorz%2Fhomeassistant-addon-cups-airprint)
