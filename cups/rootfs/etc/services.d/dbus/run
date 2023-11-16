@@ -1,5 +1,0 @@
-#!/bin/sh
-
-ulimit -n 1048576
-
-dbus-daemon --system --nofork 2>&1 | mawk -W interactive '{printf "%c[31m[dbus]%c[0m %s\n", 27, 27, $0}'
