@@ -2,6 +2,10 @@
 
 ## 3.0.0 -- 16.11.2023
 
+- Adding support for `armhf`
+
+## 3.0.0 -- 16.11.2023
+
 - Rewrite based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint) - thanks for letting me steal it ❤️
 
 ## 2.2.0 -- 09.06.2023

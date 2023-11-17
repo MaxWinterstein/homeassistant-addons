@@ -1,10 +1,11 @@
 name: CUPS
-version: 3.0.0
+version: 3.0.1
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
 slug: cups
 description: A CUPS print server with working AirPrint
 arch:
+  - armhf
   - amd64
   - aarch64
 usb: true
