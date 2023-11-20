@@ -29,6 +29,7 @@ RUN apt-get update \
         samba \
         bash-completion \
         procps \
+        whois \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
