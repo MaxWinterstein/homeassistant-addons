@@ -6,8 +6,6 @@ LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN mkpasswd test123
-
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         sudo \
