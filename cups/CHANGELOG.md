@@ -1,6 +1,10 @@
 # Changelog
 
-## 3.0.0 -- 16.11.2023
+## 3.0.2 -- 20.11.2023
+
+- Fix missing password for user `print`
+
+## 3.0.1 -- 16.11.2023
 
 - Adding support for `armhf`
 

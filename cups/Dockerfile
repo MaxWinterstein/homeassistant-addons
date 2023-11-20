@@ -6,6 +6,8 @@ LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+RUN mkpasswd test123
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         sudo \
@@ -29,6 +31,7 @@ RUN apt-get update \
         samba \
         bash-completion \
         procps \
+        whois \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
