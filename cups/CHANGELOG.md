@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3 -- 23.11.2023
+
+- Add more printer drivers - thx to [Eskander](https://github.com/Eskander)
+
 ## 3.0.2 -- 20.11.2023
 
 - Fix missing password for user `print`
