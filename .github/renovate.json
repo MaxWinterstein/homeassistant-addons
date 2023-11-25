@@ -4,7 +4,6 @@
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
   "labels": ["dependencies", "no-stale"],
-  "commitMessagePrefix": "⬆️",
   "commitMessageTopic": "{{depName}}",
   "regexManagers": [
     {
