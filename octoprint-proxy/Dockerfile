@@ -1,11 +1,15 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:13.0.0
 FROM $BUILD_FROM
 
-ENV LANG C.UTF-8
+ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
+ENV S6_KEEP_ENV=1
 
-RUN apk add haproxy
+RUN apk add nginx inotify-tools
 
-COPY run.sh haproxy.cfg /
+RUN rm /etc/nginx/http.d/default.conf
 
-RUN chmod a+x /run.sh
-CMD [ "/run.sh" ]
+COPY root /
+
+RUN ln -s /octoprint /config
+
+# RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
