@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.blue "Starting reloader..."
+
+set -x
+# set +e
+
+while true
+do
+ MYWAIT=$(inotifywait -e modify /config/nginx.conf)
+ bashio::log.blue "$(date '+%Y-%m-%d %H:%M:%S') $MYWAIT"
+ nginx -t
+ if [ $? -eq 0 ]
+ then
+  bashio::log.blue "Detected Nginx Configuration Change"
+  bashio::log.blue "Executing: nginx -s reload"
+  nginx -s reload
+ else
+bashio::log.blue "wtf?"
+
+ fi
+done

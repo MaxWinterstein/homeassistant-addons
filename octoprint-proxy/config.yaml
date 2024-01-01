@@ -1,11 +1,12 @@
-name: OctoPrint Proxy
-version: 1.0.2
+name: OctoPrint Proxy (NOT WORKING)
+version: 1.0.3
 slug: octoprint_proxy
 description: Access OctoPrint from within Home Assistant
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-addon-octoprint-proxy-{arch}
 ingress: true
-ingress_port: 80
+ingress_port: 8055
+ingress_entry: login
 panel_title: OctoPrint
 panel_icon: mdi:printer-3d-nozzle
 arch:
@@ -13,15 +14,7 @@ arch:
   - aarch64
   - amd64
 init: false
-options:
-  octoprint_host: octopi
-  octoprint_port: "443"
-  ssl:
-    enabled: true
-    verify: false
-schema:
-  octoprint_host: str
-  octoprint_port: port
-  ssl:
-    enabled: bool
-    verify: bool
+map:
+  - addon_config:rw
+ports:
+  8055/tcp: 8055

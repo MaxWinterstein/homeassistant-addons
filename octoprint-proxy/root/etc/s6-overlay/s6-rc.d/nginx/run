@@ -1,0 +1,23 @@
+#!/usr/bin/with-contenv bashio
+
+bashio::log.green 'starting nginx'
+
+test -f /config/nginx.conf || cat <<EOF > /config/nginx.conf
+server {
+    listen 8080;
+
+    server_name your_domain www.your_domain;
+        
+    location / {
+        proxy_pass app_server_address;
+        include proxy_params;
+    }
+}
+EOF
+
+test -f /etc/nginx/http.d/proxy.conf || ln -s /config/nginx.conf /etc/nginx/http.d/proxy.conf 
+
+nginx -t
+nginx
+echo sleep
+sleep 999
