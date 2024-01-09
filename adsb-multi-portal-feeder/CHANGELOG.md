@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.30.0] - 2023-10-30
+
+- Update `thomx/fr24feed-piaware` to `1.30.0` see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.30.0) for more
+
 ## [1.29.1] - 2023-10-30
 
 - Update `thomx/fr24feed-piaware` to `1.29.1` that brings ADSBHub support - see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.28.0) for more
