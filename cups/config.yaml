@@ -8,6 +8,7 @@ arch:
   - armhf
   - amd64
   - aarch64
+  - armv7
 usb: true
 init: false
 homeassistant_api: true
