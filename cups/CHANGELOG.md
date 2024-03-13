@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.3.1 -- 11.03.2024
+
+- Add `armv7` support - see [#243](https://github.com/MaxWinterstein/homeassistant-addons/issues/243)
+
 ## 3.0.3 -- 23.11.2023
 
 - Add more printer drivers - thx to [Eskander](https://github.com/Eskander)
