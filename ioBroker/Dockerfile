@@ -1,4 +1,4 @@
-ARG BUILD_FROM=buanet/iobroker:v5.1.0
+ARG BUILD_FROM=buanet/iobroker:v9.1.2
 FROM ${BUILD_FROM}
 
 # copy over the patched iobroker_startup.sh
