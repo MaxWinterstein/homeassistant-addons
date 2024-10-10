@@ -1,6 +1,9 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# Set the Angry IP Scanner version as a variable
+ARG IP_SCAN_VERSION=3.8.2
+
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -20,11 +23,14 @@ RUN \
         wmii \
         xfonts-base \
         xfonts-scalable \
-        openjdk-11-jre libswt-cairo-gtk-4-jni libswt-gtk-4-java\
+        openjdk-11-jre \
+        libswt-cairo-gtk-4-jni \
+        libswt-gtk-4-java \
     && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/angryip/ipscan/releases/download/3.8.2/ipscan_3.8.2_all.deb && \
-        dpkg -i ipscan_3.8.2_all.deb
+# Download and install Angry IP Scanner
+RUN wget https://github.com/angryip/ipscan/releases/download/${IP_SCAN_VERSION}/ipscan_${IP_SCAN_VERSION}_all.deb && \
+        dpkg -i ipscan_${IP_SCAN_VERSION}_all.deb
 
 COPY rootfs /
 
