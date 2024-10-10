@@ -2,6 +2,7 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Set the Angry IP Scanner version as a variable
+# renovate: datasource=github-releases depName=angryip/ipscan versioning=semver
 ARG IP_SCAN_VERSION=3.8.2
 
 # Set shell
