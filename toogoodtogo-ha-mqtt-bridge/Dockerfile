@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base-python/amd64:11.0.6
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-python/amd64:14.0.4
 FROM ${BUILD_FROM}
 
 # add source and unpack
