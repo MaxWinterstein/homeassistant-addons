@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.1.0
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:7.5.1
 FROM $BUILD_FROM
 
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
