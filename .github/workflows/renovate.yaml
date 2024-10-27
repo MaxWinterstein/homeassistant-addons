@@ -23,4 +23,4 @@ jobs:
           configurationFile: .github/renovate.json5
         env:
           RENOVATE_REPOSITORIES: "['${{ github.repository }}']"
-          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS": "['.*']"
+          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS": ".*"
