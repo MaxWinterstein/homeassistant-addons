@@ -169,6 +169,8 @@ jobs:
       - name: Push changes
         if: startsWith(github.event.comment.body, '/release')
         uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          token: ${{ secrets.RENOVATE_ACTION }}
 
       ## Common
 
