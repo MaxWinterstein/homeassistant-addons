@@ -1,0 +1,60 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'mergeConfidence:all-badges',
+    'config:recommended',
+    'config:js-app',
+    ':disableDigestUpdates',
+    ':prHourlyLimitNone',
+    ':prConcurrentLimitNone',
+    ':automergeLinters',
+    ':automergeTesters',
+    ':automergeTypes',
+    'customManagers:dockerfileVersions',
+  ],
+  rebaseWhen: 'behind-base-branch',
+  dependencyDashboard: true,
+  dependencyDashboardAutoclose: true,
+  labels: [
+    'dependencies',
+    'no-stale',
+  ],
+  commitMessageTopic: '{{depName}}',
+  customManagers: [
+    {
+      customType: 'regex',
+      fileMatch: [
+        '/Dockerfile$',
+        '/build.yaml$',
+      ],
+      matchStringsStrategy: 'any',
+      matchStrings: [
+        'ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+',
+        '(aarch64|amd64|armhf|armv7|i386):\\s["\']?(?<depName>.*?):(?<currentValue>.*?)["\']?\\s',
+      ],
+      datasourceTemplate: 'docker',
+    },
+  ],
+  packageRules: [
+    {
+      matchManagers: [
+        'github-actions',
+      ],
+      matchUpdateTypes: [
+        'minor',
+        'patch',
+      ],
+      automerge: true,
+    },
+  ],
+  ignorePaths: [
+    'portainer/*',
+  ],
+  commitMessagePrefix: '[{{packageFileDir}}]',
+  postUpgradeTasks: {
+    commands: [
+      'test -f  {{{parentDir}}}/CHANGELOG.md && mkdir -p {{{parentDir}}}/changelog.d/ && CHANGE="{{{depName}}} from {{{currentVersion}}} to {{{newVersion}}}" echo "Update {{{depName}}} from {{{currentVersion}}} to {{{newVersion}}}" > {{{parentDir}}}/changelog.d/+$(echo "$CHANGE" | md5sum | awk \'{ print $1 }\').changed.md || echo \'No changelog file found, skipping...\'',
+    ],
+    executionMode: 'update',
+  },
+}
