@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [1.2.0] - 2024-10-27
+
+### Changed
+
+- Update angryip/ipscan from 3.8.2 to 3.9.1
+
+
 ## [1.1.3] - 2022-12-07
 ### Internal
 - Build image also for ARMv7
