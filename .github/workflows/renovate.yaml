@@ -1,0 +1,26 @@
+name: Run renovate
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    if: github.event_name == 'schedule' || github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v40.3.4
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: .github/renovate.json5
+        env:
+          RENOVATE_REPOSITORIES: "['${{ github.repository }}']"
+          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS": "['.*']"

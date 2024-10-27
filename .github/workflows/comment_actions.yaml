@@ -1,0 +1,180 @@
+name: "Custom / Actions"
+
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  custom_actions:
+    if: github.event_name == 'issue_comment' && 
+        (startsWith(github.event.comment.body, '/release') || 
+         startsWith(github.event.comment.body, '/renovate')) && 
+        github.event.comment.user.login == 'MaxWinterstein'
+    runs-on: ubuntu-latest
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+
+    steps:
+
+      ## Commons
+
+      - name: Update comment with workflow URL
+        run: |
+          # Get the current workflow run URL
+          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # Build the new comment content
+          UPDATED_COMMENT="[Workflow run triggered! 🚀](${RUN_URL})"
+
+          # Use curl to update the comment
+          curl -X PATCH \
+            -H "Authorization: Bearer ${{ secrets.RENOVATE_ACTION }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }} \
+            -d "{\"body\": \"${UPDATED_COMMENT}\"}"
+              
+          # Add rocket reaction
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.RENOVATE_ACTION }}" \
+            -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
+            -d '{"content": "rocket"}' \
+            https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
+
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      ## Renovate
+
+      - name: Self-hosted Renovate
+        if: startsWith(github.event.comment.body, '/renovate')
+        uses: renovatebot/github-action@v40.3.4
+        with:
+          token: ${{ secrets.RENOVATE_TOKEN }}
+          configurationFile: .github/renovate.json5
+        env:
+          RENOVATE_REPOSITORIES: "['${{ github.repository }}']"
+          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: '[".*"]'
+
+    # if: github.event_name == 'issue_comment' && ( 
+    #       startsWith(github.event.comment.body, '/release')
+
+      ## Version bump
+
+      - name: Get the pull request details - if there is one
+        if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/release')
+        id: pr-details
+        run: |
+          PR_NUMBER=${{ github.event.issue.number }}
+          # Fetch PR details using GitHub API
+          PR_DATA=$(gh pr view $PR_NUMBER --json headRefName,title --jq '{branchName: .headRefName, title: .title}')
+          BRANCH_NAME=$(echo $PR_DATA | jq -r .branchName)
+          TITLE=$(echo $PR_DATA | jq -r .title)
+          echo "Branch name: $BRANCH_NAME"
+          echo "Title: $TITLE"
+          echo "::set-output name=branch_name::$BRANCH_NAME"
+          echo "::set-output name=title::$TITLE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get mentioned Addon
+        if: startsWith(github.event.comment.body, '/release')
+        id: get_addon
+        run: |
+          comment_body="${{ github.event.comment.body }}"
+          PR_TITLE="${{ steps.pr-details.outputs.title }}"
+          ADDON=''
+
+          # Check if the PR title has an add-on mentioned
+          if [[ "$PR_TITLE" =~ \[([a-zA-Z0-9_-]+)\] ]]; then
+            ADDON="${BASH_REMATCH[1]}"
+            echo "Mentioned Addon from PR Title: $ADDON"
+          elif [[ "$comment_body" =~ /release[[:space:]]([a-zA-Z0-9_-]+) ]]; then
+            ADDON="${BASH_REMATCH[1]}"
+            echo "Mentioned Addon from Comment Body: $ADDON"
+          else
+            echo "No valid add-on found"
+            exit 1
+          fi
+          echo "::set-output name=addon::$ADDON"
+
+
+      - name: Checkout the pull request branch
+        if: startsWith(github.event.comment.body, '/release')
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.pr-details.outputs.branch_name }}
+            
+      - name: Extract version from config.yaml
+        if: startsWith(github.event.comment.body, '/release')
+        id: get_version
+        uses: mikefarah/yq@v4.44.3  
+        with:
+          cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
+
+      - name: Increment version
+        if: startsWith(github.event.comment.body, '/release')
+        id: increment_version
+        run: |
+          # Read current version and split it into major, minor, patch, and optionally build components
+          IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
+          
+          # Increment the MINOR version
+          MINOR=$((MINOR + 1))
+          # BUILD=0  # Reset build number when MINOR is incremented
+          PATCH=0  # Reset patch number when MINOR is incremented
+
+          # Construct the new version
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          
+          # Append build if it exists
+          if [[ -n $BUILD ]]; then
+              NEW_VERSION="$NEW_VERSION.0"
+          fi
+          
+          # Print the updated version for logging purposes
+          echo "Bumped version to $NEW_VERSION"
+          echo "::set-output name=new_version::$NEW_VERSION"
+
+      - name: Bump version in config.yaml
+        if: startsWith(github.event.comment.body, '/release')
+        uses: mikefarah/yq@v4.44.3  
+        with:
+          cmd: yq -i '.version = "${{ steps.increment_version.outputs.new_version }}"' ${{ steps.get_addon.outputs.addon }}/config.yaml
+
+      - name: Install uv
+        if: startsWith(github.event.comment.body, '/release')
+        uses: astral-sh/setup-uv@v3
+        with:
+          # Install a specific version of uv.
+          version: "0.4.20"
+
+      - name: Set up Python
+        if: startsWith(github.event.comment.body, '/release')
+        run: uv python install
+
+      - name: Install the project
+        if: startsWith(github.event.comment.body, '/release')
+        run: uv sync --all-extras --dev
+
+      - name: Build towncrier
+        if: startsWith(github.event.comment.body, '/release')
+        run: |
+          #  mv "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" CHANGELOG.md 
+          uv run towncrier build --yes --dir "${{ steps.get_addon.outputs.addon }}/" --version "${{ steps.increment_version.outputs.new_version }}" --config pyproject.toml
+          # mv CHANGELOG.md "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" 
+
+      - name: Push changes
+        if: startsWith(github.event.comment.body, '/release')
+        uses: stefanzweifel/git-auto-commit-action@v5
+
+      ## Common
+
+      - name: Delete the comment
+        run: |
+          curl -X DELETE \
+          -H "Authorization: token ${{ secrets.RENOVATE_ACTION }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}
