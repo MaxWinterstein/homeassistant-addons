@@ -1,5 +1,7 @@
 # Changelog
 
+<!-- towncrier release notes start -->
+
 ## [1.32.1] - 2024-04-18
 
 - Update `thomx/fr24feed-piaware` to `1.32.1` see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/1.32.1) for more

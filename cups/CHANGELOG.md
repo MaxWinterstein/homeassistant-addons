@@ -1,48 +1,50 @@
 # Changelog
 
-## 3.0.3.1 -- 11.03.2024
+<!-- towncrier release notes start -->
 
-- Add `armv7` support - see [#243](https://github.com/MaxWinterstein/homeassistant-addons/issues/243)
+## [3.0.3.1] - 2024-03-11
+### Added
+- Support for `armv7` - see [#243](https://github.com/MaxWinterstein/homeassistant-addons/issues/243)
 
-## 3.0.3 -- 23.11.2023
+## [3.0.3] - 2023-11-23
+### Added
+- Additional printer drivers, thanks to [Eskander](https://github.com/Eskander)
 
-- Add more printer drivers - thx to [Eskander](https://github.com/Eskander)
+## [3.0.2] - 2023-11-20
+### Fixed
+- Missing password for user `print`
 
-## 3.0.2 -- 20.11.2023
+## [3.0.1] - 2023-11-16
+### Added
+- Support for `armhf`
 
-- Fix missing password for user `print`
+## [3.0.0] - 2023-11-16
+### Changed
+- Complete rewrite based on [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint)'s work - thank you ❤️
 
-## 3.0.1 -- 16.11.2023
+## [2.2.0] - 2023-06-09
+### Fixed
+- Startup issues with OS 10* / Docker v23* - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152)
 
-- Adding support for `armhf`
+## [2.1.0] - 2023-06-06
+### Added
+- Additional printer drivers, thanks to [Eskander](https://github.com/Eskander)
 
-## 3.0.0 -- 16.11.2023
+## [2.0.3] - 2022-12-19
+### Internal
+- Build also for armv7
 
-- Rewrite based on the work of [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint) - thanks for letting me steal it ❤️
+## [2.0.2] - 2022-12-18
+### Fixed
+- Permission error
 
-## 2.2.0 -- 09.06.2023
+## [2.0.1] - 2022-12-18
+### Fixed
+- Permission error
 
-- Try to fix startup issues with OS 10* / \_Docker v23* - - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152) for more
-
-## 2.1.0 -- 06.06.2023
-
-- Add more printer drivers - thx to [Eskander](https://github.com/Eskander)
-
-## 2.0.3 -- 19.12.2022
-
-- Also build for armv7
-
-## 2.0.2 -- 18.12.2022
-
-- Fix permisson error
-
-## 2.0.1 -- 18.12.2022
-
-- Fix permisson error
-
-## 2.0.0 -- 18.12.2022
-
-- Changed `init` to `false` to make it at least starting.
+## [2.0.0] - 2022-12-18
+### Changed
+- Set `init` to `false` for startup
 
 ---
 
