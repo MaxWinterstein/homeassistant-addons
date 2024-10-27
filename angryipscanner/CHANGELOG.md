@@ -1,25 +1,25 @@
 # Changelog
 
-## 1.1.3 // 07.12.2022
+<!-- towncrier release notes start -->
 
-- Internal: Build image also for ARMv7
+## [1.1.3] - 2022-12-07
+### Internal
+- Build image also for ARMv7
 
-## 1.1.2 // 01.12.2022
+## [1.1.2] - 2022-12-01
+### Fixed
+- Permission error - part 3
 
-- Fix permission error - part 3
+## [1.1.1] - 2022-12-01
+### Fixed
+- Permission error - part 2
 
-## 1.1.1 // 01.12.2022
+## [1.1.0] - 2022-11-29
+### Fixed
+- Permission error
 
-- Fix permission error - part 2
+## [1.0.0] - 2022-11-28
+### Changed
+- Switch to GitHub Container Registry (ghcr)
 
-## 1.1.0 // 29.11.2022
-
-- Fix permission error
-
-## 1.0.0 // 28.11.2022
-
-- Change to ghcr
-
-## 0.1.0
-
-- Initial release
+## [0.1.0] - Initial Release
