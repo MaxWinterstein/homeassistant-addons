@@ -6,7 +6,7 @@
 
 ### Changed
 
-- Update angryip/ipscan from 3.8.2 to 3.9.1
+- Update angryip/ipscan from 3.8.2 to 3.9.1x
 
 
 ## [1.1.3] - 2022-12-07
