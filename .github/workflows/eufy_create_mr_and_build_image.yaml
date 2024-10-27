@@ -15,7 +15,7 @@ jobs:
       - run: cd eufy-ha-mqtt-bridge && ./version-updater.sh
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: Update eufy-mqtt-ha-bridge to version ${{ env.MQTT_BRIDGE_VERSION }}
           commit-message: Update eufy-mqtt-ha-bridge to version ${{ env.MQTT_BRIDGE_VERSION }}
