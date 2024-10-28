@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [2.6.0.0] - 2024-10-28
+
+### Changed
+
+- Update ghcr.io/hassio-addons/base-python/amd64 from 11.0.6 to 15.0.1
+
+
 ## [2.5.1.3] - 2023-10-06
 
 - Update base-image
