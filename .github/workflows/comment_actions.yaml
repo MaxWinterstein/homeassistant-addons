@@ -50,7 +50,7 @@ jobs:
 
       - name: Self-hosted Renovate
         if: startsWith(github.event.comment.body, '/renovate')
-        uses: renovatebot/github-action@v40.3.4
+        uses: renovatebot/github-action@v40.3.5
         with:
           token: ${{ secrets.RENOVATE_TOKEN }}
           configurationFile: .github/renovate.json5
