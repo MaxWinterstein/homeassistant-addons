@@ -110,7 +110,7 @@ jobs:
       - name: Extract version from config.yaml
         if: startsWith(github.event.comment.body, '/release')
         id: get_version
-        uses: mikefarah/yq@v4.44.3  
+        uses: mikefarah/yq@v4.44.5  
         with:
           cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
@@ -140,7 +140,7 @@ jobs:
 
       - name: Bump version in config.yaml
         if: startsWith(github.event.comment.body, '/release')
-        uses: mikefarah/yq@v4.44.3  
+        uses: mikefarah/yq@v4.44.5  
         with:
           cmd: yq -i '.version = "${{ steps.increment_version.outputs.new_version }}"' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
