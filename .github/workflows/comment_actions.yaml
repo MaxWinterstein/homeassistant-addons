@@ -146,7 +146,7 @@ jobs:
 
       - name: Install uv
         if: startsWith(github.event.comment.body, '/release')
-        uses: astral-sh/setup-uv@v3
+        uses: astral-sh/setup-uv@v4
         with:
           # Install a specific version of uv.
           version: "0.4.20"
