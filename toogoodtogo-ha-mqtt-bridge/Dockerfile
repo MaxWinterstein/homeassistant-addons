@@ -3,8 +3,8 @@ FROM ${BUILD_FROM}
 
 # add source and unpack
 # renovate: datasource=github-releases depName=toogoodtogo-ha-mqtt-bridge packageName=MaxWinterstein/toogoodtogo-ha-mqtt-bridge
-ARG TOOGOODTOGO_VERSION=v2.5.1
-ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/refs/tags/${TOOGOODTOGO_VERSION}.tar.gz" /src.tar.gz
+ARG TOOGOODTOGO_VERSION=2.5.1
+ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/refs/tags/v${TOOGOODTOGO_VERSION}.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install
