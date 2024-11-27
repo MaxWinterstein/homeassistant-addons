@@ -2,7 +2,9 @@ ARG BUILD_FROM=ghcr.io/hassio-addons/base-python/amd64:11.0.6
 FROM ${BUILD_FROM}
 
 # add source and unpack
-ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/refs/tags/v2.5.1.tar.gz" /src.tar.gz
+# renovate: datasource=github-releases depName=toogoodtogo-ha-mqtt-bridge packageName=MaxWinterstein/toogoodtogo-ha-mqtt-bridge
+ARG TOOGOODTOGO_VERSION=2.5.1
+ADD "https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/archive/refs/tags/v${TOOGOODTOGO_VERSION}.tar.gz" /src.tar.gz
 RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install
