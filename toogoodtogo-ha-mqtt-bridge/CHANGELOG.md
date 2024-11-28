@@ -2,6 +2,11 @@
 
 <!-- towncrier release notes start -->
 
+## [3.0.0.0] - 2024-11-28
+
+- Update `toogoodtogo-ha-mqtt-bridge` to `3.0.0` (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
+
+
 ## [2.5.1.3] - 2023-10-06
 
 - Update base-image
