@@ -1,0 +1,41 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: "3"
+
+tasks:
+  # check*
+  check:lint:
+    desc: "🔍 Linting code: Running pre-commit"
+    cmd: pre-commit run -a
+
+  check:
+    desc: "🔍 Run all checks"
+    cmds:
+      - task: check:lint
+
+  ## build:docker:*
+  build:docker:arm64:
+    desc: "🏗️ Build docker image for linux/arm64"
+    cmds:
+      - pwd && docker buildx build --platform "linux/arm64"  -t test:localdev-arm64 .
+    dir: '{{.USER_WORKING_DIR}}'
+
+  build:docker:amd64:
+    desc: "🏗️ Build docker image for linux/amd64"
+    cmds:
+      - docker buildx build --platform "linux/amd64" -t test:localdev-amd64 .
+    dir: '{{.USER_WORKING_DIR}}'
+
+  build:docker:arm7:
+    desc: "🏗️ Build docker image for linux/arm/v7"
+    cmds:
+      - docker buildx build --platform "linux/arm/v7" -t test:localdev-arm7 .
+    dir: '{{.USER_WORKING_DIR}}'
+
+  build:
+    desc: 🏗️ Build for all archs
+    cmds:
+      - pwd
+      - task: build:docker:arm64
+      - task: build:docker:amd64
+      - task: build:docker:arm7
+
