@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base:13.0.0
+ARG BUILD_FROM=ghcr.io/hassio-addons/base:17.1.0
 FROM $BUILD_FROM
 
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
