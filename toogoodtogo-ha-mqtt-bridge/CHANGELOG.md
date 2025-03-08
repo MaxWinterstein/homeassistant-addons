@@ -6,7 +6,7 @@
 
 ### Changed
 
-- Update toogoodtogo-ha-mqtt-bridge from v3.0.0 to v3.1.0
+- Update toogoodtogo-ha-mqtt-bridge from v3.0.0 to v3.1.0 (see [release notes](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/releases))
 
 
 ## [3.0.0.0] - 2024-11-28
