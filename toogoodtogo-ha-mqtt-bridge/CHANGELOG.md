@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [3.2.0.0] - 2025-04-29
+
+### Changed
+
+- Update toogoodtogo-ha-mqtt-bridge from v3.1.0 to v3.2.0
+
+
 ## [3.1.0.0] - 2025-03-08
 
 ### Changed
