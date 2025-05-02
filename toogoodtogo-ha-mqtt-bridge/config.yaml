@@ -1,6 +1,6 @@
 ---
 name: TooGoodToGo Home Assistant MQTT Bridge
-version: 3.3.0.0
+version: 3.2.1.0
 image: ghcr.io/maxwinterstein/homeassistant-addon-toogoodtogo-ha-mqtt-bridge-{arch}
 slug: tgtg-ha-mqtt-bridge
 description: Publish TooGoodToGo stock as MQTT messages

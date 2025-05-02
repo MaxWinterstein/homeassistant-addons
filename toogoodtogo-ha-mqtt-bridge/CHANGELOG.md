@@ -2,11 +2,10 @@
 
 <!-- towncrier release notes start -->
 
-## [3.3.0.0] - 2025-05-02
+## [3.2.1.0] - 2025-05-02
 
 ### Changed
 
-- Updated uv to v0.7.2 ([#339](https://github.com/MaxWinterstein/homeassistant-addons/issues/339))
 - Updated toogoodtogo-ha-mqtt-bridge to v3.2.1 ([#344](https://github.com/MaxWinterstein/homeassistant-addons/issues/344))
 
 
