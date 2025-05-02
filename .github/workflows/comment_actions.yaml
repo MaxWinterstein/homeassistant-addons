@@ -7,84 +7,40 @@ jobs:
   custom_actions:
     if: github.event_name == 'issue_comment' && 
         (startsWith(github.event.comment.body, '/release') || 
-         startsWith(github.event.comment.body, '/renovate')) && 
+         startsWith(github.event.comment.body, '/foo')) && 
         github.event.comment.user.login == 'MaxWinterstein'
     runs-on: ubuntu-latest
 
-    permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
-      contents: write
-
     steps:
-
-      ## Commons
-
-      - name: Update comment with workflow URL
-        run: |
-          # Get the current workflow run URL
-          RUN_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-
-          # Build the new comment content
-          UPDATED_COMMENT="[Workflow run triggered! 🚀](${RUN_URL})"
-
-          # Use curl to update the comment
-          curl -X PATCH \
-            -H "Authorization: Bearer ${{ secrets.RENOVATE_ACTION }}" \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }} \
-            -d "{\"body\": \"${UPDATED_COMMENT}\"}"
-              
-          # Add rocket reaction
-          curl -X POST \
-            -H "Authorization: token ${{ secrets.RENOVATE_ACTION }}" \
-            -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
-            -d '{"content": "rocket"}' \
-            https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions
-
+      - name: Add 👍 reaction to the comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const commentId = context.payload.comment.id;
+            
+            // Add a thumbs-up reaction to the comment
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: commentId,
+              content: "rocket"
+            });
+          github-token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Checkout code
         uses: actions/checkout@v4
-
-      ## Renovate
-
-      - name: Self-hosted Renovate
-        if: startsWith(github.event.comment.body, '/renovate')
-        uses: renovatebot/github-action@v41.0.22
         with:
-          token: ${{ secrets.RENOVATE_TOKEN }}
-          configurationFile: .github/renovate.json5
-        env:
-          RENOVATE_REPOSITORIES: "['${{ github.repository }}']"
-          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: ".*"
-
-    # if: github.event_name == 'issue_comment' && ( 
-    #       startsWith(github.event.comment.body, '/release')
-
-      ## Version bump
-
-      - name: Get the pull request details - if there is one
-        if: github.event.issue.pull_request && startsWith(github.event.comment.body, '/release')
-        id: pr-details
-        run: |
-          PR_NUMBER=${{ github.event.issue.number }}
-          # Fetch PR details using GitHub API
-          PR_DATA=$(gh pr view $PR_NUMBER --json headRefName,title --jq '{branchName: .headRefName, title: .title}')
-          BRANCH_NAME=$(echo $PR_DATA | jq -r .branchName)
-          TITLE=$(echo $PR_DATA | jq -r .title)
-          echo "Branch name: $BRANCH_NAME"
-          echo "Title: $TITLE"
-          echo "::set-output name=branch_name::$BRANCH_NAME"
-          echo "::set-output name=title::$TITLE"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Get mentioned Addon
         if: startsWith(github.event.comment.body, '/release')
         id: get_addon
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
+
           comment_body="${{ github.event.comment.body }}"
-          PR_TITLE="${{ steps.pr-details.outputs.title }}"
+          PR_TITLE='${{ github.event.issue.title }}'
           ADDON=''
 
           # Check if the PR title has an add-on mentioned
@@ -101,12 +57,41 @@ jobs:
           echo "::set-output name=addon::$ADDON"
 
 
+          echo "Extracting JSON from PR body..."
+
+          # Read the first line from the PR body file
+          FIRST_LINE=$(printf "%s\n" "$ISSUE_BODY" | head -n 1)
+
+          echo "Found JSON line:"
+          echo "$FIRST_LINE"
+
+          # Save to a file for jq parsing
+          echo "$FIRST_LINE" > data.json
+
+          # Parse values using jq
+          BRANCH_NAME=$(jq -r '.prProperties.branchName' data.json)
+          DEP_NAME=$(jq -r '.prProperties.depName' data.json)
+          NEW_VERSION=$(jq -r '.prProperties.newVersion' data.json)
+
+          echo "branchName: $BRANCH_NAME"
+          echo "depName: $DEP_NAME"
+          echo "newVersion: $NEW_VERSION"
+
+          # Set outputs
+          echo "branch-name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
+          echo "dep-name=$DEP_NAME" >> "$GITHUB_OUTPUT"
+          echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
+
+
+
       - name: Checkout the pull request branch
         if: startsWith(github.event.comment.body, '/release')
         uses: actions/checkout@v4
         with:
-          ref: ${{ steps.pr-details.outputs.branch_name }}
-            
+          ref: '${{ steps.get_addon.outputs.branch-name }}'
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
+  
       - name: Extract version from config.yaml
         if: startsWith(github.event.comment.body, '/release')
         id: get_version
@@ -170,13 +155,9 @@ jobs:
         if: startsWith(github.event.comment.body, '/release')
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          token: ${{ secrets.RENOVATE_ACTION }}
-
-      ## Common
-
-      - name: Delete the comment
-        run: |
-          curl -X DELETE \
-          -H "Authorization: token ${{ secrets.RENOVATE_ACTION }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          https://api.github.com/repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}
+          commit_message: "[${{ steps.get_addon.outputs.addon }}] Bumped version to ${{ steps.increment_version.outputs.new_version }}"
+          token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
+          commit_user_name: MaxWintersteinBot # defaults to "github-actions[bot]"
+          commit_user_email: 208604358+MaxWintersteinBot@users.noreply.github.comg # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: Max Winterstein Bot <208604358+MaxWintersteinBot@users.noreply.github.com> # defaults to "username <numeric_id+username@users.noreply.github.com>", where "numeric_id" and "username" belong to the author of the commit that triggered the run
+      
