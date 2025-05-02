@@ -16,7 +16,7 @@ filename = "CHANGELOG.md"
 start_string = "<!-- towncrier release notes start -->\n"
 underlines = ["", "", ""]
 title_format = "## [{version}] - {project_date}"
-issue_format = "[#{issue}](https://github.com/twisted/my-project/issues/{issue})"
+issue_format = "[#{issue}](https://github.com/MaxWinterstein/homeassistant-addons/issues/{issue})"
 
 [[tool.towncrier.type]]
 directory = "security"
