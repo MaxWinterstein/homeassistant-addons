@@ -37,6 +37,12 @@
   ],
   packageRules: [
     {
+      "matchPackagePatterns": [".*"],
+      "matchPackageNames": ["*"],
+      "matchPaths": ["*.*", ".gitlab/**"],
+      "commitMessagePrefix": ""
+    },
+    {
       matchManagers: [
         'github-actions',
       ],
