@@ -4,6 +4,17 @@
 
 ## [3.3.0.0] - 2025-05-04
 
+ > ⚠️ This version contains a little change of the timezone formatting, double check if your automation needs adjustments
+
+Finally, a new feature 🥳
+
+Big thanks to [@Hypfer](https://github.com/Hypfer) for providing some new sensors <3
+
+- Next and upcoming collection sensors
+- Last update sensor
+
+See [#234](https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/pull/234) for more details
+
 ### Changed
 
 - Updated toogoodtogo-ha-mqtt-bridge to v3.3.0 ([#346](https://github.com/MaxWinterstein/homeassistant-addons/issues/346))
