@@ -12,7 +12,7 @@
     ':automergeTypes',
     'customManagers:dockerfileVersions',
   ],
-  rebaseWhen: 'behind-base-branch',
+  rebaseWhen: 'conflicted',
   dependencyDashboard: true,
   dependencyDashboardAutoclose: true,
   labels: [
