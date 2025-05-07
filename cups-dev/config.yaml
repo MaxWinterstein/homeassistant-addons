@@ -1,5 +1,5 @@
 name: "CUPS (DEV - unstable!)"
-version: dev-01
+version: dev-01.1.0
 slug: cups-dev
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-addon-cups-dev-{arch}
