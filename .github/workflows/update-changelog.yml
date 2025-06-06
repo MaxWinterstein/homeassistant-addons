@@ -34,6 +34,12 @@ jobs:
 
       - name: Update CHANGELOG.md
         run: |
+          if [ -z "${{ steps.extract.outputs.prefix }}" ] || [ ! -d "${{ steps.extract.outputs.prefix }}" ]; then
+            echo "Directory ${{ steps.extract.outputs.prefix }} does not exist, skipping changelog update"
+            exit 0
+          fi
+
+          cd "${{ steps.extract.outputs.prefix }}"
           cd ${{ steps.extract.outputs.prefix }}
           test -f CHANGELOG.md && \
             mkdir -p changelog.d/ && \
