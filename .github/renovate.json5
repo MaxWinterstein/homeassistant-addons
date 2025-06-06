@@ -22,11 +22,14 @@
   commitMessageTopic: '{{depName}}',
   customManagers: [
     {
-      "fileMatch": ["(^|/)build\\.json$"],
-      "matchStrings": [
-        "\"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^\"]+)\""
+      customType: 'regex',
+      managerFilePatterns: [
+        '/(^|/)build\\.json$/',
       ],
-      "datasourceTemplate": "docker"
+      matchStrings: [
+        '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
+      ],
+      datasourceTemplate: 'docker',
     },
     {
       customType: 'regex',
