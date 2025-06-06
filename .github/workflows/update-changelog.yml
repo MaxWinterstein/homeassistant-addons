@@ -24,7 +24,7 @@ jobs:
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
 
-          PREFIX=$(echo "$PR_TITLE" | sed -E 's/^$$(.*)$$.*/\1/')
+          PREFIX=$(echo "$PR_TITLE" | sed -E 's/^\[(.*)\].*/\1/')
           DEP=$(echo "$PR_TITLE" | grep -oP 'Update \K[^ ]+')
           VER=$(echo "$PR_TITLE" | grep -oP 'to \Kv[0-9\.]+')
 
@@ -32,20 +32,27 @@ jobs:
           echo "ver=$VER" >> $GITHUB_OUTPUT
           echo "prefix=$PREFIX" >> $GITHUB_OUTPUT
 
-      - name: Update CHANGELOG.md
+      - name: Check if CHANGELOG.md exists
+        id: check
         run: |
-          if [ ! -d "${{ steps.extract.outputs.prefix }}" ]; then
-            echo "Directory ${{ steps.extract.outputs.prefix }} does not exist, skipping changelog update"
-            exit 0
+          if [ ! -f "${{ steps.extract.outputs.prefix }}/CHANGELOG.md" ]; then
+            echo "No CHANGELOG.md found in ${{ steps.extract.outputs.prefix }}, stopping workflow"
+            echo "continue=false" >> $GITHUB_OUTPUT
+          else
+            echo "continue=true" >> $GITHUB_OUTPUT
           fi
 
-          cd "${{ steps.extract.outputs.prefix }}"
+      - name: Update CHANGELOG.md
+        if: steps.check.outputs.continue == 'true'
+        run: |
+          cd ${{ steps.extract.outputs.prefix }}
           test -f CHANGELOG.md && \
             mkdir -p changelog.d/ && \
             echo "Updated ${{ steps.extract.outputs.dep }} to ${{ steps.extract.outputs.ver }}" >> changelog.d/${{ github.event.pull_request.number }}.changed.md
             
 
       - name: Commit and push changes
+        if: steps.check.outputs.continue == 'true'
         run: |
           git config user.name "Renovate Bot"
           git config user.email "29139614+renovate[bot]@users.noreply.github.com"
