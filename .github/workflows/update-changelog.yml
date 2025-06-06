@@ -24,7 +24,7 @@ jobs:
         run: |
           PR_TITLE="${{ github.event.pull_request.title }}"
 
-          PREFIX=$(echo "$PR_TITLE" | sed -E 's/^\[(.*)\].*/\1/')
+          PREFIX=$(echo "$PR_TITLE" | sed -E 's/^$$(.*)$$.*/\1/')
           DEP=$(echo "$PR_TITLE" | grep -oP 'Update \K[^ ]+')
           VER=$(echo "$PR_TITLE" | grep -oP 'to \Kv[0-9\.]+')
 
@@ -34,6 +34,11 @@ jobs:
 
       - name: Update CHANGELOG.md
         run: |
+          if [ ! -d "${{ steps.extract.outputs.prefix }}" ]; then
+            echo "Directory ${{ steps.extract.outputs.prefix }} does not exist, skipping changelog update"
+            exit 0
+          fi
+          
           cd ${{ steps.extract.outputs.prefix }}
           test -f CHANGELOG.md && \
             mkdir -p changelog.d/ && \
