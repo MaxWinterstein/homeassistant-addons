@@ -23,9 +23,9 @@
   customManagers: [
     {
       customType: 'regex',
-      fileMatch: [
-        '/Dockerfile$',
-        '/build.yaml$',
+      managerFilePatterns: [
+        '//Dockerfile$/',
+        '//build.yaml$/',
       ],
       matchStringsStrategy: 'any',
       matchStrings: [
@@ -37,10 +37,15 @@
   ],
   packageRules: [
     {
-      "matchPackagePatterns": [".*"],
-      "matchPackageNames": ["*"],
-      "matchPaths": ["*.*", ".gitlab/**"],
-      "commitMessagePrefix": ""
+      matchPackageNames: [
+        '*',
+        '/.*/',
+      ],
+      matchFileNames: [
+        '*.*',
+        '.gitlab/**',
+      ],
+      commitMessagePrefix: '',
     },
     {
       matchManagers: [
@@ -57,9 +62,9 @@
     'portainer/*',
   ],
   commitMessagePrefix: '[{{packageFileDir}}]',
-  "gitIgnoredAuthors": [
-    "renovate[bot]",
-    "github-actions"
+  gitIgnoredAuthors: [
+    'renovate[bot]',
+    'github-actions',
   ],
-  "prHeader": "{\"prProperties\": {\"branchName\": \"{{branchName}}\", \"depName\": \"{{depName}}\", \"newVersion\": \"{{newValue}}\"}}\n"
+  prHeader: '{"prProperties": {"branchName": "{{branchName}}", "depName": "{{depName}}", "newVersion": "{{newValue}}"}}\n',
 }
