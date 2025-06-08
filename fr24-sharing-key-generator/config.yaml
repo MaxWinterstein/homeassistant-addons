@@ -1,0 +1,40 @@
+name: FlightRadar24 Sharing Key Generator
+version: 0.1.0
+slug: fr24sharingkeygenerator
+description: Quickly generate FlightRadar24 Sharing Key
+image: ghcr.io/maxwinterstein/homeassistant-addon-fr24-sharing-key-generator-{arch}
+url: https://github.com/MaxWinterstein/homeassistant-addons/
+arch:
+  - amd64
+  - armv7
+  - aarch64
+startup: services
+boot: manual
+ingress: true
+ingress_port: 8080
+init: false
+panel_icon: mdi:airplane
+options:
+  email: johndoe@example.org
+  sharing_key: ""
+  mlat: false
+  latitude: 1.2345
+  longitude: 1.2345
+  altitude: 1
+  confirm_settings: true
+  autoconfig: false
+  receiver_type: "1"
+  raw_feed: false
+  base_feed: false
+schema:
+  email: str
+  sharing_key: str
+  mlat: bool
+  latitude: float
+  longitude: float
+  altitude: int
+  confirm_settings: bool
+  autoconfig: bool
+  receiver_type: list(1|2|3|4|5|6)
+  raw_feed: bool
+  base_feed: bool
