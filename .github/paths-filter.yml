@@ -8,3 +8,4 @@ octoprint-proxy: octoprint-proxy/config.*
 cups: cups/config.*
 cups-dev: cups-dev/config.*
 awtrix: awtrix/config.*
+fr24-sharing-key-generator: fr24-sharing-key-generator/config.*
