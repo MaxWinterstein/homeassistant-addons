@@ -70,6 +70,7 @@
   ],
   ignorePaths: [
     'portainer/*',
+    'awtrix/*',
   ],
   commitMessagePrefix: '[{{packageFileDir}}]',
   gitIgnoredAuthors: [

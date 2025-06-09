@@ -16,14 +16,6 @@ Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightR
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
-### <img src="awtrix/icon.png" width="40px"> AWTRIX Controller
-
-(AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
-
-Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
-
-Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
-
 ### <img src="cups/icon.png" width="40px"> CUPS ([cups.org](http://www.cups.org))
 
 The well known printing server.
@@ -68,3 +60,13 @@ Forwards Eufy Security push notifications to Home Assistant via MQTT.
 
 [repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
 [repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons
+
+### <img src="awtrix/icon.png" width="40px"> AWTRIX Controller
+
+#### AWTRIX 3 no longer needs an running server
+
+(AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
+
+Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
+
+Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
