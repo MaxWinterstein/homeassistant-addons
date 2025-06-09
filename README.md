@@ -30,10 +30,6 @@ Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
 
 Run ioBroker as Add-on.
 
-### <img src="octoprint-proxy/icon.png" width="40px"> OctoPrint Reverse Proxy ([octoprint.org](http://octoprint.org))
-
-Small proxy to add OctoPrint to the Home Assistant.
-
 ## Installation
 
 [![Add repository on my Home Assistant][repository-badge]][repository-url]
@@ -70,3 +66,9 @@ Forwards Eufy Security push notifications to Home Assistant via MQTT.
 Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
 
 Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
+
+### <img src="octoprint-proxy/icon.png" width="40px"> OctoPrint Reverse Proxy ([octoprint.org](http://octoprint.org))
+
+#### Never really worked and no longer used by me
+
+Small proxy to add OctoPrint to the Home Assistant.

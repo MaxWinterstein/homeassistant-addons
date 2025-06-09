@@ -71,6 +71,7 @@
   ignorePaths: [
     'portainer/*',
     'awtrix/*',
+    'octoprint-proxy/*',
   ],
   commitMessagePrefix: '[{{packageFileDir}}]',
   gitIgnoredAuthors: [
