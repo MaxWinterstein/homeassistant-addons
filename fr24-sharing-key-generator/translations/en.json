@@ -1,0 +1,50 @@
+{
+  "name": "FlightRadar24 Sharing Key Generator",
+  "description": "Quickly generate FlightRadar24 Sharing Key",
+  "configuration": {
+    "email": {
+      "name": "Email Address",
+      "description": "Your Flightradar24 account email address."
+    },
+    "sharing_key": {
+      "name": "Sharing Key",
+      "description": "Your existing Flightradar24 sharing key (leave blank if you don't have one)."
+    },
+    "mlat": {
+      "name": "Participate in MLAT",
+      "description": "Would you like to participate in MLAT calculations? (yes/no)"
+    },
+    "latitude": {
+      "name": "Latitude",
+      "description": "Antenna's latitude in decimal degrees (e.g. 51.1234)."
+    },
+    "longitude": {
+      "name": "Longitude",
+      "description": "Antenna's longitude in decimal degrees (e.g. 8.1234)."
+    },
+    "altitude": {
+      "name": "Altitude",
+      "description": "Antenna altitude above sea level in feet."
+    },
+    "confirm_settings": {
+      "name": "Confirm Settings",
+      "description": "Accept detected location and airport? (yes/no)"
+    },
+    "autoconfig": {
+      "name": "Autoconfig Receiver",
+      "description": "Automatically configure the receiver if possible? (yes/no)"
+    },
+    "receiver_type": {
+      "name": "Receiver Type",
+      "description": "Select your receiver type: 1=DVBT Stick, 2=SBS1, 3=SBS3, 4=ModeS Beast, 5=AVR Compatible, 6=microADSB."
+    },
+    "raw_feed": {
+      "name": "Enable RAW Data Feed",
+      "description": "Enable RAW data feed on port 30002? (yes/no, leave blank for default)"
+    },
+    "base_feed": {
+      "name": "Enable Basestation Data Feed",
+      "description": "Enable Basestation data feed on port 30003? (yes/no)"
+    }
+  }
+}
