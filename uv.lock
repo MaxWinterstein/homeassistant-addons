@@ -1,6 +1,6 @@
 version = 1
 revision = 2
-requires-python = "==3.13.4"
+requires-python = "==3.13.5"
 
 [[package]]
 name = "cfgv"
