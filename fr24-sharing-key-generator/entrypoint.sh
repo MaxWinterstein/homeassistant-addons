@@ -6,6 +6,31 @@ random_string() {
     tr -dc a-z0-9 </dev/urandom | head -c 8
 }
 
+# Read configuration from Home Assistant addon options
+if [ -f /data/options.json ]; then
+    echo "[$(date)] Reading configuration from /data/options.json"
+    
+    # Extract values using jq and set environment variables
+    FR24_EMAIL=$(jq -r '.email // "johndoe@example.org"' /data/options.json)
+    FR24_KEY=$(jq -r '.sharing_key // ""' /data/options.json)
+    FR24_MLAT=$(jq -r 'if .mlat then "yes" else "no" end' /data/options.json)
+    FR24_LAT=$(jq -r '.latitude // 1.2345' /data/options.json)
+    FR24_LON=$(jq -r '.longitude // 1.2345' /data/options.json)
+    FR24_ALT=$(jq -r '.altitude // 1' /data/options.json)
+    FR24_CONFIRM_SETTINGS=$(jq -r 'if .confirm_settings then "yes" else "no" end' /data/options.json)
+    FR24_AUTOCONFIG=$(jq -r 'if .autoconfig then "yes" else "no" end' /data/options.json)
+    FR24_RECV_TYPE=$(jq -r '.receiver_type // "1"' /data/options.json)
+    FR24_RAW_FEED=$(jq -r 'if .raw_feed then "yes" else "" end' /data/options.json)
+    FR24_BASE_FEED=$(jq -r 'if .base_feed then "yes" else "no" end' /data/options.json)
+    
+    # Export variables so they're available to expect script
+    export FR24_EMAIL FR24_KEY FR24_MLAT FR24_LAT FR24_LON FR24_ALT
+    export FR24_CONFIRM_SETTINGS FR24_AUTOCONFIG FR24_RECV_TYPE FR24_RAW_FEED FR24_BASE_FEED
+    
+    echo "[$(date)] Configuration loaded from addon options"
+else
+    echo "[$(date)] Warning: /data/options.json not found, using default environment variables"
+fi
 DEFAULT_EMAILS="you@example.com johndoe@example.org"
 
 # Randomize email if default

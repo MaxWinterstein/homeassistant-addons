@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 # Install expect
 RUN apt-get update \
- && apt-get install -y expect \
+ && apt-get install -y expect jq \
  && rm -rf /var/lib/apt/lists/*
 
 # Set ENV variables for signup
