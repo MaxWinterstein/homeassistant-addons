@@ -17,7 +17,7 @@ log() {
 
 # Get OS version from Supervisor API
 log "Fetching OS info from Supervisor API..."
-OS_INFO=$(curl -s -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
+OS_INFO=$(curl -sf --connect-timeout 5 --max-time 10 -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
     -H "Content-Type: application/json" \
     http://supervisor/os/info)
 
@@ -37,11 +37,11 @@ log "OS Version: $OS_VERSION"
 # Check if OS_VERSION is greater than 16
 if (( $(echo "$OS_VERSION >= 16" | bc -l) )); then
     # Exclude the two variables
-    log "OS version > 16, excluding SYSTEM_HTTP_ULIMIT_N and SYSTEM_FR24FEED_ULIMIT_N"
+    log "OS version >= 16, excluding SYSTEM_HTTP_ULIMIT_N and SYSTEM_FR24FEED_ULIMIT_N"
     jq_filter='to_entries | map(select(.key != "SYSTEM_HTTP_ULIMIT_N" and .key != "SYSTEM_FR24FEED_ULIMIT_N")) | map("\(.key)=\(.value)\u0000")[]'
 else
     # Export all variables
-    log "OS version <= 16, exporting all variables"
+    log "OS version < 16, exporting all variables"
     jq_filter='to_entries | map("\(.key)=\(.value)\u0000")[]'
 fi
 
