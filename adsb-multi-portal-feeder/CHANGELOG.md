@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [2.3.0] - 2025-07-10
+
+### Changed
+
+- Add support for Home Assistant OS 16 by ignoring ulimit adjustments - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/issues/365)
+
 ## [2.2.0] - 2025-06-06
 
 ### Changed
