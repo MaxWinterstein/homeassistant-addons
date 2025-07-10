@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
-ulimit -n 1048576
+ulimit -n 524288
 
 until [ -e /var/run/avahi-daemon/socket ]; do
   sleep 1s
