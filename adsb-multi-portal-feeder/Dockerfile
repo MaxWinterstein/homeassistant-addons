@@ -5,7 +5,7 @@ ENV TZ=UTC
 
 # add bashio (thx https://github.com/hassio-addons/addon-debian-base/blob/main/base/Dockerfile#L47)
 ADD https://github.com/hassio-addons/bashio/archive/v0.15.0.tar.gz  /tmp/bashio.tar.gz
-RUN apt-get update && apt-get install -y curl jq && mkdir /tmp/bashio \
+RUN apt-get update && apt-get install -y curl jq bc && mkdir /tmp/bashio \
     && tar zxvf \
         /tmp/bashio.tar.gz \
         --strip 1 -C /tmp/bashio \
