@@ -8,7 +8,7 @@
 # Logging enabled flag (set to 1 to enable, 0 to disable)
 LOGGING_ENABLED=0
 
-# Log function
+# log outputs a timestamped message to stderr if logging is enabled.
 log() {
   if [[ "$LOGGING_ENABLED" -eq 1 ]]; then
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >&2  # Log to stderr with timestamp
