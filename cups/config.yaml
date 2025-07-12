@@ -1,5 +1,5 @@
 name: CUPS
-version: 3.0.3.1
+version: 3.1.0
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
 slug: cups
@@ -11,6 +11,7 @@ arch:
   - armv7
 usb: true
 init: false
+hassio_api: true
 homeassistant_api: true
 host_network: true
 ports:
