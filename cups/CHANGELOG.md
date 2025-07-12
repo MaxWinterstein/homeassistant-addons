@@ -6,9 +6,6 @@
 
 - Add support for Home Assistant OS 16 by ignoring ulimit adjustments - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/issues/365)
 
-### Added
-- Support for `armv7` - see [#243](https://github.com/MaxWinterstein/homeassistant-addons/issues/243)
-
 
 ## [3.0.3.1] - 2024-03-11
 ### Added
