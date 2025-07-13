@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [3.4.0.0] - 2025-07-13
+
+### Changed
+
+- Updated toogoodtogo-ha-mqtt-bridge to v3.4.0 ([#379](https://github.com/MaxWinterstein/homeassistant-addons/issues/379))
+
+
 ## [3.3.0.0] - 2025-05-04
 
  > ⚠️ This version contains a little change of the timezone formatting, double check if your automation needs adjustments
