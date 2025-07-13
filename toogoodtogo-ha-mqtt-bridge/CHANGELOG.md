@@ -6,11 +6,6 @@
 
 ### Changed
 
-- Updated uv to v0.7.3 ([#348](https://github.com/MaxWinterstein/homeassistant-addons/issues/348))
-- Updated uv to v0.7.11 ([#349](https://github.com/MaxWinterstein/homeassistant-addons/issues/349))
-- Updated uv to v0.7.12 ([#355](https://github.com/MaxWinterstein/homeassistant-addons/issues/355))
-- Updated uv to v0.7.13 ([#363](https://github.com/MaxWinterstein/homeassistant-addons/issues/363))
-- Updated uv to v0.7.20 ([#366](https://github.com/MaxWinterstein/homeassistant-addons/issues/366))
 - Updated toogoodtogo-ha-mqtt-bridge to v3.4.0 ([#379](https://github.com/MaxWinterstein/homeassistant-addons/issues/379))
 
 
