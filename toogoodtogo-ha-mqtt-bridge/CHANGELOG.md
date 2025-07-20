@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [3.5.0.0] - 2025-07-20
+
+### Changed
+
+- Updated toogoodtogo-ha-mqtt-bridge to v3.5.0 ([#381](https://github.com/MaxWinterstein/homeassistant-addons/issues/381))
+
+
 ## [3.4.0.0] - 2025-07-13
 
 ### Changed
