@@ -7,50 +7,50 @@ spawn /fr24feed/fr24feed/fr24feed --signup
 
 expect "email address"
 after 500
-send "$env(FR24_EMAIL)\r"
+send --  "$env(FR24_EMAIL)\r"
 
 expect "sharing key"
 after 500
-send "$env(FR24_KEY)\r"
+send --  "$env(FR24_KEY)\r"
 
 expect "MLAT calculations"
 after 500
-send "$env(FR24_MLAT)\r"
+send --  "$env(FR24_MLAT)\r"
 
 expect "latitude"
 after 500
-send "$env(FR24_LAT)\r"
+send --  "$env(FR24_LAT)\r"
 
 expect "longitude"
 after 500
-send "$env(FR24_LON)\r"
+send --  "$env(FR24_LON)\r"
 
 expect "altitude"
 after 500
-send "$env(FR24_ALT)\r"
+send --  "$env(FR24_ALT)\r"
 
 expect "these settings"
 after 500
-send "$env(FR24_CONFIRM_SETTINGS)\r"
+send --  "$env(FR24_CONFIRM_SETTINGS)\r"
 
 expect "autoconfig"
 after 500
-send "$env(FR24_AUTOCONFIG)\r"
+send --  "$env(FR24_AUTOCONFIG)\r"
 
 expect "receiver type"
 after 500
-send "$env(FR24_RECV_TYPE)\r"
+send --  "$env(FR24_RECV_TYPE)\r"
 
 expect "dump1090 arguments"
 after 500
-send "\r"
+send --  "\r"
 
 expect "RAW data feed"
 after 500
-send "$env(FR24_RAW_FEED)\r"
+send --  "$env(FR24_RAW_FEED)\r"
 
 expect "Basestation data feed"
 after 500
-send "$env(FR24_BASE_FEED)\r"
+send --  "$env(FR24_BASE_FEED)\r"
 
 expect eof
