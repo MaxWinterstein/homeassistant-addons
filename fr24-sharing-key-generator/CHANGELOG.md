@@ -2,6 +2,11 @@
 
 <!-- towncrier release notes start -->
 
+## [0.4.0] - 2025-08-25
+
+No significant changes.
+
+
 ## [0.3.0] - 2025-08-03
 
 - Fix negative lat/long not working
