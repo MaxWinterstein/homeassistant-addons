@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [2.4.0] - 2025-08-25
+
+### Changed
+
+- Updated thomx/fr24feed-piaware to v2.5.0 ([#391](https://github.com/MaxWinterstein/homeassistant-addons/issues/391))
+
+
 ## [2.3.0] - 2025-07-10
 
 ### Changed
