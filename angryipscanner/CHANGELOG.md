@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [1.3.0] - 2025-09-22
+
+### Changed
+
+- Updated angryip/ipscan to v3.9.2 ([#396](https://github.com/MaxWinterstein/homeassistant-addons/issues/396))
+
+
 ## [1.2.0] - 2025-05-02
 
 ### Changed
