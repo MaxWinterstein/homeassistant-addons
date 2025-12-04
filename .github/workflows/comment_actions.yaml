@@ -28,7 +28,7 @@ jobs:
           github-token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
@@ -86,7 +86,7 @@ jobs:
 
       - name: Checkout the pull request branch
         if: startsWith(github.event.comment.body, '/release')
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: '${{ steps.get_addon.outputs.branch-name }}'
           fetch-depth: 0
