@@ -36,9 +36,16 @@ until [ -e /var/run/avahi-daemon/socket ]; do
 done
 
 bashio::log.info "Preparing directories"
-cp -v -R /etc/cups /data
-rm -v -fR /etc/cups
 
+# Only copy default config if /data/cups doesn't exist (preserves existing config on restart)
+if [ ! -d /data/cups ]; then
+    bashio::log.info "First run detected - copying default CUPS configuration to /data/cups"
+    cp -v -R /etc/cups /data
+else
+    bashio::log.info "Existing CUPS configuration found in /data/cups - preserving it"
+fi
+
+rm -v -fR /etc/cups
 ln -v -s /data/cups /etc/cups
 
 bashio::log.info "Starting CUPS server as CMD from S6"
