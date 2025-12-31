@@ -1,4 +1,13 @@
 repos:
+  - repo: https://github.com/reteps/dockerfmt
+    # run `pre-commit autoupdate` to pin the version
+    rev: v0.3.9
+    hooks:
+      - id: dockerfmt
+        args:
+          # optional: add additional arguments here
+          - --indent=4
+          - --write
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v4.0.0-alpha.8
     hooks:
