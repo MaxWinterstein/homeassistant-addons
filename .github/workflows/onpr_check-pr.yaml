@@ -12,26 +12,36 @@ jobs:
   check-addon-changes:
     runs-on: ubuntu-latest
     outputs:
-      changedAddons: ${{ steps.filter.outputs.changes }}
-      changedChangelogFiles: ${{ steps.changed-files.outputs.changelogs_files }}
+      changedAddons: ${{ steps.find_addons.outputs.changed_addons }}
+      changedChangelogFiles: ${{ steps.find_changelog.outputs.changed_changelog_files }}
     steps:
-      - name: ↩️ Checkout
-        uses: actions/checkout@v4
-
-      - name: 📂 Detect changed addons
-        uses: dorny/paths-filter@v3
-        id: filter
+      - name: Checkout repo
+        uses: actions/checkout@v6
         with:
-          filters: .github/paths-filter.yml
+          fetch-depth: 0  # needed to diff against main
 
-      - name: 📂 Detect changed files
-        uses: dorny/paths-filter@v3
-        id: changed-files
-        with:
-          list-files: csv
-          filters: |
-            changelogs:
-              - '**/CHANGELOG.md'
+      - name: Fetch main branch
+        run: git fetch origin main
+
+      - name: Find changed addon directories
+        id: find_addons
+        run: |
+          changed_config_files=$(git diff --name-only origin/main "${{ github.sha }}" \
+            | grep -E '^[^/]+/config\.(json|ya?ml)$' || true)
+          echo "Changed config files:"
+          echo "$changed_config_files"
+          changed_addons=$(echo "$changed_config_files" | awk -F/ '{print $1}' | sort -u | jq -R -s -c 'split("\n")[:-1]')
+          echo "Changed addons: $changed_addons"
+          echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
+
+      - name: Find changed changelog files
+        id: find_changelog
+        run: |
+          changed_changelog_files=$(git diff --name-only origin/main "${{ github.sha }}" \
+            | grep -iE '^([^/]+/)?changelog\.(md|txt|ya?ml|json)$' || true)
+          echo "Changed changelog files:"
+          echo "$changed_changelog_files"
+          echo "changed_changelog_files=$(echo "$changed_changelog_files" | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
 
   check-changed-changelog:
     name: Check if CHANGELOG.md changed
@@ -63,13 +73,14 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🔎 Check if a label for the addon exists
         shell: bash
         run: |
           labeltext=$(grep -E "^\s*${{ matrix.addon }}:" '.github/paths-filter.yml' || true)
           if [[ -z "$labeltext" ]]; then
+            echo '          labeltext=$(grep -E "^\s*${{ matrix.addon }}:" '.github/paths-filter.yml' || true)'
             echo "::error::There is no label for this addon! Please add it to .github/paths-filter.yml"
             exit 1
           fi
@@ -85,7 +96,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: 🔎 Run Home Assistant Add-on Lint
         uses: frenck/action-addon-linter@v2
@@ -103,7 +114,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: ℹ️ Gather addon info
         id: information
@@ -112,7 +123,7 @@ jobs:
           path: "./${{ matrix.addon }}/"
 
       - name: 🗄️ Cache docker layers
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: /tmp/buildx-cache
           key: ${{ runner.os }}-buildx-${{ matrix.addon }}-${{ hashFiles('**/Dockerfile') }}
@@ -190,7 +201,7 @@ jobs:
 
       - name: 💿 Build Addon - armhf
         if: ${{ steps.information.outputs.armhf == 'true' }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -204,7 +215,7 @@ jobs:
 
       - name: 💿 Build Addon - armv7
         if: ${{ steps.information.outputs.armv7 == 'true' }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -218,7 +229,7 @@ jobs:
 
       - name: 💿 Build Addon - aarch64
         if: ${{ steps.information.outputs.aarch64 == 'true' }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -232,7 +243,7 @@ jobs:
 
       - name: 💿 Build Addon - amd64
         if: ${{ steps.information.outputs.amd64 == 'true' }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -246,7 +257,7 @@ jobs:
 
       - name: 💿 Build Addon - i386
         if: ${{ steps.information.outputs.i386 == 'true' }}
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v5
         with:
           context: ${{ matrix.addon }}
           push: false
