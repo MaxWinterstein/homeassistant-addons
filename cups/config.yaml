@@ -1,5 +1,5 @@
 name: CUPS
-version: 3.1.0
+version: 4.2.3.3
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-addon-cups-{arch}
 slug: cups

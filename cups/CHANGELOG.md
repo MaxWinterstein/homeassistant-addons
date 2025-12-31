@@ -2,6 +2,11 @@
 
 <!-- towncrier release notes start -->
 
+## [4.2.3.3] - 2025-12-31
+
+- Fix broken config persistence, thanks to [@alexlmiller](https://github.com/alexlmiller) - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/pull/450)
+- Add cups version to addon-version
+
 ## [3.1.0] - 2025-07-12
 
 - Add support for Home Assistant OS 16 by ignoring ulimit adjustments - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/issues/365)
