@@ -1,6 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+ARG CUPS_VERSION=2.3.3op2-3+deb11u10
+
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
 
 # Set shell
@@ -8,9 +10,9 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+        cups=${CUPS_VERSION} \
         sudo \
         locales \
-        cups \
         avahi-daemon \
         libnss-mdns \
         dbus \
@@ -18,7 +20,7 @@ RUN apt-get update \
         printer-driver-all-enforce \
         openprinting-ppds \
         hpijs-ppds \
-        hp-ppd  \
+        hp-ppd \
         hplip \
         cups-pdf \
         gnupg2 \
@@ -38,13 +40,13 @@ COPY rootfs /
 
 # Add user and disable sudo password checking
 RUN useradd \
-  --groups=sudo,lp,lpadmin \
-  --create-home \
-  --home-dir=/home/print \
-  --shell=/bin/bash \
-  --password=$(mkpasswd print) \
-  print \
-&& sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
+    --groups=sudo,lp,lpadmin \
+    --create-home \
+    --home-dir=/home/print \
+    --shell=/bin/bash \
+    --password=$(mkpasswd print) \
+    print \
+    && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 EXPOSE 631
 
