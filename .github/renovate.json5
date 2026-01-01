@@ -47,6 +47,14 @@
   ],
   packageRules: [
     {
+      "matchPaths": ["adsb-multi-portal-feeder/**"],
+      "groupName": "adsb-multi-portal-feeder dependencies"
+    },
+    {
+      "matchPaths": ["fr24-sharing-key-generator/**"],
+      "groupName": "fr24-sharing-key-generator dependencies"
+    },
+    {
       matchPackageNames: [
         '*',
         '/.*/',
