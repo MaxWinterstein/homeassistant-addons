@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 # Set the Angry IP Scanner version as a variable
 # renovate: datasource=github-releases depName=angryip/ipscan versioning=semver
-ARG IP_SCAN_VERSION=3.9.1
+ARG IP_SCAN_VERSION=3.9.3
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
