@@ -14,11 +14,12 @@ jobs:
     outputs:
       changedAddons: ${{ steps.find_addons.outputs.changed_addons }}
       changedChangelogFiles: ${{ steps.find_changelog.outputs.changed_changelog_files }}
+      hasAddonChanges: ${{ steps.find_addons.outputs.has_addon_changes }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
         with:
-          fetch-depth: 0  # needed to diff against main
+          fetch-depth: 0
 
       - name: Fetch main branch
         run: git fetch origin main
@@ -28,11 +29,24 @@ jobs:
         run: |
           changed_config_files=$(git diff --name-only origin/main "${{ github.sha }}" \
             | grep -E '^[^/]+/config\.(json|ya?ml)$' || true)
+
           echo "Changed config files:"
           echo "$changed_config_files"
-          changed_addons=$(echo "$changed_config_files" | awk -F/ '{print $1}' | sort -u | jq -R -s -c 'split("\n")[:-1]')
-          echo "Changed addons: $changed_addons"
-          echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
+
+          if [[ -z "$changed_config_files" ]]; then
+            echo "No addon changes detected"
+            echo "changed_addons=[]" >> "$GITHUB_OUTPUT"
+            echo "has_addon_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            changed_addons=$(echo "$changed_config_files" \
+              | awk -F/ '{print $1}' \
+              | sort -u \
+              | jq -R -s -c 'split(\"\\n\")[:-1]')
+
+            echo "Changed addons: $changed_addons"
+            echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
+            echo "has_addon_changes=true" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Find changed changelog files
         id: find_changelog
@@ -46,7 +60,7 @@ jobs:
   check-changed-changelog:
     name: Check if CHANGELOG.md changed
     needs: check-addon-changes
-    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    if: ${{ needs.check-addon-changes.outputs.hasAddonChanges == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -65,7 +79,7 @@ jobs:
   check-addon-label:
     name: Check for existence of the addon label
     needs: check-addon-changes
-    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    if: ${{ needs.check-addon-changes.outputs.hasAddonChanges == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -88,7 +102,7 @@ jobs:
   addon-linter:
     name: Addon linting
     needs: check-addon-changes
-    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    if: ${{ needs.check-addon-changes.outputs.hasAddonChanges == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -106,7 +120,7 @@ jobs:
   check-build:
     name: Test addon build
     needs: check-addon-changes
-    if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
+    if: ${{ needs.check-addon-changes.outputs.hasAddonChanges == 'true' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
