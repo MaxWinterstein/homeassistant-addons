@@ -1,4 +1,11 @@
+ci:
+  skip: [typos]
+
 repos:
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.41.0
+    hooks:
+      - id: typos
   - repo: https://github.com/reteps/dockerfmt
     # run `pre-commit autoupdate` to pin the version
     rev: v0.3.9

@@ -3,8 +3,8 @@ FROM $BUILD_FROM
 
 # Install expect
 RUN apt-get update \
- && apt-get install -y expect jq \
- && rm -rf /var/lib/apt/lists/*
+    && apt-get install -y expect jq \
+    && rm -rf /var/lib/apt/lists/*
 
 # Set ENV variables for signup
 ENV FR24_EMAIL="you@example.com"

@@ -5,10 +5,10 @@ on:
     types: [created]
 jobs:
   custom_actions:
-    if: github.event_name == 'issue_comment' && 
-        (startsWith(github.event.comment.body, '/release') || 
-         startsWith(github.event.comment.body, '/foo')) && 
-        github.event.comment.user.login == 'MaxWinterstein'
+    if: github.event_name == 'issue_comment' &&
+      (startsWith(github.event.comment.body, '/release') ||
+      startsWith(github.event.comment.body, '/foo')) &&
+      github.event.comment.user.login == 'MaxWinterstein'
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
         with:
           script: |
             const commentId = context.payload.comment.id;
-            
+
             // Add a thumbs-up reaction to the comment
             await github.rest.reactions.createForIssueComment({
               owner: context.repo.owner,
@@ -82,20 +82,18 @@ jobs:
           echo "dep-name=$DEP_NAME" >> "$GITHUB_OUTPUT"
           echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
-
-
       - name: Checkout the pull request branch
         if: startsWith(github.event.comment.body, '/release')
         uses: actions/checkout@v6
         with:
-          ref: '${{ steps.get_addon.outputs.branch-name }}'
+          ref: "${{ steps.get_addon.outputs.branch-name }}"
           fetch-depth: 0
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
-  
+
       - name: Extract version from config.yaml
         if: startsWith(github.event.comment.body, '/release')
         id: get_version
-        uses: mikefarah/yq@v4.50.1  
+        uses: mikefarah/yq@v4.50.1
         with:
           cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
@@ -105,7 +103,7 @@ jobs:
         run: |
           # Read current version and split it into major, minor, patch, and optionally build components
           IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
-          
+
           # Increment the MINOR version
           MINOR=$((MINOR + 1))
           # BUILD=0  # Reset build number when MINOR is incremented
@@ -113,19 +111,19 @@ jobs:
 
           # Construct the new version
           NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-          
+
           # Append build if it exists
           if [[ -n $BUILD ]]; then
               NEW_VERSION="$NEW_VERSION.0"
           fi
-          
+
           # Print the updated version for logging purposes
           echo "Bumped version to $NEW_VERSION"
           echo "::set-output name=new_version::$NEW_VERSION"
 
       - name: Bump version in config.yaml
         if: startsWith(github.event.comment.body, '/release')
-        uses: mikefarah/yq@v4.50.1  
+        uses: mikefarah/yq@v4.50.1
         with:
           cmd: yq -i '.version = "${{ steps.increment_version.outputs.new_version }}"' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
@@ -149,7 +147,7 @@ jobs:
         run: |
           #  mv "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" CHANGELOG.md 
           uv run towncrier build --yes --dir "${{ steps.get_addon.outputs.addon }}/" --version "${{ steps.increment_version.outputs.new_version }}" --config pyproject.toml
-          # mv CHANGELOG.md "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" 
+          # mv CHANGELOG.md "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md"
 
       - name: Push changes
         if: startsWith(github.event.comment.body, '/release')
@@ -160,4 +158,3 @@ jobs:
           commit_user_name: MaxWintersteinBot # defaults to "github-actions[bot]"
           commit_user_email: 208604358+MaxWintersteinBot@users.noreply.github.comg # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
           commit_author: Max Winterstein Bot <208604358+MaxWintersteinBot@users.noreply.github.com> # defaults to "username <numeric_id+username@users.noreply.github.com>", where "numeric_id" and "username" belong to the author of the commit that triggered the run
-      

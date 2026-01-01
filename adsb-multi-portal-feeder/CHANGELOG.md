@@ -8,7 +8,6 @@
 
 - Updated thomx/fr24feed-piaware to v2.5.0 ([#391](https://github.com/MaxWinterstein/homeassistant-addons/issues/391))
 
-
 ## [2.3.0] - 2025-07-10
 
 ### Changed
@@ -20,7 +19,6 @@
 ### Changed
 
 - Update `thomx/fr24feed-piaware` to `2.2.0` see [their release notes](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090/releases/tag/2.2.0) for more
-
 
 ## [1.32.1] - 2024-04-18
 

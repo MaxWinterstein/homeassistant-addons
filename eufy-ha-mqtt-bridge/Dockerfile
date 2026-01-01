@@ -11,8 +11,8 @@ RUN mkdir /app && tar xvfz /src.tar.gz -C /app --strip-components=1
 
 # install all (and json2yaml for cofiguration parsing)
 WORKDIR /app
-RUN npm install && npm install -g json2yaml && echo ${VERSION} > /version
+RUN npm install && npm install -g json2yaml && echo ${VERSION} >/version
 
 COPY run.sh /
 RUN chmod a+x /run.sh
-CMD [ "/run.sh" ]
+CMD ["/run.sh"]
