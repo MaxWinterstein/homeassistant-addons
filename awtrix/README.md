@@ -14,7 +14,7 @@ Original README.md below
 
 **This is a beta release of the addon, use at your own risk**
 
-There is no arrangment with blueforcer, so i build this by try and error. It works on my HA and it should work on many other HA. But no guarranty. Be carefull.
+There is no arrangement with blueforcer, so i build this by try and error. It works on my HA and it should work on many other HA. But no guarantee. Be careful.
 
 # Warning
 
