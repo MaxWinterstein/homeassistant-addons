@@ -41,7 +41,7 @@ jobs:
             changed_addons=$(echo "$changed_config_files" \
               | awk -F/ '{print $1}' \
               | sort -u \
-              | jq -R -s -c 'split(\"\\n\")[:-1]')
+              | jq -R -s -c 'split("\n")[:-1]')
 
             echo "Changed addons: $changed_addons"
             echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
