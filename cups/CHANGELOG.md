@@ -11,49 +11,70 @@
 
 - Add support for Home Assistant OS 16 by ignoring ulimit adjustments - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/issues/365)
 
-
 ## [3.0.3.1] - 2024-03-11
+
 ### Added
+
 - Support for `armv7` - see [#243](https://github.com/MaxWinterstein/homeassistant-addons/issues/243)
 
 ## [3.0.3] - 2023-11-23
+
 ### Added
+
 - Additional printer drivers, thanks to [Eskander](https://github.com/Eskander)
 
 ## [3.0.2] - 2023-11-20
+
 ### Fixed
+
 - Missing password for user `print`
 
 ## [3.0.1] - 2023-11-16
+
 ### Added
+
 - Support for `armhf`
 
 ## [3.0.0] - 2023-11-16
+
 ### Changed
+
 - Complete rewrite based on [zajac-grzegorz](https://github.com/zajac-grzegorz/homeassistant-addon-cups-airprint)'s work - thank you ❤️
 
 ## [2.2.0] - 2023-06-09
+
 ### Fixed
+
 - Startup issues with OS 10* / Docker v23* - see [#152](https://github.com/MaxWinterstein/homeassistant-addons/issues/152)
 
 ## [2.1.0] - 2023-06-06
+
 ### Added
+
 - Additional printer drivers, thanks to [Eskander](https://github.com/Eskander)
 
 ## [2.0.3] - 2022-12-19
+
 ### Internal
+
 - Build also for armv7
 
 ## [2.0.2] - 2022-12-18
+
 ### Fixed
+
 - Permission error
 
 ## [2.0.1] - 2022-12-18
+
 ### Fixed
+
 - Permission error
 
 ## [2.0.0] - 2022-12-18
+
 ### Changed
+
 - Set `init` to `false` for startup
 
 ---

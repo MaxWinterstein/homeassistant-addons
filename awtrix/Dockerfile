@@ -22,4 +22,3 @@ LABEL \
     io.hass.description="Server for the awtrix-8x32 RGB display." \
     io.hass.type="addon" \
     io.hass.version=${BUILD_VERSION}
-

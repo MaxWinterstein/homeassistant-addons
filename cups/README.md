@@ -12,6 +12,7 @@ A fully featured CUPS (Common UNIX Printing System) print server with working Ai
 ## About
 
 This add-on brings the power of CUPS to your Home Assistant installation, allowing you to:
+
 - Share USB printers connected to your Home Assistant host with your entire network
 - Enable AirPrint for iOS and macOS devices
 - Manage printers through an intuitive web interface
@@ -53,6 +54,7 @@ Perfect for making your old USB printer wireless and accessible from all your de
 <!--
 ⚠️ **Security Note**: It's recommended to change the default password after first login. You can do this by modifying the Dockerfile and rebuilding the add-on.
 -->
+
 ### Data Storage
 
 Configuration data is persisted in the `/data/cups` folder, ensuring your printer settings survive add-on updates and restarts.
@@ -93,13 +95,16 @@ http://YOUR_HOME_ASSISTANT_IP:631
 ### Printing from Devices
 
 **iOS/macOS (AirPrint)**:
+
 - Your printer should appear automatically in the print dialog
 - No additional setup required!
 
 **Windows**:
+
 - Add printer using: `http://YOUR_HOME_ASSISTANT_IP:631/printers/PRINTER_NAME`
 
 **Linux**:
+
 - Your printer should be discoverable via CUPS/Avahi
 
 ---

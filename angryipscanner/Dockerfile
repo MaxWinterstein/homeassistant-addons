@@ -9,8 +9,7 @@ ARG IP_SCAN_VERSION=3.9.1
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install Angry IP Scanner dependencies
-RUN \
-    set -x \
+RUN set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         iproute2 \
@@ -30,8 +29,8 @@ RUN \
     && rm -rf /var/lib/apt/lists/*
 
 # Download and install Angry IP Scanner
-RUN wget https://github.com/angryip/ipscan/releases/download/${IP_SCAN_VERSION}/ipscan_${IP_SCAN_VERSION}_all.deb && \
-        dpkg -i ipscan_${IP_SCAN_VERSION}_all.deb
+RUN wget https://github.com/angryip/ipscan/releases/download/${IP_SCAN_VERSION}/ipscan_${IP_SCAN_VERSION}_all.deb \
+    && dpkg -i ipscan_${IP_SCAN_VERSION}_all.deb
 
 COPY rootfs /
 

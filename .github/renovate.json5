@@ -1,90 +1,64 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   extends: [
-    'mergeConfidence:all-badges',
-    'config:recommended',
-    'config:js-app',
-    ':disableDigestUpdates',
-    ':prHourlyLimitNone',
-    ':prConcurrentLimitNone',
-    ':automergeLinters',
-    ':automergeTesters',
-    ':automergeTypes',
-    'customManagers:dockerfileVersions',
+    "mergeConfidence:all-badges",
+    "config:recommended",
+    "config:js-app",
+    ":disableDigestUpdates",
+    ":prHourlyLimitNone",
+    ":prConcurrentLimitNone",
+    ":automergeLinters",
+    ":automergeTesters",
+    ":automergeTypes",
+    "customManagers:dockerfileVersions",
   ],
-  rebaseWhen: 'conflicted',
+  rebaseWhen: "conflicted",
   dependencyDashboard: true,
   dependencyDashboardAutoclose: true,
-  labels: [
-    'dependencies',
-    'no-stale',
-  ],
-  commitMessageTopic: '{{depName}}',
+  labels: ["dependencies", "no-stale"],
+  commitMessageTopic: "{{depName}}",
   customManagers: [
     {
-      customType: 'regex',
-      managerFilePatterns: [
-        '/(^|/)build\\.json$/',
-      ],
+      customType: "regex",
+      managerFilePatterns: ["/(^|/)build\\.json$/"],
       matchStrings: [
         '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
       ],
-      datasourceTemplate: 'docker',
+      datasourceTemplate: "docker",
     },
     {
-      customType: 'regex',
-      managerFilePatterns: [
-        '//Dockerfile$/',
-        '//build.yaml$/',
-      ],
-      matchStringsStrategy: 'any',
+      customType: "regex",
+      managerFilePatterns: ["//Dockerfile$/", "//build.yaml$/"],
+      matchStringsStrategy: "any",
       matchStrings: [
-        'ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+',
-        '(aarch64|amd64|armhf|armv7|i386):\\s["\']?(?<depName>.*?):(?<currentValue>.*?)["\']?\\s',
+        "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
+        "(aarch64|amd64|armhf|armv7|i386):\\s[\"']?(?<depName>.*?):(?<currentValue>.*?)[\"']?\\s",
       ],
-      datasourceTemplate: 'docker',
+      datasourceTemplate: "docker",
     },
   ],
   packageRules: [
     {
-      "matchPaths": ["adsb-multi-portal-feeder/**"],
-      "groupName": "adsb-multi-portal-feeder dependencies"
+      matchPaths: ["adsb-multi-portal-feeder/**"],
+      groupName: "adsb-multi-portal-feeder dependencies",
     },
     {
-      "matchPaths": ["fr24-sharing-key-generator/**"],
-      "groupName": "fr24-sharing-key-generator dependencies"
+      matchPaths: ["fr24-sharing-key-generator/**"],
+      groupName: "fr24-sharing-key-generator dependencies",
     },
     {
-      matchPackageNames: [
-        '*',
-        '/.*/',
-      ],
-      matchFileNames: [
-        '*.*',
-        '.gitlab/**',
-      ],
-      commitMessagePrefix: '',
+      matchPackageNames: ["*", "/.*/"],
+      matchFileNames: ["*.*", ".gitlab/**"],
+      commitMessagePrefix: "",
     },
     {
-      matchManagers: [
-        'github-actions',
-      ],
-      matchUpdateTypes: [
-        'minor',
-        'patch',
-      ],
+      matchManagers: ["github-actions"],
+      matchUpdateTypes: ["minor", "patch"],
       automerge: true,
     },
   ],
-  ignorePaths: [
-    'portainer/*',
-    'awtrix/*',
-    'octoprint-proxy/*',
-  ],
-  commitMessagePrefix: '[{{packageFileDir}}]',
-  gitIgnoredAuthors: [
-    'renovate[bot]',
-    'github-actions',
-  ],
+  ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*"],
+  commitMessagePrefix: "[{{packageFileDir}}]",
+  gitIgnoredAuthors: ["renovate[bot]", "github-actions"],
   prHeader: '{"prProperties": {"branchName": "{{branchName}}", "depName": "{{depName}}", "newVersion": "{{newValue}}"}}\n',
 }
