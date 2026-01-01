@@ -16,14 +16,14 @@ RUN set -x \
         iputils-ping \
         nginx \
         novnc \
+        openbox \
         sqlite3 \
         tigervnc-common \
         tigervnc-standalone-server \
         wget \
-        wmii \
         xfonts-base \
         xfonts-scalable \
-        openjdk-11-jre \
+        openjdk-17-jre \
         libswt-cairo-gtk-4-jni \
         libswt-gtk-4-java \
     && rm -rf /var/lib/apt/lists/*
