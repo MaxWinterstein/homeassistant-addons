@@ -25,8 +25,9 @@ jobs:
           PR_TITLE="${{ github.event.pull_request.title }}"
 
           PREFIX=$(echo "$PR_TITLE" | sed -E 's/^\[(.*)\].*/\1/')
-          DEP=$(echo "$PR_TITLE" | grep -oP 'Update \K[^ ]+')
-          VER=$(echo "$PR_TITLE" | grep -oP 'to \Kv[0-9\.]+')
+          DEP=$(echo "$PR_TITLE" | grep -ioP 'update \K[^ ]+')
+          VER=$(echo "$PR_TITLE" | grep -ioP 'to \Kv[0-9\.]+')
+
 
           echo "dep=$DEP" >> $GITHUB_OUTPUT
           echo "ver=$VER" >> $GITHUB_OUTPUT
