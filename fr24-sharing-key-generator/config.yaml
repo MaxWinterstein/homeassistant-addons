@@ -6,7 +6,6 @@ image: ghcr.io/maxwinterstein/homeassistant-addon-fr24-sharing-key-generator-{ar
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 arch:
   - amd64
-  - armv7
   - aarch64
 startup: services
 boot: manual
