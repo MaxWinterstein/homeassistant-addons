@@ -2,7 +2,7 @@ slug: adsb-multi-portal-feeder
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
-version: 2.5.0
+version: 2.6.0
 arch:
   - aarch64
   - amd64
