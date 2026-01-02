@@ -1,4 +1,4 @@
-version: 1.2.0
+version: 1.4.0.0
 slug: angryipscanner
 name: Angry IP Scanner
 image: ghcr.io/maxwinterstein/homeassistant-addon-angry-ip-scanner-{arch}
@@ -6,7 +6,6 @@ description: Fast and friendly network scanner
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 arch:
   - amd64
-  - armv7
   - aarch64
 ingress: true
 ingress_entry: novnc/vnc_lite.html?scale=yes

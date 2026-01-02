@@ -4,7 +4,6 @@ image: ghcr.io/maxwinterstein/homeassistant-adsb-multi-portal-feeder-{arch}
 usb: true
 version: 2.6.0
 arch:
-  - armv7
   - aarch64
   - amd64
 description: Dump1090 based feeder for FlightRadar24, FlightAware and more
