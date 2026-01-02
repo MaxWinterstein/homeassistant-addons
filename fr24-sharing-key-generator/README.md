@@ -121,13 +121,11 @@ The add-on provides a built-in web interface accessible through:
 - Altitude must be a positive integer
 - Email must be in valid format
 
-
 ## Support
 
 Found this add-on useful? Consider supporting my work:
 
 <a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
-
 
 ## Credits
 
