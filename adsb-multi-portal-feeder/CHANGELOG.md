@@ -8,7 +8,6 @@
 
 - Updated thomx/fr24feed-piaware to v2.6.0 ([#461](https://github.com/MaxWinterstein/homeassistant-addons/issues/461))
 
-
 ## [2.5.0] - 2025-08-25
 
 ### Changed
