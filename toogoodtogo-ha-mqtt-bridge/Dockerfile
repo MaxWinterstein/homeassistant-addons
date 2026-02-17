@@ -3,7 +3,7 @@ FROM ${BUILD_FROM}
 
 # install uv
 # renovate: datasource=github-releases depName=uv packageName=astral-sh/uv
-ENV UV_VERSION="0.9.21"
+ENV UV_VERSION="0.10.4"
 RUN pip install uv==$UV_VERSION
 
 # add source and unpack
