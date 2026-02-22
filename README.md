@@ -26,9 +26,6 @@ The well known printing server.
 
 Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
 
-### <img src="ioBroker/icon.png" width="40px"> ioBroker ([iobroker.net](http://iobroker.net))
-
-Run ioBroker as Add-on.
 
 ## Installation
 
@@ -37,6 +34,12 @@ Run ioBroker as Add-on.
 If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: `https://github.com/MaxWinterstein/homeassistant-addons/`
 
 ## Deprecated add-ons
+
+### <img src="ioBroker/icon.png" width="40px"> ioBroker ([iobroker.net](http://iobroker.net))
+
+#### I would no longer suggest to use this. I no longer have the time or personal interest to maintain it.
+
+Run ioBroker as Home Assistant Add-on.
 
 ### <img src="portainer/icon.png" width="40px"> Portainer v1.5.2 ([hassio-addons/addon-portainer](https://github.com/hassio-addons/addon-portainer))
 
