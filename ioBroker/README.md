@@ -1,3 +1,7 @@
+> [!WARNING]
+> **This add-on is deprecated and no longer maintained.**
+> I no longer have the time or personal interest to keep this up to date. It may continue to work for now, but expect no further updates or bug fixes. Use at your own risk.
+
 ### 🚨 Important Information 🚨
 
 - This addon recently switched to pre-build images. The Update progress might fail when the installed version is <0.6.0.
