@@ -57,7 +57,7 @@
       automerge: true,
     },
   ],
-  ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*"],
+  ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*", "ioBroker/*"],
   commitMessagePrefix: "[{{packageFileDir}}]",
   gitIgnoredAuthors: ["renovate[bot]", "github-actions"],
   prHeader: '{"prProperties": {"branchName": "{{branchName}}", "depName": "{{depName}}", "newVersion": "{{newValue}}"}}\n',
