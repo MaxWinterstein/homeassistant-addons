@@ -1,0 +1,61 @@
+# Validate all addon config.json files on every PR using the official HA addon linter.
+# Runs unconditionally so dependency-bump PRs are also covered.
+name: Validate Add-on Configs
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  find-addons:
+    name: Find all add-ons
+    runs-on: ubuntu-latest
+    outputs:
+      addons: ${{ steps.find.outputs.addons }}
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v6
+
+      - name: 🔎 Find addon directories
+        id: find
+        shell: bash
+        run: |
+          # Find every directory that contains a config.json or config.yaml
+          # and is not deprecated (stage != "deprecated")
+          addons=()
+          for config in */config.json */config.yaml */config.yml; do
+            [[ -f "$config" ]] || continue
+            dir=$(dirname "$config")
+            # Skip if stage is "deprecated"
+            stage=$(jq -r '.stage // empty' "$config" 2>/dev/null || true)
+            if [[ "$stage" == "deprecated" ]]; then
+              echo "Skipping deprecated addon: $dir"
+              continue
+            fi
+            addons+=("$dir")
+          done
+          echo "Found addons: ${addons[*]}"
+          addons_json=$(printf '%s\n' "${addons[@]}" | jq -R -s -c 'split("\n")[:-1]')
+          echo "addons=$addons_json" >> "$GITHUB_OUTPUT"
+
+  validate-addon:
+    name: Lint ${{ matrix.addon }}
+    needs: find-addons
+    if: ${{ needs.find-addons.outputs.addons != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        addon: ${{ fromJSON(needs.find-addons.outputs.addons) }}
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v6
+
+      - name: 🔎 Run Home Assistant Add-on Lint
+        uses: frenck/action-addon-linter@v2
+        with:
+          path: "./${{ matrix.addon }}"
