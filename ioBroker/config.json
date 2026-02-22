@@ -39,7 +39,7 @@
     "8088/tcp": "reserved for addition addons",
     "8089/tcp": "reserved for addition addons"
   },
-  "stage": "experimental",
+  "stage": "deprecated",
   "url": "https://github.com/MaxWinterstein/homeassistant-addons/",
   "hassio_role": "default",
   "hassio_api": true
