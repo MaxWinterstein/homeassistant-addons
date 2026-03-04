@@ -36,7 +36,6 @@ RUN apt-get update \
         jq \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
-    && ln -s `which smbspool' /usr/lib/cups/backend/smb
 
 COPY rootfs /
 

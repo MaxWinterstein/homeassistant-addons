@@ -26,7 +26,6 @@ The well known printing server.
 
 Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
 
-
 ## Installation
 
 [![Add repository on my Home Assistant][repository-badge]][repository-url]
