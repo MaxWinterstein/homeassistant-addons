@@ -3,16 +3,22 @@ name: "Custom / Actions"
 on:
   issue_comment:
     types: [created]
+  pull_request:
+    types: [labeled]
 jobs:
   custom_actions:
-    if: github.event_name == 'issue_comment' &&
-      (startsWith(github.event.comment.body, '/release') ||
-      startsWith(github.event.comment.body, '/foo')) &&
-      github.event.comment.user.login == 'MaxWinterstein'
+    if: |
+      (github.event_name == 'issue_comment' &&
+        (startsWith(github.event.comment.body, '/release') ||
+        startsWith(github.event.comment.body, '/foo')) &&
+        github.event.comment.user.login == 'MaxWinterstein') ||
+      (github.event_name == 'pull_request' &&
+        github.event.label.name == 'release')
     runs-on: ubuntu-latest
 
     steps:
       - name: Add 👍 reaction to the comment
+        if: github.event_name == 'issue_comment'
         uses: actions/github-script@v8
         with:
           script: |
@@ -33,14 +39,14 @@ jobs:
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Get mentioned Addon
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: get_addon
         env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_BODY: ${{ github.event_name == 'pull_request' && github.event.pull_request.body || github.event.issue.body }}
+          PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.event.issue.title }}
         run: |
 
           comment_body="${{ github.event.comment.body }}"
-          PR_TITLE='${{ github.event.issue.title }}'
           ADDON=''
 
           # Check if the PR title has an add-on mentioned
@@ -68,8 +74,13 @@ jobs:
           # Save to a file for jq parsing
           echo "$FIRST_LINE" > data.json
 
-          # Parse values using jq
-          BRANCH_NAME=$(jq -r '.prProperties.branchName' data.json)
+          # For label trigger, get branch name directly from PR context
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
+          else
+            BRANCH_NAME=$(jq -r '.prProperties.branchName' data.json)
+          fi
+
           DEP_NAME=$(jq -r '.prProperties.depName' data.json)
           NEW_VERSION=$(jq -r '.prProperties.newVersion' data.json)
 
@@ -83,7 +94,7 @@ jobs:
           echo "new-version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Checkout the pull request branch
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         uses: actions/checkout@v6
         with:
           ref: "${{ steps.get_addon.outputs.branch-name }}"
@@ -91,14 +102,14 @@ jobs:
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Extract version from config.yaml
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: get_version
         uses: mikefarah/yq@v4.52.4
         with:
           cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
       - name: Increment version
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: increment_version
         run: |
           # Read current version and split it into major, minor, patch, and optionally build components
@@ -122,35 +133,35 @@ jobs:
           echo "::set-output name=new_version::$NEW_VERSION"
 
       - name: Bump version in config.yaml
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         uses: mikefarah/yq@v4.52.4
         with:
           cmd: yq -i '.version = "${{ steps.increment_version.outputs.new_version }}"' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
       - name: Install uv
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         uses: astral-sh/setup-uv@v7
         with:
           # Install a specific version of uv.
           version: "0.10.4"
 
       - name: Set up Python
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         run: uv python install
 
       - name: Install the project
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         run: uv sync --all-extras --dev
 
       - name: Build towncrier
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         run: |
-          #  mv "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" CHANGELOG.md 
+          #  mv "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" CHANGELOG.md
           uv run towncrier build --yes --dir "${{ steps.get_addon.outputs.addon }}/" --version "${{ steps.increment_version.outputs.new_version }}" --config pyproject.toml
           # mv CHANGELOG.md "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md"
 
       - name: Push changes
-        if: startsWith(github.event.comment.body, '/release')
+        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "[${{ steps.get_addon.outputs.addon }}] Bumped version to ${{ steps.increment_version.outputs.new_version }}"
@@ -158,3 +169,16 @@ jobs:
           commit_user_name: MaxWintersteinBot # defaults to "github-actions[bot]"
           commit_user_email: 208604358+MaxWintersteinBot@users.noreply.github.comg # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
           commit_author: Max Winterstein Bot <208604358+MaxWintersteinBot@users.noreply.github.com> # defaults to "username <numeric_id+username@users.noreply.github.com>", where "numeric_id" and "username" belong to the author of the commit that triggered the run
+
+      - name: Remove 'release' label
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              name: 'release'
+            });
+          github-token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
