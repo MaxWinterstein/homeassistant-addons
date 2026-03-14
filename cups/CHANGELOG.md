@@ -6,7 +6,7 @@
 
 ### Added
 
-- SMB/CIFS printing support via `smbclient` and CUPS SMB backend symlink, thanks to [@HeyITGuyFixIt](https://github.com/HeyITGuyFixIt) - see [#503](https://github.com/MaxWinterstein/homeassistant-addons/pull/503) and [#495](https://github.com/MaxWinterstein/homeassistant-addons/pull/495)
+- SMB/CIFS printing support via `smbclient`, thanks to [@HeyITGuyFixIt](https://github.com/HeyITGuyFixIt) - see [#503](https://github.com/MaxWinterstein/homeassistant-addons/pull/503) and [#495](https://github.com/MaxWinterstein/homeassistant-addons/pull/495)
 
 ## [4.2.3.3] - 2025-12-31
 
