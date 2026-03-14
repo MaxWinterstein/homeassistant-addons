@@ -108,29 +108,30 @@ jobs:
         with:
           cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
-      - name: Increment version
+      - name: Resolve version
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: increment_version
         run: |
-          # Read current version and split it into major, minor, patch, and optionally build components
-          IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
+          # Use upstream version from PR metadata if available (e.g. renovate PRs)
+          UPSTREAM_VERSION="${{ steps.get_addon.outputs.new-version }}"
+          UPSTREAM_VERSION="${UPSTREAM_VERSION#v}"  # strip leading 'v' if present
 
-          # Increment the MINOR version
-          MINOR=$((MINOR + 1))
-          # BUILD=0  # Reset build number when MINOR is incremented
-          PATCH=0  # Reset patch number when MINOR is incremented
-
-          # Construct the new version
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-
-          # Append build if it exists
-          if [[ -n $BUILD ]]; then
-              NEW_VERSION="$NEW_VERSION.0"
+          if [[ -n "$UPSTREAM_VERSION" && "$UPSTREAM_VERSION" != "null" ]]; then
+            NEW_VERSION="$UPSTREAM_VERSION"
+            echo "Using upstream version: $NEW_VERSION"
+          else
+            # Fall back to incrementing MINOR for manual PRs without upstream version
+            IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
+            MINOR=$((MINOR + 1))
+            PATCH=0
+            NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+            if [[ -n $BUILD ]]; then
+                NEW_VERSION="$NEW_VERSION.0"
+            fi
+            echo "Bumped version to $NEW_VERSION"
           fi
 
-          # Print the updated version for logging purposes
-          echo "Bumped version to $NEW_VERSION"
-          echo "::set-output name=new_version::$NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Bump version in config.yaml
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
