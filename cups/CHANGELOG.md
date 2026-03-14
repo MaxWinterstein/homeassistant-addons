@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [4.2.3.4] - 2026-03-14
+
+### Added
+
+- SMB/CIFS printing support via `smbclient` and CUPS SMB backend symlink - see [#495](https://github.com/MaxWinterstein/homeassistant-addons/pull/495)
+
 ## [4.2.3.3] - 2025-12-31
 
 - Fix broken config persistence, thanks to [@alexlmiller](https://github.com/alexlmiller) - see [#365](https://github.com/MaxWinterstein/homeassistant-addons/pull/450)
