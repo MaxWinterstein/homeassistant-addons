@@ -1,5 +1,5 @@
 name: FlightRadar24 Sharing Key Generator
-version: 0.5.0
+version: 2.6.1
 slug: fr24sharingkeygenerator
 description: Quickly generate FlightRadar24 Sharing Key
 image: ghcr.io/maxwinterstein/homeassistant-addon-fr24-sharing-key-generator-{arch}
