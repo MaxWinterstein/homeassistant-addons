@@ -108,22 +108,23 @@ jobs:
         with:
           cmd: yq '.version' ${{ steps.get_addon.outputs.addon }}/config.yaml
 
-      - name: Resolve version
+      - name: Increment version
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: increment_version
         run: |
-          # Use upstream version from PR metadata if available (e.g. renovate PRs)
-          UPSTREAM_VERSION="${{ steps.get_addon.outputs.new-version }}"
-          UPSTREAM_VERSION="${UPSTREAM_VERSION#v}"  # strip leading 'v' if present
+          DEP_NAME="${{ steps.get_addon.outputs.dep-name }}"
 
-          if [[ -n "$UPSTREAM_VERSION" && "$UPSTREAM_VERSION" != "null" ]]; then
-            NEW_VERSION="$UPSTREAM_VERSION"
+          # For deps where the addon version should mirror upstream, use the upstream version directly
+          if [[ "$DEP_NAME" == "thomx/fr24feed-piaware" ]]; then
+            NEW_VERSION="${{ steps.get_addon.outputs.new-version }}"
+            NEW_VERSION="${NEW_VERSION#v}"  # strip leading 'v' if present
             echo "Using upstream version: $NEW_VERSION"
           else
-            # Fall back to incrementing MINOR for manual PRs without upstream version
+            # Default: increment MINOR version
             IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
             MINOR=$((MINOR + 1))
-            PATCH=0
+            # BUILD=0  # Reset build number when MINOR is incremented
+            PATCH=0  # Reset patch number when MINOR is incremented
             NEW_VERSION="$MAJOR.$MINOR.$PATCH"
             if [[ -n $BUILD ]]; then
                 NEW_VERSION="$NEW_VERSION.0"
