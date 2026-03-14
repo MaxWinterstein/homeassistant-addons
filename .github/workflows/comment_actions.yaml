@@ -15,7 +15,6 @@ jobs:
       (github.event_name == 'pull_request' &&
         github.event.label.name == 'release')
     runs-on: ubuntu-latest
-
     steps:
       - name: Add 👍 reaction to the comment
         if: github.event_name == 'issue_comment'
