@@ -27,6 +27,7 @@ RUN apt-get update \
         lsb-release \
         nano \
         samba \
+        smbclient \
         bash-completion \
         procps \
         whois \
@@ -34,7 +35,8 @@ RUN apt-get update \
         bc \
         jq \
     && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && ln -s /usr/bin/smbspool /usr/lib/cups/backend/smb
 
 COPY rootfs /
 
