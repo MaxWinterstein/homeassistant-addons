@@ -112,25 +112,27 @@ jobs:
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         id: increment_version
         run: |
-          # Read current version and split it into major, minor, patch, and optionally build components
-          IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
+          DEP_NAME="${{ steps.get_addon.outputs.dep-name }}"
 
-          # Increment the MINOR version
-          MINOR=$((MINOR + 1))
-          # BUILD=0  # Reset build number when MINOR is incremented
-          PATCH=0  # Reset patch number when MINOR is incremented
-
-          # Construct the new version
-          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
-
-          # Append build if it exists
-          if [[ -n $BUILD ]]; then
-              NEW_VERSION="$NEW_VERSION.0"
+          # For deps where the addon version should mirror upstream, use the upstream version directly
+          if [[ "$DEP_NAME" == "thomx/fr24feed-piaware" ]]; then
+            NEW_VERSION="${{ steps.get_addon.outputs.new-version }}"
+            NEW_VERSION="${NEW_VERSION#v}"  # strip leading 'v' if present
+            echo "Using upstream version: $NEW_VERSION"
+          else
+            # Default: increment MINOR version
+            IFS='.' read -r MAJOR MINOR PATCH BUILD <<< "${{ steps.get_version.outputs.result }}"
+            MINOR=$((MINOR + 1))
+            # BUILD=0  # Reset build number when MINOR is incremented
+            PATCH=0  # Reset patch number when MINOR is incremented
+            NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+            if [[ -n $BUILD ]]; then
+                NEW_VERSION="$NEW_VERSION.0"
+            fi
+            echo "Bumped version to $NEW_VERSION"
           fi
 
-          # Print the updated version for logging purposes
-          echo "Bumped version to $NEW_VERSION"
-          echo "::set-output name=new_version::$NEW_VERSION"
+          echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Bump version in config.yaml
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
