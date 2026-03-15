@@ -7,7 +7,7 @@
 ### Fixed
 
 - Dockerfile: patch get-pa-alertlist.sh so a missing/empty PF_ALERTLIST no
-  longer causes a crash loop (cat /tmp/alertlist*.txt now silently succeeds
+  longer causes a crash loop (cat /tmp/alertlist\*.txt now silently succeeds
   with empty output when no alertlist files were downloaded)
 - cont-init: migration restores PF_ALERTLIST from the saved template if it
   was deleted from planefence.config by the v0.1.3 unset_config-on-empty bug
