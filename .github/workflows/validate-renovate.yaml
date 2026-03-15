@@ -1,0 +1,22 @@
+# yamllint disable rule:line-length
+---
+name: Validate Renovate Config
+
+on:
+  push:
+    paths:
+      - ".github/renovate.json5"
+  pull_request:
+    paths:
+      - ".github/renovate.json5"
+
+jobs:
+  validate:
+    name: 🔎 Validate Renovate config
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v6
+
+      - name: ✅ Run renovate-config-validator
+        run: npx --yes --package renovate -- renovate-config-validator .github/renovate.json5

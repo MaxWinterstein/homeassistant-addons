@@ -20,7 +20,7 @@
   customManagers: [
     {
       customType: "regex",
-      managerFilePatterns: ["/(^|/)build\\.json$/"],
+      fileMatch: ["//(^|/)build\\.json$//"],
       matchStrings: [
         '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
       ],
@@ -28,7 +28,16 @@
     },
     {
       customType: "regex",
-      managerFilePatterns: ["//Dockerfile$/", "//build.yaml$/"],
+      fileMatch: ["//(^|/)build\\.json$//"],
+      matchStrings: [
+        '"(?<depName>ghcr\\.io/sdr-enthusiasts/docker-planefence):(?<currentValue>[^"]+)"',
+      ],
+      datasourceTemplate: "docker",
+      versioningTemplate: "regex:^latest-build-(?<major>\\d+)$",
+    },
+    {
+      customType: "regex",
+      fileMatch: ["//Dockerfile$//", "//build\\.yaml$//"],
       matchStringsStrategy: "any",
       matchStrings: [
         "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
@@ -47,13 +56,17 @@
       groupName: "fr24-sharing-key-generator dependencies",
     },
     {
+      matchFileNames: ["planefence/**"],
+      groupName: "planefence dependencies",
+    },
+    {
       matchPackageNames: ["*", "/.*/"],
       matchFileNames: ["*.*", ".gitlab/**"],
       commitMessagePrefix: "",
     },
     {
       matchManagers: ["github-actions"],
-      matchUpdateTypes: ["major", "minor", "patch"],
+      matchUpdateTypes: ["minor", "patch"],
       automerge: true,
     },
   ],
