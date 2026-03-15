@@ -85,10 +85,10 @@ configuration:
     name: Show aircraft photos
     description: Include aircraft photos from planespotters.net in the UI and notifications.
   PF_NOISECAPT:
-    name: Enable noise capture
+    name: NoiseCapt base URL
     description: >-
-      Enable integration with a NoiseCapt container for noise level logging.
-      See https://github.com/kx1t/docker-noisecapt.
+      Base URL of your NoiseCapt container for noise level logging and integration.
+      Leave empty to disable. See https://github.com/kx1t/docker-noisecapt.
   PF_CHECKREMOTEDB:
     name: Use remote airline DB
     description: >-
@@ -171,6 +171,11 @@ configuration:
   PA_HISTTIME:
     name: Alert history (days)
     description: Number of days that Plane-Alert entries remain visible on the website.
+  PA_SILHOUETTES_LINK:
+    name: Silhouette icon pack URL
+    description: >-
+      URL to fetch aircraft silhouette icon pack updates for Plane-Alert.
+      Leave empty for the default upstream URL, or set to OFF to disable updates.
   PA_TRACKSERVICE:
     name: Plane-Alert tracking service
     description: >-

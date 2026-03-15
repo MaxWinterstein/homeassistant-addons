@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [0.1.2] - 2026-03-15
+
+### Fixed
+
+- `PF_NOISECAPT` schema corrected from `list(ON|OFF)` to `str` (it is a URL, not a toggle)
+- Added missing `PA_SILHOUETTES_LINK` to schema, translations, and cont-init config writer
+
 ## [0.1.1] - 2026-03-15
 
 ### Added

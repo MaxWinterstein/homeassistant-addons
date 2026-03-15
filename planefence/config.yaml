@@ -1,7 +1,7 @@
 slug: planefence
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 # image: ghcr.io/maxwinterstein/homeassistant-planefence-{arch}
-version: 0.1.1
+version: 0.1.2
 arch:
   - aarch64
   - amd64
@@ -50,7 +50,7 @@ schema:
   PF_CHECKROUTE: "list(ON|OFF)?"
   PF_TRACKSERVICE: "str?"
   PF_SHOWIMAGES: "list(ON|OFF)?"
-  PF_NOISECAPT: "list(ON|OFF)?"
+  PF_NOISECAPT: "str?"
   PF_CHECKREMOTEDB: "list(ON|OFF)?"
   PF_DELETEAFTER: "int?"
   PF_IGNOREDUPES: "list(ON|OFF)?"
@@ -71,6 +71,7 @@ schema:
   PF_ALERTLIST: "str?"
   PF_ALERTHEADER: "str?"
   PA_HISTTIME: "int?"
+  PA_SILHOUETTES_LINK: "str?"
   PA_TRACKSERVICE: "str?"
   PA_EXCLUSIONS: "str?"
   PA_TABLESIZE: "list(10|25|50|100|all)?"
