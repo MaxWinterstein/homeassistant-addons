@@ -4,7 +4,8 @@ FROM $BUILD_FROM
 ENV TZ=UTC
 
 # Add bashio for HA Supervisor API integration, plus curl/jq/bc
-ADD https://github.com/hassio-addons/bashio/archive/v0.16.2.tar.gz /tmp/bashio.tar.gz
+ADD --checksum=sha256:d0f0c780c4badd103c00c572b1bf9645520d15a8a8070d6e3d64e35cb9f583aa \
+    https://github.com/hassio-addons/bashio/archive/v0.16.2.tar.gz /tmp/bashio.tar.gz
 RUN apt-get update && apt-get install -y --no-install-recommends curl jq bc \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && mkdir /tmp/bashio \
