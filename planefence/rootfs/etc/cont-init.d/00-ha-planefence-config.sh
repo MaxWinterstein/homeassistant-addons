@@ -58,6 +58,25 @@ fi
 touch "${DATA_PERSIST}/plane-alert-db.txt"
 touch "${DATA_PERSIST}/.internal/plane-alert-db.txt"
 
+# Migration (v0.1.3 regression): that version called unset_config for every
+# optional key whose HA option was empty, wiping upstream template defaults.
+# PF_ALERTLIST is critical — without it the ALERTFILES array in
+# get-pa-alertlist.sh is never populated, no alertlist files land in /tmp,
+# and cat /tmp/alertlist*.txt crashes the script in an endless restart loop.
+# If PF_ALERTLIST is missing from planefence.config but present in the
+# saved template, restore it so alertlist processing works again.
+if [ -f "${CONFIG_FILE}" ] && [ -f "${SAVED_TEMPLATE}" ]; then
+    for _key in PF_ALERTLIST; do
+        if ! grep -q "^${_key}=" "${CONFIG_FILE}" 2>/dev/null; then
+            _default=$(grep -E "^[[:space:]]*${_key}=" "${SAVED_TEMPLATE}" 2>/dev/null | head -1 || true)
+            if [ -n "${_default}" ]; then
+                printf '%s\n' "${_default}" >> "${CONFIG_FILE}"
+                echo "[ha-planefence-config] Restored missing ${_key} from template (v0.1.3 migration)"
+            fi
+        fi
+    done
+fi
+
 # Helper: set KEY=VALUE in config file.
 # Updates the existing line in-place, or appends if the key is absent.
 # Writes raw (unquoted) values — planefence.config is parsed by upstream

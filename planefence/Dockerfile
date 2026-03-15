@@ -56,6 +56,17 @@ RUN sed -i \
     -e '1a set -o allexport 2>/dev/null; source /usr/share/planefence/persist/planefence.config 2>/dev/null || true; set +o allexport 2>/dev/null' \
     /etc/s6-overlay/scripts/00-container-startup
 
+# Upstream bug: get-pa-alertlist.sh crashes when PF_ALERTLIST is absent from
+# planefence.config.  The script reads PF_ALERTLIST via sed (not from env), so
+# if the key is missing the ALERTFILES array stays empty, no downloads run,
+# inhibit_update stays "false", and cat /tmp/alertlist*.txt fails under
+# set -eo pipefail when the glob matches nothing (no files were downloaded).
+# Wrap the cat in a compound command so an absent / empty alertlist is treated
+# as "no entries" rather than a fatal error that triggers an endless restart loop.
+RUN sed -i \
+    's#cat /tmp/alertlist\*\.txt#{ cat /tmp/alertlist*.txt 2>/dev/null || true; }#' \
+    /usr/share/planefence/get-pa-alertlist.sh
+
 # Upstream bug: pkill socket30003.pl returns exit code 1 when the process
 # isn't running yet (first start), which kills the script under set -eo pipefail.
 RUN sed -i 's/pkill socket30003\.pl$/pkill socket30003.pl || true/' \
