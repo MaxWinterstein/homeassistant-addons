@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [0.1.4] - 2026-03-15
+
+### Changed
+
+- All config option names in the HA UI now include the config key in parentheses (e.g. "Fence radius (PF_MAXDIST)") so users can find settings by searching for the variable name
+
 ## [0.1.3] - 2026-03-15
 
 ### Fixed
