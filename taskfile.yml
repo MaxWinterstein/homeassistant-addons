@@ -38,3 +38,45 @@ tasks:
       - task: build:docker:arm64
       - task: build:docker:amd64
       - task: build:docker:arm7
+
+  ## planefence:*
+  planefence:build:
+    desc: "🏗️ Build planefence addon image locally (amd64)"
+    dir: planefence
+    cmds:
+      - docker build --platform linux/amd64 -t planefence-test .
+
+  planefence:run:
+    desc: "▶️ Run planefence locally with test config (needs planefence:build first)"
+    dir: planefence
+    cmds:
+      - mkdir -p "$(pwd)/test/data/config/planefence"
+      - cp "$(pwd)/test/options.json" "$(pwd)/test/data/options.json"
+      - docker run --rm -ti
+        -v "$(pwd)/test/data:/data"
+        -v "$(pwd)/test/data/config/planefence:/addon_configs/planefence"
+        -e SUPERVISOR_TOKEN=fake
+        -p 8088:80
+        planefence-test
+
+  planefence:build-and-run:
+    desc: "🏗️▶️ Build and run planefence locally in one step"
+    cmds:
+      - task: planefence:build
+      - task: planefence:run
+
+  planefence:logs:
+    desc: "📋 Follow logs of the running planefence container"
+    cmds:
+      - |
+        CONTAINER_ID=$(docker ps -qf "ancestor=planefence-test")
+        if [ -z "$CONTAINER_ID" ]; then
+          echo "No running planefence-test container found"
+          exit 1
+        fi
+        docker logs -f "$CONTAINER_ID"
+
+  validate-renovate:
+    desc: "✅ Validate Renovate config locally"
+    cmds:
+      - npx --yes --package renovate -- renovate-config-validator .github/renovate.json5
