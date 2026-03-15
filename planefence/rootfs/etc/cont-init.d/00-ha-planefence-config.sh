@@ -59,18 +59,21 @@ touch "${DATA_PERSIST}/plane-alert-db.txt"
 touch "${DATA_PERSIST}/.internal/plane-alert-db.txt"
 
 # Helper: set KEY=VALUE in config file.
-# Values are wrapped in single quotes so planefence.config is safe to source
-# even when they contain spaces, $, ` or other shell-special characters.
-# Embedded single-quotes are handled with the '\'' sequence.
-# Delete-then-append avoids having to double-escape the shell-quoted value
-# for sed replacement metacharacters.
+# Updates the existing line in-place, or appends if the key is absent.
+# Writes raw (unquoted) values — planefence.config is parsed by upstream
+# scripts using grep/cut as well as bash source, so shell-quoting would
+# embed literal quote characters in values read by those tools.
+# Special characters in sed replacement strings (&, \, /, |) are escaped.
 set_config() {
     local key="$1"
     local value="$2"
-    local sq_value
-    sq_value="'$(printf '%s' "${value}" | sed "s/'/'\\\\''/g")'"
-    sed -i "/^${key}=/d" "${CONFIG_FILE}"
-    printf '%s=%s\n' "${key}" "${sq_value}" >> "${CONFIG_FILE}"
+    local escaped_value
+    escaped_value=$(printf '%s\n' "${value}" | sed 's/[&\\/|]/\\&/g')
+    if grep -q "^${key}=" "${CONFIG_FILE}" 2>/dev/null; then
+        sed -i "s|^${key}=.*|${key}=${escaped_value}|" "${CONFIG_FILE}"
+    else
+        echo "${key}=${value}" >> "${CONFIG_FILE}"
+    fi
 }
 
 if [ ! -f "${CONFIG_FILE}" ]; then
@@ -92,26 +95,17 @@ if [ "${PF_LAT}" = "HOMEASSISTANT_LATITUDE" ] || [ "${PF_LON}" = "HOMEASSISTANT_
 fi
 
 # Update all HA-managed keys (runs on every start, including first).
-# set_config_if writes the key when the value is non-empty and removes it
-# when the value is empty (user cleared the option in the HA UI), so that
-# stale values do not linger in planefence.config across restarts.
-# Lines not managed by this script (custom user edits) are left untouched.
+# When a value is non-empty it is written; when empty the key is left
+# untouched so upstream template defaults are preserved for options that
+# the user hasn't explicitly configured in the HA UI.
 echo "[ha-planefence-config] Updating managed keys in ${CONFIG_FILE}"
 
-# Helper: remove KEY line from config file (silently succeeds if absent).
-unset_config() {
-    local key="$1"
-    sed -i "/^${key}=/d" "${CONFIG_FILE}"
-}
-
-# Helper: set key when value is non-empty; remove key when value is empty.
+# Helper: only call set_config when value is non-empty.
 set_config_if() {
     local key="$1"
     local value="$2"
     if [ -n "$value" ]; then
         set_config "$key" "$value"
-    else
-        unset_config "$key"
     fi
 }
 

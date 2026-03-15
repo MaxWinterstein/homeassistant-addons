@@ -2,6 +2,16 @@
 
 <!-- towncrier release notes start -->
 
+## [0.1.4] - 2026-03-15
+
+### Fixed
+
+- Revert set_config to write raw (unquoted) values; planefence.config is
+  parsed by upstream scripts with grep/cut as well as bash source, so
+  shell-quoting embedded literal quote chars in values read by those tools
+- Revert set_config_if to leave keys untouched when value is empty, so
+  upstream template defaults are preserved for options not set in the HA UI
+
 ## [0.1.3] - 2026-03-15
 
 ### Fixed
