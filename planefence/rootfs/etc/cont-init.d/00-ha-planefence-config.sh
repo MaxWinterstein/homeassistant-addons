@@ -93,16 +93,26 @@ if [ "${PF_LAT}" = "HOMEASSISTANT_LATITUDE" ] || [ "${PF_LON}" = "HOMEASSISTANT_
 fi
 
 # Update all HA-managed keys (runs on every start, including first).
-# Only set a key if the corresponding env var is non-empty, so that
-# user edits in planefence.config are preserved for unconfigured options.
+# set_config_if writes the key when the value is non-empty and removes it
+# when the value is empty (user cleared the option in the HA UI), so that
+# stale values do not linger in planefence.config across restarts.
+# Lines not managed by this script (custom user edits) are left untouched.
 echo "[ha-planefence-config] Updating managed keys in ${CONFIG_FILE}"
 
-# Helper: only call set_config when value is non-empty
+# Helper: remove KEY line from config file (silently succeeds if absent).
+unset_config() {
+    local key="$1"
+    sed -i "/^${key}=/d" "${CONFIG_FILE}"
+}
+
+# Helper: set key when value is non-empty; remove key when value is empty.
 set_config_if() {
     local key="$1"
     local value="$2"
     if [ -n "$value" ]; then
         set_config "$key" "$value"
+    else
+        unset_config "$key"
     fi
 }
 

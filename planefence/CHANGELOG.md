@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [0.1.2] - 2026-03-15
+
+### Fixed
+
+- Clear stale keys from planefence.config when options are removed in the HA UI
+
 ## [0.1.1] - 2026-03-15
 
 ### Fixed
