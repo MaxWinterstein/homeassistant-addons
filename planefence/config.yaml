@@ -1,7 +1,7 @@
 slug: planefence
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 # image: ghcr.io/maxwinterstein/homeassistant-planefence-{arch}
-version: 0.1.0
+version: 0.1.1
 arch:
   - aarch64
   - amd64
@@ -25,7 +25,7 @@ options:
   PF_SOCK30003PORT: 30003
   PF_MAXDIST: "2.0"
   PF_MAXALT: 5000
-  TZ: UTC
+  TZ: HOMEASSISTANT_TIMEZONE
 
 schema:
   # Required: Station & Data Source

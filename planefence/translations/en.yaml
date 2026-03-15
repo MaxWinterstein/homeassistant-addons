@@ -33,7 +33,9 @@ configuration:
     name: Timezone
     description: >-
       Container timezone, e.g. Europe/Berlin. Used for log timestamps and
-      notification times. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+      notification times. Defaults to your Home Assistant timezone when set to
+      HOMEASSISTANT_TIMEZONE (Settings → System → General).
+      See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
 
   # ── General Parameters ───────────────────────────────────────────────
   PF_DISTUNIT:
