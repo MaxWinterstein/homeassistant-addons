@@ -1,7 +1,7 @@
 slug: planefence
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 # image: ghcr.io/maxwinterstein/homeassistant-planefence-{arch}
-version: 0.1.2
+version: 0.1.3
 arch:
   - aarch64
   - amd64
@@ -62,7 +62,7 @@ schema:
   # Web Page
   PF_TABLESIZE: "list(10|25|50|100|all)?"
   PF_OPENAIP_LAYER: "list(ON|OFF)?"
-  PF_OPENAIPKEY: "str?"
+  PF_OPENAIPKEY: "password?"
 
   # Plane-Alert
   PF_PLANEALERT: "list(ON|OFF)?"
@@ -90,10 +90,10 @@ schema:
 
   # Discord
   PF_DISCORD: "list(ON|OFF)?"
-  PF_DISCORD_WEBHOOKS: "str?"
+  PF_DISCORD_WEBHOOKS: "password?"
   PF_DISCORD_COLOR: "str?"
   PA_DISCORD: "list(ON|OFF)?"
-  PA_DISCORD_WEBHOOKS: "str?"
+  PA_DISCORD_WEBHOOKS: "password?"
   PA_DISCORD_COLOR: "str?"
 
   # Mastodon

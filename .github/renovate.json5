@@ -20,7 +20,7 @@
   customManagers: [
     {
       customType: "regex",
-      fileMatch: ["//(^|/)build\\.json$//"],
+      fileMatch: ["/(^|/)build\\.json$/"],
       matchStrings: [
         '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
       ],
@@ -28,7 +28,7 @@
     },
     {
       customType: "regex",
-      fileMatch: ["//(^|/)build\\.json$//"],
+      fileMatch: ["/(^|/)build\\.json$/"],
       matchStrings: [
         '"(?<depName>ghcr\\.io/sdr-enthusiasts/docker-planefence):(?<currentValue>[^"]+)"',
       ],
@@ -37,7 +37,7 @@
     },
     {
       customType: "regex",
-      fileMatch: ["//Dockerfile$//", "//build\\.yaml$//"],
+      fileMatch: ["/Dockerfile$/", "/build\\.yaml$/"],
       matchStringsStrategy: "any",
       matchStrings: [
         "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",

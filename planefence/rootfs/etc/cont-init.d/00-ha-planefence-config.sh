@@ -59,19 +59,18 @@ touch "${DATA_PERSIST}/plane-alert-db.txt"
 touch "${DATA_PERSIST}/.internal/plane-alert-db.txt"
 
 # Helper: set KEY=VALUE in config file.
-# Updates existing line or appends if the key is not present yet.
-# Handles values containing |, &, \ and other sed-special characters safely.
+# Values are wrapped in single quotes so planefence.config is safe to source
+# even when they contain spaces, $, ` or other shell-special characters.
+# Embedded single-quotes are handled with the '\'' sequence.
+# Delete-then-append avoids having to double-escape the shell-quoted value
+# for sed replacement metacharacters.
 set_config() {
     local key="$1"
     local value="$2"
-    # Escape characters that are special in sed replacement strings
-    local escaped_value
-    escaped_value=$(printf '%s\n' "${value}" | sed 's/[&\\/|]/\\&/g')
-    if grep -q "^${key}=" "${CONFIG_FILE}" 2>/dev/null; then
-        sed -i "s|^${key}=.*|${key}=${escaped_value}|" "${CONFIG_FILE}"
-    else
-        echo "${key}=${value}" >> "${CONFIG_FILE}"
-    fi
+    local sq_value
+    sq_value="'$(printf '%s' "${value}" | sed "s/'/'\\\\''/g")'"
+    sed -i "/^${key}=/d" "${CONFIG_FILE}"
+    printf '%s=%s\n' "${key}" "${sq_value}" >> "${CONFIG_FILE}"
 }
 
 if [ ! -f "${CONFIG_FILE}" ]; then

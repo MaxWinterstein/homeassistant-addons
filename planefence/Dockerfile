@@ -50,8 +50,9 @@ RUN cp /usr/share/planefence/stage/persist/planefence.config.RENAME-and-EDIT-me 
 # After the wait, source planefence.config immediately so all ${:-default}
 # expansions in the startup script see the real values.
 RUN sed -i \
-    -e '1a # Wait for HA addon cont-init.d to write the real planefence.config' \
-    -e '1a while [[ ! -f /run/ha-planefence-ready ]]; do sleep 0.2; done' \
+    -e '1a # Wait for HA addon cont-init.d to write the real planefence.config (30s timeout)' \
+    -e '1a _pf_wait=0' \
+    -e '1a while [[ ! -f /run/ha-planefence-ready ]]; do sleep 0.2; (( ++_pf_wait < 150 )) || { echo "[ha-planefence] ERROR: cont-init.d did not signal ready after 30s" >&2; exit 1; }; done' \
     -e '1a set -o allexport 2>/dev/null; source /usr/share/planefence/persist/planefence.config 2>/dev/null || true; set +o allexport 2>/dev/null' \
     /etc/s6-overlay/scripts/00-container-startup
 
@@ -72,8 +73,9 @@ RUN sed -i \
 # start wins. Fix: wait for cont-init.d, then immediately source planefence.config
 # so PF_SOCK30003HOST is loaded from disk before any ${:-default} is evaluated.
 RUN sed -i \
-    -e '1a # Wait for HA addon cont-init.d to write the real planefence.config' \
-    -e '1a while [[ ! -f /run/ha-planefence-ready ]]; do sleep 0.2; done' \
+    -e '1a # Wait for HA addon cont-init.d to write the real planefence.config (30s timeout)' \
+    -e '1a _pf_wait=0' \
+    -e '1a while [[ ! -f /run/ha-planefence-ready ]]; do sleep 0.2; (( ++_pf_wait < 150 )) || { echo "[ha-planefence] ERROR: cont-init.d did not signal ready after 30s" >&2; exit 1; }; done' \
     -e '1a # Source it immediately so PF_SOCK30003HOST is set before ${:-ultrafeeder} runs' \
     -e '1a set -o allexport 2>/dev/null; source /usr/share/planefence/persist/planefence.config 2>/dev/null || true; set +o allexport 2>/dev/null' \
     /etc/s6-overlay/scripts/socket30003

@@ -38,22 +38,24 @@ if [ "$_HA_NEEDS_RESOLVE" = true ]; then
     _HA_RETRY_DELAY=3
 
     bashio::log.info "export-env: options.json contains HOMEASSISTANT_* placeholders — resolving via HA Core API"
-    _token_log="${SUPERVISOR_TOKEN:+${SUPERVISOR_TOKEN:0:3}***}"
-    bashio::log.info "export-env: SUPERVISOR_TOKEN is ${_token_log:-EMPTY/UNSET}"
+    if [ -n "${SUPERVISOR_TOKEN}" ]; then
+        bashio::log.info "export-env: SUPERVISOR_TOKEN is set"
+    else
+        bashio::log.warning "export-env: SUPERVISOR_TOKEN is not set"
+    fi
 
     for _attempt in $(seq 1 $_HA_MAX_RETRIES); do
         bashio::log.info "export-env: Attempt ${_attempt}/${_HA_MAX_RETRIES}: GET /core/api/config"
 
         # Use curl with SUPERVISOR_TOKEN (loaded by with-contenv) to hit HA Core API
-        if _HA_CONFIG=$(curl -sSf \
+        if _HA_CONFIG=$(curl -sSf --connect-timeout 5 --max-time 10 \
             -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
             http://supervisor/core/api/config 2>&1); then
             _HA_LAT=$(echo "$_HA_CONFIG" | jq -r '.latitude // empty')
             _HA_LON=$(echo "$_HA_CONFIG" | jq -r '.longitude // empty')
-            bashio::log.info "export-env:   Result: lat=[${_HA_LAT}] lon=[${_HA_LON}]"
 
             if [ -n "$_HA_LAT" ] && [ -n "$_HA_LON" ]; then
-                bashio::log.info "export-env: Resolved location from HA: lat=${_HA_LAT} lon=${_HA_LON}"
+                bashio::log.info "export-env: Home Assistant coordinates configured"
                 break
             fi
             bashio::log.warning "export-env:   lat/lon empty in response"
@@ -84,18 +86,18 @@ bashio::log.info "export-env: Exporting options from /data/options.json:"
 while read -rd $'' line; do
     if [[ $line == *"HOMEASSISTANT_LATITUDE"* ]]; then
         if [ -n "$_HA_LAT" ]; then
-            bashio::log.info "export-env:   ${line}  -->  replacing with ${_HA_LAT}"
+            bashio::log.info "export-env:   ${line%%=*}: replaced HOMEASSISTANT_LATITUDE placeholder"
             line="${line//HOMEASSISTANT_LATITUDE/$_HA_LAT}"
         else
-            bashio::log.warning "export-env:   ${line}  -->  keeping unresolved placeholder"
+            bashio::log.warning "export-env:   ${line%%=*}: keeping unresolved HOMEASSISTANT_LATITUDE"
         fi
     fi
     if [[ $line == *"HOMEASSISTANT_LONGITUDE"* ]]; then
         if [ -n "$_HA_LON" ]; then
-            bashio::log.info "export-env:   ${line}  -->  replacing with ${_HA_LON}"
+            bashio::log.info "export-env:   ${line%%=*}: replaced HOMEASSISTANT_LONGITUDE placeholder"
             line="${line//HOMEASSISTANT_LONGITUDE/$_HA_LON}"
         else
-            bashio::log.warning "export-env:   ${line}  -->  keeping unresolved placeholder"
+            bashio::log.warning "export-env:   ${line%%=*}: keeping unresolved HOMEASSISTANT_LONGITUDE"
         fi
     fi
     bashio::log.info "export-env:   export ${line%%=*}=***"
