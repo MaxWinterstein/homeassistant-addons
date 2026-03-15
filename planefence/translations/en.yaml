@@ -75,7 +75,7 @@ configuration:
       0 = whole degrees; 1 = 0.1°; 2 = 0.01° (~0.5 mi); 3 = 0.001° (~300 ft).
   PF_CHECKROUTE:
     name: Enrich with route info
-    description: Fetch route information from the adsb.lol API to display origin/destination.
+    description: When enabled, fetch route information from the adsb.lol API to display origin/destination.
   PF_TRACKSERVICE:
     name: Tracking link service
     description: >-
@@ -83,7 +83,7 @@ configuration:
       Examples: globe.adsbexchange.com, globe.airplanes.live.
   PF_SHOWIMAGES:
     name: Show aircraft photos
-    description: Include aircraft photos from planespotters.net in the UI and notifications.
+    description: When enabled, include aircraft photos from planespotters.net in the UI and notifications.
   PF_NOISECAPT:
     name: NoiseCapt base URL
     description: >-
@@ -215,8 +215,8 @@ configuration:
   PF_NOTIFEVERY:
     name: Notify on every occurrence
     description: >-
-      When ON, send a notification for every qualifying aircraft observation.
-      Use with caution as this can produce many notifications.
+      When enabled, send a notification for every qualifying aircraft observation.
+      Use with caution — this can produce many notifications.
   PF_ATTRIB:
     name: Planefence attribution
     description: Attribution text appended to Planefence notifications.

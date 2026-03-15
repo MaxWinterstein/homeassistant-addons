@@ -1,7 +1,7 @@
 slug: planefence
 url: https://github.com/MaxWinterstein/homeassistant-addons/
 # image: ghcr.io/maxwinterstein/homeassistant-planefence-{arch}
-version: 0.1.2
+version: 0.1.3
 arch:
   - aarch64
   - amd64
@@ -47,9 +47,9 @@ schema:
   PF_MAPZOOM: "int?"
   PF_ELEVATION: "str?"
   PF_FUDGELOC: "str?"
-  PF_CHECKROUTE: "list(ON|OFF)?"
+  PF_CHECKROUTE: "bool?"
   PF_TRACKSERVICE: "str?"
-  PF_SHOWIMAGES: "list(ON|OFF)?"
+  PF_SHOWIMAGES: "bool?"
   PF_NOISECAPT: "str?"
   PF_CHECKREMOTEDB: "list(ON|OFF)?"
   PF_DELETEAFTER: "int?"
@@ -83,7 +83,7 @@ schema:
 
   # Notifications - General
   NOTIF_DATEFORMAT: "str?"
-  PF_NOTIFEVERY: "str?"
+  PF_NOTIFEVERY: "bool?"
   PF_ATTRIB: "str?"
   PA_ATTRIB: "str?"
   DISCORD_FEEDER_NAME: "str?"

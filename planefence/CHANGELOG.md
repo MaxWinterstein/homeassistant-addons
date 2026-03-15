@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [0.1.3] - 2026-03-15
+
+### Fixed
+
+- `PF_NOTIFEVERY`, `PF_CHECKROUTE`, and `PF_SHOWIMAGES` schema changed from `list(ON|OFF)` / `str` to `bool` — upstream config uses `true`/`false` for these
+
 ## [0.1.2] - 2026-03-15
 
 ### Fixed
