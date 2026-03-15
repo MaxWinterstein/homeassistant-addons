@@ -1,5 +1,7 @@
 # ✈️ Planefence Add-on
 
+[![Open your Home Assistant instance and show the add-on page.](https://my.home-assistant.io/badges/supervisor_addon.svg)](https://my.home-assistant.io/redirect/supervisor_addon/?addon=planefence&repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons)
+
 Track aircraft flying near your ADS-B receiver. Planefence logs low-altitude and nearby aircraft, generates noise statistics, and can send alerts via Discord, Mastodon, Telegram, and BlueSky.
 
 This add-on wraps [docker-planefence](https://github.com/sdr-enthusiasts/docker-planefence) by kx1t / SDR-Enthusiasts.

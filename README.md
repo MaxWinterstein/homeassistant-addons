@@ -26,6 +26,12 @@ The well known printing server.
 
 Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
 
+### <img src="planefence/icon.png" width="40px"> Planefence
+
+Track aircraft flying near your ADS-B receiver. Logs low-altitude and nearby flights, generates noise statistics, and can send alerts via Discord, Mastodon, Telegram, and BlueSky.
+
+Based on [docker-planefence](https://github.com/sdr-enthusiasts/docker-planefence) by kx1t / SDR-Enthusiasts.
+
 ## Installation
 
 [![Add repository on my Home Assistant][repository-badge]][repository-url]
