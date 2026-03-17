@@ -1,0 +1,6 @@
+{
+  "build_from": {
+    "aarch64": "ghcr.io/sdr-enthusiasts/docker-planefence:latest-build-1162",
+    "amd64": "ghcr.io/sdr-enthusiasts/docker-planefence:latest-build-1162"
+  }
+}

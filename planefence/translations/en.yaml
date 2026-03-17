@@ -1,0 +1,423 @@
+configuration:
+  # ── Required: Station & Data Source ─────────────────────────────────
+  PF_LAT:
+    name: Station latitude (PF_LAT)
+    description: >-
+      Station latitude in decimal degrees (North positive, South negative).
+      Defaults to your Home Assistant location when set to HOMEASSISTANT_LATITUDE.
+  PF_LON:
+    name: Station longitude (PF_LON)
+    description: >-
+      Station longitude in decimal degrees (East positive, West negative).
+      Defaults to your Home Assistant location when set to HOMEASSISTANT_LONGITUDE.
+  PF_SOCK30003HOST:
+    name: ADS-B source hostname (PF_SOCK30003HOST)
+    description: >-
+      Hostname or IP of the SBS/BaseStation data source (port 30003).
+      Use f1c878cb-adsb-multi-portal-feeder for the ADS-B Multi-Portal Feeder
+      addon from this store, or an IP address for an external receiver.
+  PF_SOCK30003PORT:
+    name: ADS-B source port (PF_SOCK30003PORT)
+    description: TCP port for SBS BaseStation data. Default is 30003.
+  PF_MAXDIST:
+    name: Fence radius (PF_MAXDIST)
+    description: >-
+      Maximum distance from your station that an aircraft is considered "nearby".
+      Unit is controlled by PF_DISTUNIT (default: nautical miles).
+  PF_MAXALT:
+    name: Maximum altitude (PF_MAXALT)
+    description: >-
+      Maximum altitude of aircraft tracked inside the fence.
+      Unit is controlled by PF_ALTUNIT (default: feet).
+  TZ:
+    name: Timezone (TZ)
+    description: >-
+      Container timezone, e.g. Europe/Berlin. Used for log timestamps and
+      notification times. Defaults to your Home Assistant timezone when set to
+      HOMEASSISTANT_TIMEZONE (Settings → System → General).
+      See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones.
+
+  # ── General Parameters ───────────────────────────────────────────────
+  PF_DISTUNIT:
+    name: Distance unit (PF_DISTUNIT)
+    description: Unit used for PF_MAXDIST and all distance display. Default is nauticalmile.
+  PF_ALTUNIT:
+    name: Altitude unit (PF_ALTUNIT)
+    description: Unit used for PF_MAXALT and all altitude display. Default is feet.
+  PF_SPEEDUNIT:
+    name: Speed unit (PF_SPEEDUNIT)
+    description: Unit used for aircraft speed display. Default is knotph.
+  PF_INTERVAL:
+    name: Poll interval in seconds (PF_INTERVAL)
+    description: >-
+      How often Planefence checks for new aircraft, in seconds.
+      Minimum recommended is 60 to avoid excessive load. Default is 80.
+  PF_NAME:
+    name: Station name (PF_NAME)
+    description: Short label shown in the page title and notifications.
+  PF_MAPURL:
+    name: Station map URL (PF_MAPURL)
+    description: URL linking to your station's live map (e.g. a tar1090 instance).
+  PF_MAPZOOM:
+    name: Heatmap zoom level (PF_MAPZOOM)
+    description: >-
+      Default OpenStreetMap zoom level for the heatmap page.
+      Higher numbers zoom in further; try levels at openstreetmap.org.
+  PF_ELEVATION:
+    name: Station elevation MSL (PF_ELEVATION)
+    description: >-
+      Station elevation above mean sea level in PF_ALTUNIT.
+      When greater than 0, altitudes are reported as AGL (above ground level).
+  PF_FUDGELOC:
+    name: Privacy location rounding (PF_FUDGELOC)
+    description: >-
+      Rounds displayed station coordinates to protect privacy.
+      0 = whole degrees; 1 = 0.1°; 2 = 0.01° (~0.5 mi); 3 = 0.001° (~300 ft).
+  PF_CHECKROUTE:
+    name: Enrich with route info (PF_CHECKROUTE)
+    description: When enabled, fetch route information from the adsb.lol API to display origin/destination.
+  PF_TRACKSERVICE:
+    name: Tracking link service (PF_TRACKSERVICE)
+    description: >-
+      Map service used for aircraft tracking links in Planefence.
+      Examples: globe.adsbexchange.com, globe.airplanes.live.
+  PF_SHOWIMAGES:
+    name: Show aircraft photos (PF_SHOWIMAGES)
+    description: When enabled, include aircraft photos from planespotters.net in the UI and notifications.
+  PF_NOISECAPT:
+    name: NoiseCapt base URL (PF_NOISECAPT)
+    description: >-
+      Base URL of your NoiseCapt container for noise level logging and integration.
+      Leave empty to disable. See https://github.com/kx1t/docker-noisecapt.
+  PF_CHECKREMOTEDB:
+    name: Use remote airline DB (PF_CHECKREMOTEDB)
+    description: >-
+      Resolve airline names from flight numbers using the kx1t remote helper database.
+      See upstream docs for privacy details.
+  PF_DELETEAFTER:
+    name: Log retention in days (PF_DELETEAFTER)
+    description: >-
+      Days to keep log, JSON, and CSV files. Leave empty for the default (14 days).
+      Set to 0 to keep forever (risk of disk fill-up).
+  PF_IGNOREDUPES:
+    name: Ignore duplicate flights (PF_IGNOREDUPES)
+    description: >-
+      When ON, show only the first occurrence of each ICAO + flight number
+      combination per day. When OFF, use PF_COLLAPSEWITHIN instead.
+  PF_COLLAPSEWITHIN:
+    name: Collapse window in seconds (PF_COLLAPSEWITHIN)
+    description: >-
+      Minimum seconds between observations of the same aircraft before they
+      are treated as separate entries. Only used when PF_IGNOREDUPES is OFF.
+  PF_MOTD:
+    name: Planefence message of the day (PF_MOTD)
+    description: >-
+      HTML message shown at the top of the Planefence page.
+      Supports simple HTML tags.
+  GENERATE_CSV:
+    name: Generate CSV exports (GENERATE_CSV)
+    description: Generate daily CSV exports for Planefence and Plane-Alert data.
+  OPENSKYDB_DOWNLOAD:
+    name: Download OpenSky database (OPENSKYDB_DOWNLOAD)
+    description: >-
+      Download and update the OpenSky aircraft database (~100 MB) at startup.
+      Used as fallback to identify aircraft owners. Set to OFF to disable downloads
+      while keeping any previously stored copy.
+
+  # ── Web Page ─────────────────────────────────────────────────────────
+  PF_TABLESIZE:
+    name: Planefence rows per page (PF_TABLESIZE)
+    description: Default number of rows shown per page in the Planefence table before pagination.
+  PF_OPENAIP_LAYER:
+    name: Show OpenAIP layer (PF_OPENAIP_LAYER)
+    description: >-
+      Overlay the OpenAIP airspace layer on the heatmap.
+      Requires a valid PF_OPENAIPKEY.
+  PF_OPENAIPKEY:
+    name: OpenAIP API key (PF_OPENAIPKEY)
+    description: >-
+      API key for the OpenAIP airspace layer. Obtain one at https://www.openaip.net.
+      Required when PF_OPENAIP_LAYER is ON.
+
+  # ── Plane-Alert ──────────────────────────────────────────────────────
+  PF_PLANEALERT:
+    name: Enable Plane-Alert (PF_PLANEALERT)
+    description: Enable the Plane-Alert feature and its sub-page.
+  PF_PARANGE:
+    name: Plane-Alert radius (PF_PARANGE)
+    description: >-
+      Plane-Alert operating radius in PF_DISTUNIT.
+      Leave empty or set to a large value (e.g. 999999) to alert on any aircraft
+      your station receives regardless of distance.
+  PF_PA_SQUAWKS:
+    name: Alert squawk codes (PF_PA_SQUAWKS)
+    description: >-
+      Comma-separated list of 4-digit squawk codes that trigger a Plane-Alert
+      notification. Use x as a single-digit wildcard (e.g. 7x00).
+      Leave empty to disable squawk-based alerts.
+  PF_ALERTLIST:
+    name: Alert list sources (PF_ALERTLIST)
+    description: >-
+      Comma-separated filenames (in addon_configs/planefence/) or URLs of
+      Plane-Alert CSV lists. Up to 10 sources. These replace the built-in
+      plane-alert-db.txt, so include it if you want the default list.
+  PF_ALERTHEADER:
+    name: Alert list header (PF_ALERTHEADER)
+    description: >-
+      Column header definition for alert list CSV files.
+      Use $Col to show and include in notifications, #Col to hide,
+      #$Col to hide but include in notifications.
+      A column named "ICAO Type" enables aircraft silhouettes.
+  PA_HISTTIME:
+    name: Alert history in days (PA_HISTTIME)
+    description: Number of days that Plane-Alert entries remain visible on the website.
+  PA_SILHOUETTES_LINK:
+    name: Silhouette icon pack URL (PA_SILHOUETTES_LINK)
+    description: >-
+      URL to fetch aircraft silhouette icon pack updates for Plane-Alert.
+      Leave empty for the default upstream URL, or set to OFF to disable updates.
+  PA_TRACKSERVICE:
+    name: Plane-Alert tracking service (PA_TRACKSERVICE)
+    description: >-
+      Map service used for aircraft tracking links in Plane-Alert.
+      Examples: globe.adsbexchange.com, globe.airplanes.live.
+  PA_EXCLUSIONS:
+    name: Alert exclusions (PA_EXCLUSIONS)
+    description: >-
+      Comma-separated filters that suppress Plane-Alert notifications and UI entries.
+      Accepts ICAO type codes, ADS-B hex addresses, or any text in the aircraft record.
+      Case-insensitive. Leave empty to disable filtering.
+  PA_TABLESIZE:
+    name: Plane-Alert rows per page (PA_TABLESIZE)
+    description: Default number of rows shown per page in the Plane-Alert table before pagination.
+  PA_MOTD:
+    name: Plane-Alert message of the day (PA_MOTD)
+    description: >-
+      HTML message shown at the top of the Plane-Alert page.
+      Supports simple HTML tags.
+
+  # ── Screenshot ───────────────────────────────────────────────────────
+  PF_SCREENSHOTURL:
+    name: Screenshot service URL (PF_SCREENSHOTURL)
+    description: >-
+      Base URL of a screenshot service (default http://screenshot:5042).
+      The service must respond to GET /snap/<flight> with a PNG image.
+  PF_SCREENSHOT_TIMEOUT:
+    name: Screenshot timeout in seconds (PF_SCREENSHOT_TIMEOUT)
+    description: Maximum time to wait for screenshot generation before giving up.
+
+  # ── Notifications — General ──────────────────────────────────────────
+  NOTIF_DATEFORMAT:
+    name: Notification date format (NOTIF_DATEFORMAT)
+    description: >-
+      Date/time format string used in notifications and tables.
+      Uses Linux date formatting, e.g. "%F %T %Z" for 2024-01-15 14:30:00 UTC.
+  PF_NOTIFEVERY:
+    name: Notify on every occurrence (PF_NOTIFEVERY)
+    description: >-
+      When enabled, send a notification for every qualifying aircraft observation.
+      Use with caution — this can produce many notifications.
+  PF_ATTRIB:
+    name: Planefence attribution (PF_ATTRIB)
+    description: Attribution text appended to Planefence notifications.
+  PA_ATTRIB:
+    name: Plane-Alert attribution (PA_ATTRIB)
+    description: Attribution text appended to Plane-Alert notifications.
+  DISCORD_FEEDER_NAME:
+    name: Discord station name (DISCORD_FEEDER_NAME)
+    description: >-
+      Human-friendly station name shown in Discord messages.
+      To make it a clickable link use the Markdown format [name](url).
+  DISCORD_MEDIA:
+    name: Discord media attachment (DISCORD_MEDIA)
+    description: >-
+      Media type attached to Discord messages.
+      screenshot = tar1090 screenshot; photo = planespotters.net photo;
+      photo+screenshot or screenshot+photo = both (order sets which is primary).
+
+  # ── Discord ──────────────────────────────────────────────────────────
+  PF_DISCORD:
+    name: Enable Discord for Planefence (PF_DISCORD)
+    description: Send Planefence alerts to Discord via webhook.
+  PF_DISCORD_WEBHOOKS:
+    name: Discord webhooks for Planefence (PF_DISCORD_WEBHOOKS)
+    description: Comma-separated Discord webhook URLs for Planefence notifications.
+  PF_DISCORD_COLOR:
+    name: Discord embed colour for Planefence (PF_DISCORD_COLOR)
+    description: >-
+      Highlight colour for Planefence Discord embeds.
+      Accepts colour names, 0xRRGGBB hex, or decimal RGB. Default 0xf2e718.
+  PA_DISCORD:
+    name: Enable Discord for Plane-Alert (PA_DISCORD)
+    description: Send Plane-Alert alerts to Discord via webhook.
+  PA_DISCORD_WEBHOOKS:
+    name: Discord webhooks for Plane-Alert (PA_DISCORD_WEBHOOKS)
+    description: Comma-separated Discord webhook URLs for Plane-Alert notifications.
+  PA_DISCORD_COLOR:
+    name: Discord embed colour for Plane-Alert (PA_DISCORD_COLOR)
+    description: >-
+      Highlight colour for Plane-Alert Discord embeds.
+      Accepts colour names, 0xRRGGBB hex, or decimal RGB. Default 0xf2e718.
+
+  # ── Mastodon ─────────────────────────────────────────────────────────
+  PF_MASTODON:
+    name: Enable Mastodon for Planefence (PF_MASTODON)
+    description: Post Planefence alerts to Mastodon.
+  PA_MASTODON:
+    name: Enable Mastodon for Plane-Alert (PA_MASTODON)
+    description: Post Plane-Alert alerts to Mastodon.
+  MASTODON_SERVER:
+    name: Mastodon server (MASTODON_SERVER)
+    description: Mastodon instance hostname without https://, e.g. airwaves.social.
+  MASTODON_ACCESS_TOKEN:
+    name: Mastodon access token (MASTODON_ACCESS_TOKEN)
+    description: >-
+      OAuth access token for your Mastodon application.
+      Create one under Preferences → Development on your Mastodon instance.
+  PF_MASTODON_VISIBILITY:
+    name: Mastodon post visibility for Planefence (PF_MASTODON_VISIBILITY)
+    description: Visibility of Planefence Mastodon posts — public, unlisted, or private.
+  PA_MASTODON_VISIBILITY:
+    name: Mastodon post visibility for Plane-Alert (PA_MASTODON_VISIBILITY)
+    description: Visibility of Plane-Alert Mastodon posts — public, unlisted, or private.
+  PA_MASTODON_MAXIMGS:
+    name: Max Mastodon images for Plane-Alert (PA_MASTODON_MAXIMGS)
+    description: Maximum number of images attached to each Plane-Alert Mastodon post.
+  MASTODON_RETENTION_TIME:
+    name: Mastodon post retention in days (MASTODON_RETENTION_TIME)
+    description: Days to keep Mastodon posts before they are automatically deleted.
+
+  # ── Telegram ─────────────────────────────────────────────────────────
+  TELEGRAM_BOT_TOKEN:
+    name: Telegram bot token (TELEGRAM_BOT_TOKEN)
+    description: >-
+      Token for your Telegram bot (format 123456789:ABCDef…).
+      Create a bot via @BotFather. See README-telegram.md for full setup.
+  PF_TELEGRAM_CHAT_ID:
+    name: Telegram chat ID for Planefence (PF_TELEGRAM_CHAT_ID)
+    description: >-
+      Numeric chat ID or public channel name (e.g. @yourchannel) that receives
+      Planefence notifications. The bot must be an administrator of the channel.
+  PA_TELEGRAM_CHAT_ID:
+    name: Telegram chat ID for Plane-Alert (PA_TELEGRAM_CHAT_ID)
+    description: >-
+      Numeric chat ID or public channel name (e.g. @yourchannel) that receives
+      Plane-Alert notifications. The bot must be an administrator of the channel.
+  PF_TELEGRAM_ENABLED:
+    name: Enable Telegram for Planefence (PF_TELEGRAM_ENABLED)
+    description: Send Planefence alerts to Telegram.
+  PA_TELEGRAM_ENABLED:
+    name: Enable Telegram for Plane-Alert (PA_TELEGRAM_ENABLED)
+    description: Send Plane-Alert alerts to Telegram.
+  PF_TELEGRAM_CHAT_TYPE:
+    name: Telegram chat type for Planefence (PF_TELEGRAM_CHAT_TYPE)
+    description: >-
+      Set to dm, private, or user to send as a direct message instead of a channel post.
+      Leave empty for channel/group behaviour.
+  PA_TELEGRAM_CHAT_TYPE:
+    name: Telegram chat type for Plane-Alert (PA_TELEGRAM_CHAT_TYPE)
+    description: >-
+      Set to dm, private, or user to send as a direct message instead of a channel post.
+      Leave empty for channel/group behaviour.
+
+  # ── BlueSky ──────────────────────────────────────────────────────────
+  BLUESKY_HANDLE:
+    name: BlueSky handle (BLUESKY_HANDLE)
+    description: Your BlueSky handle without the leading @, e.g. yourname.bsky.social.
+  BLUESKY_APP_PASSWORD:
+    name: BlueSky app password (BLUESKY_APP_PASSWORD)
+    description: >-
+      App password for BlueSky (format aaaa-bbbb-cccc-dddd).
+      Create one at https://bsky.app/settings/app-passwords.
+  PF_BLUESKY_ENABLED:
+    name: Enable BlueSky for Planefence (PF_BLUESKY_ENABLED)
+    description: Post Planefence alerts to BlueSky. Set to ON to activate.
+  PA_BLUESKY_ENABLED:
+    name: Enable BlueSky for Plane-Alert (PA_BLUESKY_ENABLED)
+    description: Post Plane-Alert alerts to BlueSky. Set to ON to activate.
+
+  # ── MQTT — Planefence ────────────────────────────────────────────────
+  PF_MQTT_URL:
+    name: MQTT broker URL for Planefence (PF_MQTT_URL)
+    description: >-
+      Broker hostname, IP, or full URL (mqtt:// or mqtts://).
+      Leave empty to disable MQTT for Planefence.
+  PF_MQTT_PORT:
+    name: MQTT port for Planefence (PF_MQTT_PORT)
+    description: TCP port of the MQTT broker. Default is 1883.
+  PF_MQTT_TLS:
+    name: MQTT TLS for Planefence (PF_MQTT_TLS)
+    description: Enable TLS encryption for the Planefence MQTT connection.
+  PF_MQTT_CLIENT_ID:
+    name: MQTT client ID for Planefence (PF_MQTT_CLIENT_ID)
+    description: Optional MQTT client identifier (no spaces). Defaults to the container hostname.
+  PF_MQTT_TOPIC:
+    name: MQTT topic for Planefence (PF_MQTT_TOPIC)
+    description: MQTT topic for Planefence messages. Default is <hostname>/planefence.
+  PF_MQTT_DATETIME_FORMAT:
+    name: MQTT datetime format for Planefence (PF_MQTT_DATETIME_FORMAT)
+    description: Linux date format for timestamps in MQTT messages. Default is Unix epoch (%s).
+  PF_MQTT_QOS:
+    name: MQTT QoS for Planefence (PF_MQTT_QOS)
+    description: MQTT quality-of-service level — 0 (at most once), 1 (at least once), 2 (exactly once).
+  PF_MQTT_FIELDS:
+    name: MQTT fields for Planefence (PF_MQTT_FIELDS)
+    description: Comma or space-separated list of fields to include. Leave empty to send all fields.
+  PF_MQTT_USERNAME:
+    name: MQTT username for Planefence (PF_MQTT_USERNAME)
+    description: Username for MQTT broker authentication.
+  PF_MQTT_PASSWORD:
+    name: MQTT password for Planefence (PF_MQTT_PASSWORD)
+    description: Password for MQTT broker authentication.
+
+  # ── MQTT — Plane-Alert ───────────────────────────────────────────────
+  PA_MQTT_URL:
+    name: MQTT broker URL for Plane-Alert (PA_MQTT_URL)
+    description: >-
+      Broker hostname, IP, or full URL (mqtt:// or mqtts://).
+      Leave empty to disable MQTT for Plane-Alert.
+  PA_MQTT_PORT:
+    name: MQTT port for Plane-Alert (PA_MQTT_PORT)
+    description: TCP port of the MQTT broker. Default is 1883.
+  PA_MQTT_TLS:
+    name: MQTT TLS for Plane-Alert (PA_MQTT_TLS)
+    description: Enable TLS encryption for the Plane-Alert MQTT connection.
+  PA_MQTT_CLIENT_ID:
+    name: MQTT client ID for Plane-Alert (PA_MQTT_CLIENT_ID)
+    description: Optional MQTT client identifier (no spaces). Defaults to the container hostname.
+  PA_MQTT_TOPIC:
+    name: MQTT topic for Plane-Alert (PA_MQTT_TOPIC)
+    description: MQTT topic for Plane-Alert messages. Default is <hostname>/plane-alert.
+  PA_MQTT_DATETIME_FORMAT:
+    name: MQTT datetime format for Plane-Alert (PA_MQTT_DATETIME_FORMAT)
+    description: Linux date format for timestamps in MQTT messages. Default is Unix epoch (%s).
+  PA_MQTT_QOS:
+    name: MQTT QoS for Plane-Alert (PA_MQTT_QOS)
+    description: MQTT quality-of-service level — 0 (at most once), 1 (at least once), 2 (exactly once).
+  PA_MQTT_FIELDS:
+    name: MQTT fields for Plane-Alert (PA_MQTT_FIELDS)
+    description: Comma or space-separated list of fields to include. Leave empty to send all fields.
+  PA_MQTT_USERNAME:
+    name: MQTT username for Plane-Alert (PA_MQTT_USERNAME)
+    description: Username for MQTT broker authentication.
+  PA_MQTT_PASSWORD:
+    name: MQTT password for Plane-Alert (PA_MQTT_PASSWORD)
+    description: Password for MQTT broker authentication.
+
+  # ── RSS ──────────────────────────────────────────────────────────────
+  PF_RSS_SITELINK:
+    name: RSS site URL for Planefence (PF_RSS_SITELINK)
+    description: >-
+      Public base URL of your Planefence site, required for valid RSS feed links.
+      Leave empty to disable the Planefence RSS feed.
+  PF_RSS_FAVICONLINK:
+    name: RSS favicon URL for Planefence (PF_RSS_FAVICONLINK)
+    description: URL of the favicon to include in the Planefence RSS feed.
+  PA_RSS_SITELINK:
+    name: RSS site URL for Plane-Alert (PA_RSS_SITELINK)
+    description: >-
+      Public base URL of your Plane-Alert site, required for valid RSS feed links.
+      Leave empty to disable the Plane-Alert RSS feed.
+  PA_RSS_FAVICONLINK:
+    name: RSS favicon URL for Plane-Alert (PA_RSS_FAVICONLINK)
+    description: URL of the favicon to include in the Plane-Alert RSS feed.

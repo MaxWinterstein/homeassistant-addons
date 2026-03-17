@@ -1,0 +1,158 @@
+slug: planefence
+url: https://github.com/MaxWinterstein/homeassistant-addons/
+# image: ghcr.io/maxwinterstein/homeassistant-planefence-{arch}
+version: 0.1.5
+arch:
+  - aarch64
+  - amd64
+description: Track aircraft flying near your ADS-B receiver with noise logging and alerts
+hassio_api: true
+homeassistant_api: true
+map:
+  - addon_config:rw
+ingress: true
+ingress_port: 80
+init: false
+name: Planefence
+panel_icon: mdi:airplane-alert
+panel_title: Planefence
+
+options:
+  # Required: Station & Data Source
+  PF_LAT: HOMEASSISTANT_LATITUDE
+  PF_LON: HOMEASSISTANT_LONGITUDE
+  PF_SOCK30003HOST: f1c878cb-adsb-multi-portal-feeder
+  PF_SOCK30003PORT: 30003
+  PF_MAXDIST: "2.0"
+  PF_MAXALT: 5000
+  TZ: HOMEASSISTANT_TIMEZONE
+
+schema:
+  # Required: Station & Data Source
+  PF_LAT: str
+  PF_LON: str
+  PF_SOCK30003HOST: str
+  PF_SOCK30003PORT: port
+  PF_MAXDIST: str
+  PF_MAXALT: int
+  TZ: str
+
+  # General Parameters
+  PF_DISTUNIT: "list(nauticalmile|kilometer|mile|meter)?"
+  PF_ALTUNIT: "list(meter|feet)?"
+  PF_SPEEDUNIT: "list(kilometerph|knotph|mileph)?"
+  PF_INTERVAL: "int?"
+  PF_NAME: "str?"
+  PF_MAPURL: "str?"
+  PF_MAPZOOM: "int?"
+  PF_ELEVATION: "str?"
+  PF_FUDGELOC: "str?"
+  PF_CHECKROUTE: "bool?"
+  PF_TRACKSERVICE: "str?"
+  PF_SHOWIMAGES: "bool?"
+  PF_NOISECAPT: "str?"
+  PF_CHECKREMOTEDB: "list(ON|OFF)?"
+  PF_DELETEAFTER: "int?"
+  PF_IGNOREDUPES: "list(ON|OFF)?"
+  PF_COLLAPSEWITHIN: "int?"
+  PF_MOTD: "str?"
+  GENERATE_CSV: "list(ON|OFF)?"
+  OPENSKYDB_DOWNLOAD: "list(ON|OFF)?"
+
+  # Web Page
+  PF_TABLESIZE: "list(10|25|50|100|all)?"
+  PF_OPENAIP_LAYER: "list(ON|OFF)?"
+  PF_OPENAIPKEY: "password?"
+
+  # Plane-Alert
+  PF_PLANEALERT: "list(ON|OFF)?"
+  PF_PARANGE: "str?"
+  PF_PA_SQUAWKS: "str?"
+  PF_ALERTLIST: "str?"
+  PF_ALERTHEADER: "str?"
+  PA_HISTTIME: "int?"
+  PA_SILHOUETTES_LINK: "str?"
+  PA_TRACKSERVICE: "str?"
+  PA_EXCLUSIONS: "str?"
+  PA_TABLESIZE: "list(10|25|50|100|all)?"
+  PA_MOTD: "str?"
+
+  # Screenshot
+  PF_SCREENSHOTURL: "str?"
+  PF_SCREENSHOT_TIMEOUT: "int?"
+
+  # Notifications - General
+  NOTIF_DATEFORMAT: "str?"
+  PF_NOTIFEVERY: "bool?"
+  PF_ATTRIB: "str?"
+  PA_ATTRIB: "str?"
+  DISCORD_FEEDER_NAME: "str?"
+  DISCORD_MEDIA: "list(screenshot|photo|photo+screenshot|screenshot+photo)?"
+
+  # Discord
+  PF_DISCORD: "list(ON|OFF)?"
+  PF_DISCORD_WEBHOOKS: "password?"
+  PF_DISCORD_COLOR: "str?"
+  PA_DISCORD: "list(ON|OFF)?"
+  PA_DISCORD_WEBHOOKS: "password?"
+  PA_DISCORD_COLOR: "str?"
+
+  # Mastodon
+  PF_MASTODON: "list(ON|OFF)?"
+  PA_MASTODON: "list(ON|OFF)?"
+  MASTODON_SERVER: "str?"
+  MASTODON_ACCESS_TOKEN: "password?"
+  PF_MASTODON_VISIBILITY: "list(public|unlisted|private)?"
+  PA_MASTODON_VISIBILITY: "list(public|unlisted|private)?"
+  PA_MASTODON_MAXIMGS: "int?"
+  MASTODON_RETENTION_TIME: "int?"
+
+  # Telegram
+  TELEGRAM_BOT_TOKEN: "password?"
+  PF_TELEGRAM_CHAT_ID: "str?"
+  PA_TELEGRAM_CHAT_ID: "str?"
+  PF_TELEGRAM_ENABLED: "list(ON|OFF)?"
+  PA_TELEGRAM_ENABLED: "list(ON|OFF)?"
+  PF_TELEGRAM_CHAT_TYPE: "str?"
+  PA_TELEGRAM_CHAT_TYPE: "str?"
+
+  # BlueSky
+  BLUESKY_HANDLE: "str?"
+  BLUESKY_APP_PASSWORD: "password?"
+  PF_BLUESKY_ENABLED: "list(ON|OFF)?"
+  PA_BLUESKY_ENABLED: "list(ON|OFF)?"
+
+  # MQTT - Planefence
+  PF_MQTT_URL: "str?"
+  PF_MQTT_PORT: "port?"
+  PF_MQTT_TLS: "list(ON|OFF)?"
+  PF_MQTT_CLIENT_ID: "str?"
+  PF_MQTT_TOPIC: "str?"
+  PF_MQTT_DATETIME_FORMAT: "str?"
+  PF_MQTT_QOS: "list(0|1|2)?"
+  PF_MQTT_FIELDS: "str?"
+  PF_MQTT_USERNAME: "str?"
+  PF_MQTT_PASSWORD: "password?"
+
+  # MQTT - Plane-Alert
+  PA_MQTT_URL: "str?"
+  PA_MQTT_PORT: "port?"
+  PA_MQTT_TLS: "list(ON|OFF)?"
+  PA_MQTT_CLIENT_ID: "str?"
+  PA_MQTT_TOPIC: "str?"
+  PA_MQTT_DATETIME_FORMAT: "str?"
+  PA_MQTT_QOS: "list(0|1|2)?"
+  PA_MQTT_FIELDS: "str?"
+  PA_MQTT_USERNAME: "str?"
+  PA_MQTT_PASSWORD: "password?"
+
+  # RSS
+  PF_RSS_SITELINK: "str?"
+  PF_RSS_FAVICONLINK: "str?"
+  PA_RSS_SITELINK: "str?"
+  PA_RSS_FAVICONLINK: "str?"
+
+ports:
+  80/tcp: null
+ports_description:
+  80/tcp: Planefence web UI

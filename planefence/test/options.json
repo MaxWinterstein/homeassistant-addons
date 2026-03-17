@@ -1,0 +1,9 @@
+{
+  "PF_SOCK30003HOST": "192.168.1.125",
+  "PF_SOCK30003PORT": 30003,
+  "PF_LAT": "50.0379",
+  "PF_LON": "8.5622",
+  "PF_MAXDIST": "2.0",
+  "PF_MAXALT": 5000,
+  "TZ": "Europe/Berlin"
+}
