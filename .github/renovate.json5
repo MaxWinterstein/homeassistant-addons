@@ -69,6 +69,11 @@
       matchUpdateTypes: ["minor", "patch"],
       automerge: true,
     },
+    {
+      matchDepNames: ["uv"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+    },
   ],
   ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*", "ioBroker/*"],
   commitMessagePrefix: "[{{packageFileDir}}]",
