@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [2.6.1.1] - 2026-04-06
+
+### Fixed
+
+- Fix HTTP service crashing on HA OS with pre-release version strings (e.g. `17.2.rc2`) — `bc` failed to parse the suffix, causing `SYSTEM_HTTP_ULIMIT_N` to be exported with an empty value and nginx to exit immediately ([#517](https://github.com/MaxWinterstein/homeassistant-addons/issues/517))
+
 ## [2.6.1] - 2026-03-14
 
 ### Changed
