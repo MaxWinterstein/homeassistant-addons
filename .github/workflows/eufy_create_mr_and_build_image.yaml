@@ -10,12 +10,12 @@ jobs:
   create_mr_and_build_image:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6.0.2
 
       - run: cd eufy-ha-mqtt-bridge && ./version-updater.sh
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           title: Update eufy-mqtt-ha-bridge to version ${{ env.MQTT_BRIDGE_VERSION }}
           commit-message: Update eufy-mqtt-ha-bridge to version ${{ env.MQTT_BRIDGE_VERSION }}

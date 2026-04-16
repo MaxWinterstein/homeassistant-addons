@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Add 👍 reaction to the comment
         if: github.event_name == 'issue_comment'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v8.0.0
         with:
           script: |
             const commentId = context.payload.comment.id;
@@ -34,7 +34,7 @@ jobs:
           github-token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
         with:
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
 
@@ -95,7 +95,7 @@ jobs:
 
       - name: Checkout the pull request branch
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
         with:
           ref: "${{ steps.get_addon.outputs.branch-name }}"
           fetch-depth: 0
@@ -142,7 +142,7 @@ jobs:
 
       - name: Install uv
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v7.6.0
         with:
           # Install a specific version of uv.
           version: "0.11.7"
@@ -164,7 +164,7 @@ jobs:
 
       - name: Push changes
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: stefanzweifel/git-auto-commit-action@v7
+        uses: stefanzweifel/git-auto-commit-action@v7.1.0
         with:
           commit_message: "[${{ steps.get_addon.outputs.addon }}] Bumped version to ${{ steps.increment_version.outputs.new_version }}"
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
@@ -174,7 +174,7 @@ jobs:
 
       - name: Remove 'release' label
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v8.0.0
         with:
           script: |
             await github.rest.issues.removeLabel({

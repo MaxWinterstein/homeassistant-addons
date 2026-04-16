@@ -20,10 +20,10 @@ jobs:
       changedAddons: ${{ steps.filter.outputs.changes }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: 📂 Detect changed files
-        uses: dorny/paths-filter@v4
+        uses: dorny/paths-filter@v4.0.1
         id: filter
         with:
           filters: .github/paths-filter.yml
@@ -38,9 +38,9 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
       - name: 🔎 Run Home Assistant Add-on Lint
-        uses: frenck/action-addon-linter@v2
+        uses: frenck/action-addon-linter@v2.21.0
         with:
           path: "./${{ matrix.addon }}"
 
@@ -57,7 +57,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: Get information
         id: info

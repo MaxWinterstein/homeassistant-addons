@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: ✅ Run renovate-config-validator
         run: npx --yes --package renovate -- renovate-config-validator .github/renovate.json5

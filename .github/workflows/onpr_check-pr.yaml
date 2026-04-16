@@ -17,7 +17,7 @@ jobs:
       hasAddonChanges: ${{ steps.find_addons.outputs.has_addon_changes }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
         with:
           fetch-depth: 0
 
@@ -87,7 +87,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: 🔎 Check if a label for the addon exists
         shell: bash
@@ -110,10 +110,10 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: 🔎 Run Home Assistant Add-on Lint
-        uses: frenck/action-addon-linter@v2
+        uses: frenck/action-addon-linter@v2.21.0
         with:
           path: "./${{ matrix.addon }}"
 
@@ -128,16 +128,16 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
 
       - name: ℹ️ Gather addon info
         id: information
-        uses: frenck/action-addon-information@v1.4
+        uses: frenck/action-addon-information@v1.4.2
         with:
           path: "./${{ matrix.addon }}/"
 
       - name: 🗄️ Cache docker layers
-        uses: actions/cache@v5
+        uses: actions/cache@v5.0.5
         with:
           path: /tmp/buildx-cache
           key: ${{ runner.os }}-buildx-${{ matrix.addon }}-${{ hashFiles('**/Dockerfile') }}
@@ -208,14 +208,14 @@ jobs:
           } >> "$GITHUB_OUTPUT"
 
       - name: 🏗️ Set up QEMU
-        uses: docker/setup-qemu-action@v4
+        uses: docker/setup-qemu-action@v4.0.0
 
       - name: 🏗️ Set up Docker Buildx
-        uses: docker/setup-buildx-action@v4
+        uses: docker/setup-buildx-action@v4.0.0
 
       - name: 💿 Build Addon - armhf
         if: ${{ steps.information.outputs.armhf == 'true' }}
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -229,7 +229,7 @@ jobs:
 
       - name: 💿 Build Addon - armv7
         if: ${{ steps.information.outputs.armv7 == 'true' }}
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -243,7 +243,7 @@ jobs:
 
       - name: 💿 Build Addon - aarch64
         if: ${{ steps.information.outputs.aarch64 == 'true' }}
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -257,7 +257,7 @@ jobs:
 
       - name: 💿 Build Addon - amd64
         if: ${{ steps.information.outputs.amd64 == 'true' }}
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           context: ${{ matrix.addon }}
           push: false
@@ -271,7 +271,7 @@ jobs:
 
       - name: 💿 Build Addon - i386
         if: ${{ steps.information.outputs.i386 == 'true' }}
-        uses: docker/build-push-action@v7
+        uses: docker/build-push-action@v7.1.0
         with:
           context: ${{ matrix.addon }}
           push: false
