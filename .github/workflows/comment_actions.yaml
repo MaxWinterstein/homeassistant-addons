@@ -142,7 +142,7 @@ jobs:
 
       - name: Install uv
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           # Install a specific version of uv.
           version: "0.11.8"
