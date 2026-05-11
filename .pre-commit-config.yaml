@@ -8,7 +8,7 @@ repos:
       - id: typos
   - repo: https://github.com/reteps/dockerfmt
     # run `pre-commit autoupdate` to pin the version
-    rev: v0.3.9
+    rev: v0.5.2
     hooks:
       - id: dockerfmt
         args:
