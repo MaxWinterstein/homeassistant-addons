@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Add 👍 reaction to the comment
         if: github.event_name == 'issue_comment'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const commentId = context.payload.comment.id;
@@ -174,7 +174,7 @@ jobs:
 
       - name: Remove 'release' label
         if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             await github.rest.issues.removeLabel({
