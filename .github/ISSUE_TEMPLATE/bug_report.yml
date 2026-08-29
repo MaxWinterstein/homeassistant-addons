@@ -1,0 +1,66 @@
+name: Bug report
+description: Something in one of the add-ons does not work
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Everything here is experimental, so bugs happen. The more of the below you fill in, the less back and forth we need.
+
+  - type: dropdown
+    id: addon
+    attributes:
+      label: Add-on
+      description: Which add-on is this about?
+      options:
+        - ADS-B Multi-Portal Feeder
+        - Angry IP Scanner
+        - CUPS
+        - FlightRadar24 Sharing Key Generator
+        - Planefence
+        - TooGoodToGo Home Assistant MQTT Bridge
+    validations:
+      required: true
+
+  - type: input
+    id: addon-version
+    attributes:
+      label: Add-on version
+      description: Shown on the add-on page in Home Assistant, e.g. 2.6.1.1
+    validations:
+      required: true
+
+  - type: input
+    id: ha-version
+    attributes:
+      label: Home Assistant version
+      description: Settings -> About, e.g. 2026.8.1
+    validations:
+      required: true
+
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      description: Settings -> System -> Repairs -> three dot menu -> System information
+      options:
+        - aarch64
+        - amd64
+        - armv7
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what did you expect?
+      description: Also add the steps to get there, if it is not obvious.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Add-on log
+      description: From the add-on's Log tab. Please remove tokens, passwords and mail addresses.
+      render: shell

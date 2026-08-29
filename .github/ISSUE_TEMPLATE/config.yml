@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Home Assistant community
+    url: https://community.home-assistant.io/
+    about: General Home Assistant questions that are not about one of these add-ons.
+  - name: TooGoodToGo MQTT Bridge
+    url: https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge/issues
+    about: Bugs in the bridge itself, rather than in packaging it as an add-on.
