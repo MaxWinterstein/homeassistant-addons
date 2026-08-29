@@ -4,7 +4,6 @@
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
-![Supports armv7 Architecture][armv7-shield]
 
 Quickly generate a Flightradar24 sharing key and view the setup process in your browser - all without leaving Home Assistant!
 
@@ -34,7 +33,7 @@ Before starting the add-on, configure these essential parameters in the add-on o
 - **email**: Your email address (will receive the sharing key as backup)
 - **latitude**: Your receiver's latitude (e.g., `52.5200`)
 - **longitude**: Your receiver's longitude (e.g., `13.4050`)
-- **altitude**: Your receiver's altitude in meters above sea level
+- **altitude**: Your receiver's altitude in feet above sea level
 
 ### Optional Settings
 
@@ -43,12 +42,12 @@ Before starting the add-on, configure these essential parameters in the add-on o
 - **confirm_settings**: Auto-confirm settings during signup (default: `true`)
 - **autoconfig**: Enable automatic configuration (default: `false`)
 - **receiver_type**: Type of receiver hardware
-  - `1`: DVB-T
-  - `2`: rtl-sdr
-  - `3`: Beast
-  - `4`: AVR
-  - `5`: Radarcape
-  - `6`: Other
+  - `1`: DVBT Stick
+  - `2`: SBS1
+  - `3`: SBS3
+  - `4`: ModeS Beast
+  - `5`: AVR Compatible
+  - `6`: microADSB
 - **raw_feed**: Enable raw data feed (default: `false`)
 - **base_feed**: Enable base station feed (default: `false`)
 
@@ -60,10 +59,10 @@ sharing_key: ""
 mlat: true
 latitude: 52.5200
 longitude: 13.4050
-altitude: 34
+altitude: 112
 confirm_settings: true
 autoconfig: false
-receiver_type: "2"
+receiver_type: "1"
 raw_feed: false
 base_feed: false
 ```
@@ -135,6 +134,5 @@ This add-on uses the excellent [docker-fr24feed-piaware-dump1090](https://github
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
 [repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons
