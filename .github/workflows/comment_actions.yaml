@@ -44,9 +44,10 @@ jobs:
         env:
           ISSUE_BODY: ${{ github.event_name == 'pull_request' && github.event.pull_request.body || github.event.issue.body }}
           PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.event.issue.title }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
         run: |
 
-          comment_body="${{ github.event.comment.body }}"
+          comment_body="$COMMENT_BODY"
           ADDON=''
 
           # Check if the PR title has an add-on mentioned
