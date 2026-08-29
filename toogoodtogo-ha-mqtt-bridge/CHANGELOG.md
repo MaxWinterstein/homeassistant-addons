@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [3.5.0.1] - 2026-08-29
+
+### Fixed
+
+- The MQTT password is now stored as a `password` field, so Home Assistant masks it in the add-on configuration instead of showing it in cleartext.
+
 ## [3.5.0.0] - 2025-07-20
 
 ### Changed
