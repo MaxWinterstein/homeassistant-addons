@@ -22,7 +22,7 @@ Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightR
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
 
-### <img src="fr24-sharing-key-generator/icon.png" width="40px"> FlightRadar24 Sharing Key Generator
+### <img src="fr24-sharing-key-generator/icon.png" width="40px" alt=""> FlightRadar24 Sharing Key Generator
 
 Quickly generate a FlightRadar24 sharing key and watch the signup process in your browser, without leaving Home Assistant. Handy to get the key needed by the ADS-B Multi Portal Feeder.
 
