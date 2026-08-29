@@ -17,7 +17,7 @@ jobs:
       hasAddonChanges: ${{ steps.find_addons.outputs.has_addon_changes }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
@@ -87,7 +87,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🔎 Check if a label for the addon exists
         shell: bash
@@ -110,7 +110,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🔎 Run Home Assistant Add-on Lint
         uses: frenck/action-addon-linter@v2
@@ -128,7 +128,7 @@ jobs:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: ℹ️ Gather addon info
         id: information
