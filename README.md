@@ -4,7 +4,13 @@
 
 _Everything here is meant to be **experimental**. Happy to see feedback!_
 
-## Home Assistant Addon repository containing
+## Installation
+
+[![Add repository on my Home Assistant][repository-badge]][repository-url]
+
+If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: `https://github.com/MaxWinterstein/homeassistant-addons/`
+
+## Add-ons
 
 ### <img src="angryipscanner/icon.png" width="40px"> Angry IP Scanner
 
@@ -15,6 +21,12 @@ Wraps the well known [Angry IP Scanner](https://angryip.org/) to make it usable 
 Observe flight traffic using some cheap ADS-B USB-Stick and feed towards FlightRadar24 and FlightAware.
 
 Based on the incredible [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) docker image by [Thom-x](https://github.com/Thom-x).
+
+### <img src="fr24-sharing-key-generator/icon.png" width="40px"> FlightRadar24 Sharing Key Generator
+
+Quickly generate a FlightRadar24 sharing key and watch the signup process in your browser, without leaving Home Assistant. Handy to get the key needed by the ADS-B Multi Portal Feeder.
+
+Also based on [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) by [Thom-x](https://github.com/Thom-x).
 
 ### <img src="cups/icon.png" width="40px"> CUPS ([cups.org](http://www.cups.org))
 
@@ -31,12 +43,6 @@ Integrate your TooGoodToGo favourites to Home Assistant via MQTT.
 Track aircraft flying near your ADS-B receiver. Logs low-altitude and nearby flights, generates noise statistics, and can send alerts via Discord, Mastodon, Telegram, and BlueSky.
 
 Based on [docker-planefence](https://github.com/sdr-enthusiasts/docker-planefence) by kx1t / SDR-Enthusiasts.
-
-## Installation
-
-[![Add repository on my Home Assistant][repository-badge]][repository-url]
-
-If you want to do add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: `https://github.com/MaxWinterstein/homeassistant-addons/`
 
 ## Deprecated add-ons
 
@@ -62,9 +68,6 @@ See https://community.home-assistant.io/t/portainer-v2-6-2-unable-to-start-conta
 
 Forwards Eufy Security push notifications to Home Assistant via MQTT.
 
-[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
-[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons
-
 ### <img src="awtrix/icon.png" width="40px"> AWTRIX Controller
 
 #### AWTRIX 3 no longer needs an running server
@@ -80,3 +83,6 @@ Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I li
 #### Never really worked and no longer used by me
 
 Small proxy to add OctoPrint to the Home Assistant.
+
+[repository-badge]: https://img.shields.io/badge/Add%20repository%20to%20my-Home%20Assistant-41BDF5?logo=home-assistant&style=for-the-badge
+[repository-url]: https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2FMaxWinterstein%2Fhomeassistant-addons
