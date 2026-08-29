@@ -18,7 +18,7 @@ jobs:
       addons: ${{ steps.find.outputs.addons }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       - name: 🔎 Find addon directories
         id: find
@@ -53,9 +53,9 @@ jobs:
         addon: ${{ fromJSON(needs.find-addons.outputs.addons) }}
     steps:
       - name: ↩️ Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       - name: 🔎 Run Home Assistant Add-on Lint
-        uses: frenck/action-addon-linter@v2
+        uses: frenck/action-addon-linter@v2.21.1
         with:
           path: "./${{ matrix.addon }}"
