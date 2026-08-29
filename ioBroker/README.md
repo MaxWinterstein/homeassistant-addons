@@ -18,7 +18,7 @@
 ![Supports armhf Architecture][armhf-shield]
 ![Supports i386 Architecture][i386-shield]
 
-<a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com'></a>
+<a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 This is a pretty basic implementation of ioBroker as Home Assistant Add-on.
 It is meant to provide some playground.
@@ -28,7 +28,7 @@ and https://community.home-assistant.io/t/eufy-camera-integration/121758
 
 See the Documentation (DOCS.md) for more info.
 
-**This is no official add-on, neither from Home Assisant, nor from ioBroker.**
+**This is no official add-on, neither from Home Assistant, nor from ioBroker.**
 
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
