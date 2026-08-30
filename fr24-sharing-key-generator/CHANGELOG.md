@@ -2,12 +2,6 @@
 
 <!-- towncrier release notes start -->
 
-## [2.6.2] - 2026-08-30
-
-### Fixed
-
-- A failed Flightradar24 signup is now reported as a failure. The exit code was read from `tee` rather than from the signup wizard, so every run logged success regardless of what actually happened.
-
 ## [2.6.1] - 2026-03-14
 
 ### Changed
