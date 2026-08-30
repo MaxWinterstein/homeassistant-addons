@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 
 bashio::log.info "Copy settings file"
 cp /data/options.json /app/toogoodtogo_ha_mqtt_bridge/settings.local.json

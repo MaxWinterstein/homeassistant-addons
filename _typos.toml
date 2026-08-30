@@ -1,0 +1,6 @@
+# `hass` is Home Assistant's own abbreviation and appears in real Docker labels
+# (io.hass.type, io.hass.version, io.hass.arch) and in hostnames. typos wants to
+# "correct" it to `hash`, which would silently break those labels — it tried
+# exactly that on portainer/rootfs/etc/services.d/portainer/run.
+[default.extend-words]
+hass = "hass"
