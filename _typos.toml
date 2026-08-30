@@ -4,3 +4,6 @@
 # exactly that on portainer/rootfs/etc/services.d/portainer/run.
 [default.extend-words]
 hass = "hass"
+# The MQTT broker is Mosquitto. typos reads it as a misspelling of "mosquito"
+# and rewrites core-mosquitto, which is a real add-on hostname.
+mosquitto = "mosquitto"
