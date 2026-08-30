@@ -1,0 +1,13 @@
+# Words this repo uses that `typos` reads as mistakes. Each one here is a real
+# identifier, so an "autocorrection" is a silent breakage rather than a nit.
+#
+# hass       Home Assistant's own abbreviation. It appears in the image labels
+#            Supervisor reads (io.hass.version, io.hass.type, io.hass.arch, ...)
+#            and in hostnames. typos rewrites it to `hash`.
+# mosquitto  The MQTT broker. typos reads it as a misspelling of `mosquito` and
+#            rewrites core-mosquitto, which is a real add-on hostname.
+#
+# Both were caught after the hook had already rewritten them in a pull request.
+[default.extend-words]
+hass = "hass"
+mosquitto = "mosquitto"
