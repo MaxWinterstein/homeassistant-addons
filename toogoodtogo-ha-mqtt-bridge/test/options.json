@@ -1,0 +1,18 @@
+{
+  "mqtt": {
+    "host": "mqtt-broker",
+    "port": 1883,
+    "username": "mqtt-user",
+    "password": "mqtt-secret"
+  },
+  "tgtg": {
+    "email": "tester@example.com",
+    "language": "en-US",
+    "polling_schedule": "*/10 * * * *",
+    "intense_fetch_interval": 30,
+    "intense_fetch_period_of_time": 5
+  },
+  "timezone": "Europe/Berlin",
+  "locale": "en_us",
+  "cleanup": true
+}
