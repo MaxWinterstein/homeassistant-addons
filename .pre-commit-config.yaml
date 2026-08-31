@@ -3,7 +3,11 @@ ci:
 
 repos:
   - repo: https://github.com/crate-ci/typos
-    rev: v1
+    # Pinned, not `v1`: that is a moving tag, so pre-commit never updates the
+    # cached environment and different machines silently run different versions
+    # with different dictionaries. pre-commit warns about it on every run.
+    # Run `pre-commit autoupdate` to move it.
+    rev: v1.50.0
     hooks:
       - id: typos
   - repo: https://github.com/reteps/dockerfmt
