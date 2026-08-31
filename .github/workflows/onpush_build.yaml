@@ -70,7 +70,7 @@ jobs:
         env:
           HEAD: "${{ github.head_ref }}"
         run: |
-          # shellcheck disable=SC2157,SC2086 
+          # shellcheck disable=SC2157,SC2086
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
              echo "::set-output name=build_arch::true";
              echo "::set-output name=image::$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)";

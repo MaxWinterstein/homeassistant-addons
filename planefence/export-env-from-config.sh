@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 #
 # Reads the Home Assistant Add-On configuration from /data/options.json
 # and exports all values as environment variables.
@@ -110,6 +111,8 @@ while read -rd $'' line; do
         fi
     fi
     bashio::log.info "export-env:   export ${line%%=*}=***"
+    # shellcheck disable=SC2163  # line is KEY=value, so this exports the pair,
+    # not a variable named by its contents.
     export "$line"
 done < <(jq -r 'to_entries | map("\(.key)=\(.value)\u0000")[]' /data/options.json)
 bashio::log.info "export-env: Done."
