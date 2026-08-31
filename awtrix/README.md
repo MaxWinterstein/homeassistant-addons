@@ -2,7 +2,7 @@
 
 <a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-## Based on (aka. stolen from) https://github.com/lubeda/repository
+## Based on (aka. stolen from) [lubeda](https://github.com/lubeda)'s add-on repository, since removed from GitHub
 
 Thanks for the work! I just made it work again for Raspberry Pi, and did some tweaking here and there.
 
@@ -22,9 +22,9 @@ There is no arrangement with blueforcer, so i build this by try and error. It wo
 
 ## Usage
 
-Access the server via ingress, so no port config is necesarry
+Access the server via ingress, so no port config is necessary
 
-The config and the apps folder are accesible as /config/awtrix/apps and /config/awtrix/config. So no ftp is needed
+The config and the apps folder are accessible as /config/awtrix/apps and /config/awtrix/config. So no ftp is needed
 
 | option  | default | usage                                                                                                                                          |
 | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |

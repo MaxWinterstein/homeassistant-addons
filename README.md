@@ -74,7 +74,7 @@ Forwards Eufy Security push notifications to Home Assistant via MQTT.
 
 (AWsome maTRIX) is a full color dot matrix that displays applications from simple time display to Fortnite account statistics.
 
-Most of the work was done from/within https://github.com/lubeda/repository - I just made it work and adjusted some little things.
+Most of the work was done from/within [lubeda](https://github.com/lubeda)'s add-on repository, since removed from GitHub - I just made it work and adjusted some little things.
 
 Made for the awesome AWTRIX project by blueforcer. Even it is discontinued, I like it.
 
