@@ -6,12 +6,15 @@ name: Builder
 env:
   BUILD_ARGS: ""
 
+# No `paths:` filter here on purpose. It used to be "**/config.*", which meant a
+# Dockerfile or rootfs change never reached the builder at all, so Renovate's base
+# image bumps merged green and were never published. Which add-on actually needs
+# rebuilding is decided in one place, .github/paths-filter.yml, by the job below;
+# a second, narrower filter on the trigger could only ever disagree with it.
 on:
   push:
     branches:
       - main
-    paths:
-      - "**/config.*"
 
 jobs:
   check-addon-changes:
@@ -27,6 +30,11 @@ jobs:
         id: filter
         with:
           filters: .github/paths-filter.yml
+          # The filters use "!" to exclude docs and artwork. Under the default
+          # "some" quantifier a negated pattern matches every file it does not
+          # name, so every filter would match everything. "some-with-excludes"
+          # is the one that reads them as exclusions.
+          predicate-quantifier: some-with-excludes
 
   lint_config:
     if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
