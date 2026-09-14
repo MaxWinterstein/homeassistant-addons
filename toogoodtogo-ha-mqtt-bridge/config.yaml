@@ -28,7 +28,7 @@ schema:
     host: str
     port: int
     username: str?
-    password: str?
+    password: password?
   tgtg:
     email: str
     language: str
