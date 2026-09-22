@@ -146,7 +146,7 @@ jobs:
         uses: astral-sh/setup-uv@v10.2.0
         with:
           # Install a specific version of uv.
-          version: "0.12.17"
+          version: "0.12.18"
 
       - name: Set up Python
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
