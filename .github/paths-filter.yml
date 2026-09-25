@@ -1,12 +1,77 @@
 # AUTO BUILDS #
 # From https://github.com/Poeschl/Hassio-Addons
-# name: slug/filename ; could be slug/config.* for all files
-adsb-multi-portal-feeder: adsb-multi-portal-feeder/config.* # Image : yes
-angryipscanner: angryipscanner/config.* # Image : yes
-toogoodtogo-ha-mqtt-bridge: toogoodtogo-ha-mqtt-bridge/config.*
-octoprint-proxy: octoprint-proxy/config.*
-cups: cups/config.*
-cups-dev: cups-dev/config.*
-awtrix: awtrix/config.*
-fr24-sharing-key-generator: fr24-sharing-key-generator/config.*
-planefence: planefence/config.*
+#
+# Which files make an add-on's published image stale. Used by onpush_build.yaml to
+# decide what to rebuild, and by onpr_check-pr.yaml to decide what to test-build.
+#
+# Anything that ends up inside the image belongs here: config.*, Dockerfile, build.*,
+# rootfs/**, apparmor.txt and helper scripts. Documentation and artwork are excluded,
+# since changing them cannot change the built image.
+#
+# Only add-ons that publish to ghcr belong in this file. eufy-ha-mqtt-bridge, ioBroker
+# and portainer have no `image:` key and are built on the user's device, so there is
+# nothing for CI to push.
+
+adsb-multi-portal-feeder:
+  - "adsb-multi-portal-feeder/**"
+  - "!adsb-multi-portal-feeder/*.md"
+  - "!adsb-multi-portal-feeder/images/**"
+  - "!adsb-multi-portal-feeder/icon.png"
+  - "!adsb-multi-portal-feeder/logo.png"
+  - "!adsb-multi-portal-feeder/changelog.d/**"
+
+angryipscanner:
+  - "angryipscanner/**"
+  - "!angryipscanner/*.md"
+  - "!angryipscanner/images/**"
+  - "!angryipscanner/icon.png"
+  - "!angryipscanner/logo.png"
+  - "!angryipscanner/changelog.d/**"
+
+awtrix:
+  - "awtrix/**"
+  - "!awtrix/*.md"
+  - "!awtrix/images/**"
+  - "!awtrix/icon.png"
+  - "!awtrix/logo.png"
+  - "!awtrix/changelog.d/**"
+
+cups:
+  - "cups/**"
+  - "!cups/*.md"
+  - "!cups/images/**"
+  - "!cups/icon.png"
+  - "!cups/logo.png"
+  - "!cups/changelog.d/**"
+
+fr24-sharing-key-generator:
+  - "fr24-sharing-key-generator/**"
+  - "!fr24-sharing-key-generator/*.md"
+  - "!fr24-sharing-key-generator/images/**"
+  - "!fr24-sharing-key-generator/icon.png"
+  - "!fr24-sharing-key-generator/logo.png"
+  - "!fr24-sharing-key-generator/changelog.d/**"
+
+octoprint-proxy:
+  - "octoprint-proxy/**"
+  - "!octoprint-proxy/*.md"
+  - "!octoprint-proxy/images/**"
+  - "!octoprint-proxy/icon.png"
+  - "!octoprint-proxy/logo.png"
+  - "!octoprint-proxy/changelog.d/**"
+
+planefence:
+  - "planefence/**"
+  - "!planefence/*.md"
+  - "!planefence/images/**"
+  - "!planefence/icon.png"
+  - "!planefence/logo.png"
+  - "!planefence/changelog.d/**"
+
+toogoodtogo-ha-mqtt-bridge:
+  - "toogoodtogo-ha-mqtt-bridge/**"
+  - "!toogoodtogo-ha-mqtt-bridge/*.md"
+  - "!toogoodtogo-ha-mqtt-bridge/images/**"
+  - "!toogoodtogo-ha-mqtt-bridge/icon.png"
+  - "!toogoodtogo-ha-mqtt-bridge/logo.png"
+  - "!toogoodtogo-ha-mqtt-bridge/changelog.d/**"
