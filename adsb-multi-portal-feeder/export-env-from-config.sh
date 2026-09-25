@@ -70,5 +70,7 @@ do
         line=$(echo $line | sed "s/HOMEASSISTANT_ELEVATION/$ELE/")
     fi
     # echo $line
+    # shellcheck disable=SC2163  # line is KEY=value, so this exports the pair,
+    # not a variable named by its contents.
     export "$line"
 done < <(jq -r "$jq_filter" /data/options.json)

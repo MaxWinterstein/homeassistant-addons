@@ -1,0 +1,72 @@
+---
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  shellcheck:
+    name: 🔎 shellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: 🔎 Run shellcheck
+        uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          severity: warning
+          # s6 service scripts have no extension, so the default scan never sees
+          # them. `finish` is deliberately absent: those are execlineb, not shell,
+          # and shellcheck cannot parse them.
+          additional_files: "run up"
+          ignore_names: finish
+          # The deprecated add-ons, per the README's own "Deprecated add-ons"
+          # section. ioBroker alone accounts for ~70 findings across two copies of
+          # the same script. Lint what we still ship; drop an entry from this list
+          # if one of them ever comes back.
+          ignore_paths: >-
+            ioBroker
+            portainer
+            eufy-ha-mqtt-bridge
+            awtrix
+            octoprint-proxy
+
+  hadolint:
+    name: 🔎 hadolint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: 🔎 Run hadolint
+        uses: hadolint/hadolint-action@v3.5.0
+        with:
+          recursive: true
+          config: .hadolint.yaml
+          # What is left after .hadolint.yaml is mostly "delete the apt lists" and
+          # "use --no-install-recommends", which are style calls on images that are
+          # not ours to restructure. Errors are the ones worth blocking on. Lower
+          # this to warning once the current crop is dealt with.
+          failure-threshold: error
+
+  yamllint:
+    name: 🔎 yamllint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      # Not preinstalled on the runner image.
+      - name: 🐍 Install yamllint
+        run: pipx install yamllint
+
+      # No --strict, so warnings are reported without failing, matching the
+      # hadolint job above. Errors fail in both.
+      - name: 🔎 Run yamllint
+        run: yamllint --format github .

@@ -20,7 +20,7 @@ WORKDIR /app
 # Install dependencies
 RUN uv sync --frozen --no-dev --index-strategy unsafe-best-match
 # install all the other stuff
-ADD rootfs /
+COPY rootfs /
 
 
 # Place executables in the environment at the front of the path
