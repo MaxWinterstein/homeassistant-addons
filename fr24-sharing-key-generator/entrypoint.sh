@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 
@@ -124,7 +124,11 @@ echo "[$(date)] Running fr24feed signup wizard via expect..."
 # Append expect output to log and show in stdout
 /signup.exp 2>&1 | tee -a /usr/share/nginx/html/index.html
 
-SIGNUP_EXIT_CODE=${PIPESTATUS:-${?}}
+# PIPESTATUS[0] is signup.exp's status. $? here would be tee's, which is
+# always 0, so the check below never fired and a failed signup was reported
+# as a success. Needs bash; this ran under /bin/sh, where PIPESTATUS does
+# not exist at all and the ${?} fallback had the same problem.
+SIGNUP_EXIT_CODE=${PIPESTATUS[0]}
 if [ "$SIGNUP_EXIT_CODE" -ne 0 ]; then
     echo "[$(date)] ERROR: fr24feed signup failed with exit code $SIGNUP_EXIT_CODE" | tee -a /usr/share/nginx/html/index.html
 else
