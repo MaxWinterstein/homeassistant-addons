@@ -287,3 +287,81 @@ jobs:
         run: |
           rm -rf /tmp/buildx-cache
           mv /tmp/buildx-cache-new /tmp/buildx-cache
+
+  # Add-ons opt in by dropping a test/*.test.sh next to their config. Discovered
+  # rather than listed so adding a test to another add-on needs no workflow edit.
+  find-tested-addons:
+    name: Find add-ons with tests
+    runs-on: ubuntu-latest
+    outputs:
+      addons: ${{ steps.find.outputs.addons }}
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: 🔎 Find add-ons with tests
+        id: find
+        shell: bash
+        run: |
+          shopt -s nullglob
+          addons=()
+          for t in */test/*.test.sh; do
+            addons+=("${t%%/*}")
+          done
+          # shellcheck disable=SC2207
+          addons=($(printf '%s\n' "${addons[@]}" | sort -u))
+          printf 'Found: %s\n' "${addons[*]:-none}"
+          printf '%s\n' "${addons[@]}" | jq -R -s -c 'split("\n")[:-1]' \
+            | sed 's/^/addons=/' >> "$GITHUB_OUTPUT"
+
+  # Deliberately not folded into check-build: that job only runs for add-ons
+  # whose config.* changed, so a test-only or rootfs-only change would never
+  # exercise its own test.
+  addon-tests:
+    name: Test ${{ matrix.addon }}
+    needs: find-tested-addons
+    if: ${{ needs.find-tested-addons.outputs.addons != '[]' }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        addon: ${{ fromJSON(needs.find-tested-addons.outputs.addons) }}
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      - name: ℹ️ Gather addon info
+        id: information
+        uses: frenck/action-addon-information@v1.4.2
+        with:
+          path: "./${{ matrix.addon }}/"
+
+      - name: 💽 Resolve amd64 base image
+        id: build_args
+        shell: bash
+        run: |
+          build_from=$(jq -r '.build_from.amd64 // empty' "${{ steps.information.outputs.build }}")
+          echo "amd64=BUILD_FROM=${build_from}" >> "$GITHUB_OUTPUT"
+
+      - name: 🏗️ Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4.3.0
+
+      - name: 💿 Build ${{ matrix.addon }} for amd64
+        uses: docker/build-push-action@v7.3.0
+        with:
+          context: ${{ matrix.addon }}
+          push: false
+          load: true
+          file: ${{ matrix.addon }}/Dockerfile
+          tags: addon-under-test:amd64
+          build-args: ${{ steps.build_args.outputs.amd64 }}
+
+      - name: 🧪 Run tests
+        shell: bash
+        run: |
+          shopt -s nullglob
+          for t in "${{ matrix.addon }}"/test/*.test.sh; do
+            echo "::group::${t}"
+            bash "${t}" addon-under-test:amd64
+            echo "::endgroup::"
+          done
