@@ -10,6 +10,8 @@ _Everything here is meant to be **experimental**. Happy to see feedback!_
 
 If you want to add the repository manually, please follow the procedure highlighted in the [Home Assistant website](https://home-assistant.io/hassio/installing_third_party_addons). Use the following URL to add this repository: `https://github.com/MaxWinterstein/homeassistant-addons/`
 
+Trying out a pull request before it is merged: [Testing a branch on a real Home Assistant](docs/testing-a-branch.md).
+
 ## Add-ons
 
 ### <img src="angryipscanner/icon.png" width="40px"> Angry IP Scanner
