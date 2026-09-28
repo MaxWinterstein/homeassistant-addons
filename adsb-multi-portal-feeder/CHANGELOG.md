@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [2.6.1.2-test1] - 2026-09-28
+
+### Fixed
+
+- Fix OpenStreetMap tiles showing "403 Access blocked" in the ingress map: Home Assistant's `Referrer-Policy: no-referrer` header stripped the Referer that OSM requires, so the page now sets `strict-origin-when-cross-origin` itself ([#618](https://github.com/MaxWinterstein/homeassistant-addons/issues/618))
+
 ## [2.6.1.1] - 2026-04-06
 
 ### Fixed

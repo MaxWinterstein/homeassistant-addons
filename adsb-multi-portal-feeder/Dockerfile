@@ -38,3 +38,10 @@ RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner \
 
 # enhance timeout, as sometimes the api calls are slow (rate limited?)
 ENV S6_CMD_WAIT_FOR_SERVICES_MAXTIME=30000
+
+# Home Assistant sends "Referrer-Policy: no-referrer" on ingress pages, so the map's
+# tile requests carry no Referer and OpenStreetMap blocks them (403 "Referer is required").
+# A meta referrer tag overrides the header policy for this page. Only the origin is sent,
+# never the ingress path with its token.
+RUN sed -i 's|<head>|<head>\n\t\t<meta name="referrer" content="strict-origin-when-cross-origin" />|' /usr/lib/fr24/public_html/index.html \
+    && grep -q 'name="referrer"' /usr/lib/fr24/public_html/index.html
