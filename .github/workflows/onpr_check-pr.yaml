@@ -221,6 +221,7 @@ jobs:
           push: false
           load: true
           file: ${{ matrix.addon }}/Dockerfile
+          platforms: linux/arm/v6
           tags: ${{ steps.tags.outputs.armhf }}
           labels: ${{ steps.labels.outputs.armhf }}
           build-args: ${{ steps.build_args.outputs.armhf }}
@@ -235,6 +236,7 @@ jobs:
           push: false
           load: true
           file: ${{ matrix.addon }}/Dockerfile
+          platforms: linux/arm/v7
           tags: ${{ steps.tags.outputs.armv7 }}
           labels: ${{ steps.labels.outputs.armv7 }}
           build-args: ${{ steps.build_args.outputs.armv7 }}
@@ -249,6 +251,7 @@ jobs:
           push: false
           load: true
           file: ${{ matrix.addon }}/Dockerfile
+          platforms: linux/arm64
           tags: ${{ steps.tags.outputs.aarch64 }}
           labels: ${{ steps.labels.outputs.aarch64 }}
           build-args: ${{ steps.build_args.outputs.aarch64 }}
@@ -263,6 +266,7 @@ jobs:
           push: false
           load: true
           file: ${{ matrix.addon }}/Dockerfile
+          platforms: linux/amd64
           tags: ${{ steps.tags.outputs.amd64 }}
           labels: ${{ steps.labels.outputs.amd64 }}
           build-args: ${{ steps.build_args.outputs.amd64 }}
@@ -277,6 +281,7 @@ jobs:
           push: false
           load: true
           file: ${{ matrix.addon }}/Dockerfile
+          platforms: linux/386
           tags: ${{ steps.tags.outputs.i386 }}
           labels: ${{ steps.labels.outputs.i386 }}
           build-args: ${{ steps.build_args.outputs.i386 }}
