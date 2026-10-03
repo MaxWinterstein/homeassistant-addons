@@ -1,0 +1,13 @@
+---
+extends: default
+
+rules:
+  # GitHub workflows and add-on configs both run long naturally.
+  line-length: disable
+  # "on:" in a workflow is a key, not the boolean true.
+  truthy:
+    check-keys: false
+  document-start: disable
+
+ignore: |
+  .git/

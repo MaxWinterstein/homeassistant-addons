@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 # Generate/update planefence.config from Home Assistant add-on options.
 # Runs via legacy-cont-init before planefence services start.
 #
@@ -66,6 +67,8 @@ touch "${DATA_PERSIST}/.internal/plane-alert-db.txt"
 # If PF_ALERTLIST is missing from planefence.config but present in the
 # saved template, restore it so alertlist processing works again.
 if [ -f "${CONFIG_FILE}" ] && [ -f "${SAVED_TEMPLATE}" ]; then
+    # shellcheck disable=SC2043  # one key today; kept as a loop so the next
+    # option that needs restoring is a one-word change.
     for _key in PF_ALERTLIST; do
         if ! grep -q "^${_key}=" "${CONFIG_FILE}" 2>/dev/null; then
             _default=$(grep -E "^[[:space:]]*${_key}=" "${SAVED_TEMPLATE}" 2>/dev/null | head -1 || true)

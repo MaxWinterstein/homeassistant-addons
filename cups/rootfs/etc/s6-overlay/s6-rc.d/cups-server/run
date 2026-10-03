@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bashio
+# shellcheck shell=bash
 
 # Get OS version from Supervisor API
 bashio::log.info "Fetching OS info from Supervisor API..."
