@@ -2,11 +2,11 @@
 
 <!-- towncrier release notes start -->
 
-## [4.2.3.5] - 2026-10-03
+## [4.2.4.2] - 2026-10-03
 
 ### Changed
 
-- Base image moved from Debian bullseye (EOL) to bookworm, CUPS updated from 2.3.3 to 2.4.2. Rebuilds were failing because the expired `bullseye-security` repository made required packages uninstallable.
+- Base image moved from Debian bullseye (EOL) to bookworm, CUPS updated from 2.3.3 to 2.4.2, and the add-on version follows it again (`4` + CUPS `2.4.2`). Rebuilds were failing because the expired `bullseye-security` repository made required packages uninstallable.
 
 ## [4.2.3.4] - 2026-03-14
 

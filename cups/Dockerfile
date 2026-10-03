@@ -1,6 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
+# The add-on version mirrors this: 4.<CUPS upstream version>, e.g. 4.2.4.2 for 2.4.2
 ARG CUPS_VERSION=2.4.2-3+deb12u9
 
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
