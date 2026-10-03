@@ -6,7 +6,6 @@ angryipscanner: angryipscanner/config.* # Image : yes
 toogoodtogo-ha-mqtt-bridge: toogoodtogo-ha-mqtt-bridge/config.*
 octoprint-proxy: octoprint-proxy/config.*
 cups: cups/config.*
-cups-dev: cups-dev/config.*
 awtrix: awtrix/config.*
 fr24-sharing-key-generator: fr24-sharing-key-generator/config.*
 planefence: planefence/config.*
