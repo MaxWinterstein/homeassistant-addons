@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [1.4.0.1] - 2026-10-03
+
+### Changed
+
+- Base image moved from Debian bullseye (EOL) to bookworm. Rebuilds were failing because the expired `bullseye-security` repository made required packages uninstallable.
+
 ## [1.4.0.0] - 2026-01-01
 
 ### Changed
