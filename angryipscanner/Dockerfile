@@ -23,7 +23,7 @@ RUN set -x \
         wget \
         xfonts-base \
         xfonts-scalable \
-        openjdk-17-jre \
+        openjdk-21-jre \
         libswt-cairo-gtk-4-jni \
         libswt-gtk-4-java \
     && rm -rf /var/lib/apt/lists/*
