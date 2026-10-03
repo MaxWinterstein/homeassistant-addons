@@ -54,8 +54,11 @@ jobs:
           # Either a released CHANGELOG.md, or a towncrier news fragment under
           # changelog.d/. A normal PR should only ever add the fragment; the
           # CHANGELOG.md is written by /release, when towncrier folds them in.
-          changed_changelog_files=$(git diff --name-only origin/main "${{ github.sha }}" \
-            | grep -iE '^([^/]+/)?(changelog\.(md|txt|ya?ml|json)|changelog\.d/.+\.md)$' || true)
+          # Deleted files don't count (a release deletes fragments but also
+          # writes CHANGELOG.md), and towncrier only reads direct children of
+          # changelog.d/, so nested files wouldn't record anything.
+          changed_changelog_files=$(git diff --diff-filter=d --name-only origin/main "${{ github.sha }}" \
+            | grep -iE '^([^/]+/)?(changelog\.(md|txt|ya?ml|json)|changelog\.d/[^/]+\.md)$' || true)
           echo "Changed changelog files:"
           echo "$changed_changelog_files"
           echo "changed_changelog_files=$(echo "$changed_changelog_files" | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
