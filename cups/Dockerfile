@@ -1,7 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG CUPS_VERSION=2.3.3op2-3+deb11u10
+ARG CUPS_VERSION=2.4.2-3+deb12u9
 
 LABEL io.hass.version="1.0" io.hass.type="addon" io.hass.arch="aarch64|amd64"
 
