@@ -80,3 +80,7 @@ tasks:
     desc: "✅ Validate Renovate config locally"
     cmds:
       - npx --yes --package renovate -- renovate-config-validator .github/renovate.json5
+
+  release:
+    desc: "🚀 Release an add-on: bump its version and build CHANGELOG.md from changelog.d/ (task release -- <addon> <version>)"
+    cmd: ./scripts/release-addon.sh {{.CLI_ARGS}}
