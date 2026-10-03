@@ -8,6 +8,11 @@ on:
     branches:
       - main
 
+# Nothing here pushes or comments; paths-filter needs to list the PR's files.
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   check-addon-changes:
     runs-on: ubuntu-latest
@@ -24,27 +29,35 @@ jobs:
       - name: Fetch main branch
         run: git fetch origin main
 
+      - name: Find add-ons whose image inputs changed
+        uses: dorny/paths-filter@v4.0.3
+        id: filter
+        with:
+          filters: .github/pr-build-filter.yml
+          predicate-quantifier: some-with-excludes
+
       - name: Find changed addon directories
         id: find_addons
+        env:
+          FILTER_CHANGES: ${{ steps.filter.outputs.changes }}
         run: |
-          changed_config_files=$(git diff --name-only origin/main "${{ github.sha }}" \
-            | grep -E '^[^/]+/config\.(json|ya?ml)$' || true)
+          # Add-ons with a changed config.* are always included as well, so an
+          # add-on missing from pr-build-filter.yml (e.g. a new one) is still
+          # checked rather than silently skipped.
+          config_addons=$(git diff --name-only origin/main "${{ github.sha }}" \
+            | grep -E '^[^/]+/config\.(json|ya?ml)$' \
+            | awk -F/ '{print $1}' \
+            | jq -R -s -c 'split("\n")[:-1]')
 
-          echo "Changed config files:"
-          echo "$changed_config_files"
+          changed_addons=$(jq -n -c --argjson a "${FILTER_CHANGES:-[]}" --argjson b "$config_addons" '$a + $b | unique')
 
-          if [[ -z "$changed_config_files" ]]; then
-            echo "No addon changes detected"
-            echo "changed_addons=[]" >> "$GITHUB_OUTPUT"
+          echo "Changed image inputs: ${FILTER_CHANGES:-[]}"
+          echo "Changed configs: $config_addons"
+          echo "Changed addons: $changed_addons"
+          echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
+          if [[ "$changed_addons" == "[]" ]]; then
             echo "has_addon_changes=false" >> "$GITHUB_OUTPUT"
           else
-            changed_addons=$(echo "$changed_config_files" \
-              | awk -F/ '{print $1}' \
-              | sort -u \
-              | jq -R -s -c 'split("\n")[:-1]')
-
-            echo "Changed addons: $changed_addons"
-            echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
             echo "has_addon_changes=true" >> "$GITHUB_OUTPUT"
           fi
 

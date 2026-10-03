@@ -1,0 +1,69 @@
+# Which files can change an add-on's image. onpr_check-pr.yaml uses this to decide
+# which add-ons a pull request has to lint and test-build, so a Dockerfile-only change
+# (every Renovate base-image bump) gets built before it is merged.
+#
+# Everything under the add-on directory counts, except documentation, artwork and
+# pending changelog fragments. Needs `predicate-quantifier: some-with-excludes`: under
+# the default `some`, a negated pattern matches every file it does not name, so every
+# filter would match everything.
+#
+# Publishing is separate: onpush_build.yaml still only builds when config.* changes,
+# i.e. on a release, so nothing is republished under an existing version number.
+#
+# eufy-ha-mqtt-bridge, ioBroker and portainer are deprecated and not listed.
+
+adsb-multi-portal-feeder:
+  - "adsb-multi-portal-feeder/**"
+  - "!adsb-multi-portal-feeder/*.md"
+  - "!adsb-multi-portal-feeder/*.png"
+  - "!adsb-multi-portal-feeder/images/**"
+  - "!adsb-multi-portal-feeder/changelog.d/**"
+
+angryipscanner:
+  - "angryipscanner/**"
+  - "!angryipscanner/*.md"
+  - "!angryipscanner/*.png"
+  - "!angryipscanner/images/**"
+  - "!angryipscanner/changelog.d/**"
+
+awtrix:
+  - "awtrix/**"
+  - "!awtrix/*.md"
+  - "!awtrix/*.png"
+  - "!awtrix/images/**"
+  - "!awtrix/changelog.d/**"
+
+cups:
+  - "cups/**"
+  - "!cups/*.md"
+  - "!cups/*.png"
+  - "!cups/images/**"
+  - "!cups/changelog.d/**"
+
+fr24-sharing-key-generator:
+  - "fr24-sharing-key-generator/**"
+  - "!fr24-sharing-key-generator/*.md"
+  - "!fr24-sharing-key-generator/*.png"
+  - "!fr24-sharing-key-generator/images/**"
+  - "!fr24-sharing-key-generator/changelog.d/**"
+
+octoprint-proxy:
+  - "octoprint-proxy/**"
+  - "!octoprint-proxy/*.md"
+  - "!octoprint-proxy/*.png"
+  - "!octoprint-proxy/images/**"
+  - "!octoprint-proxy/changelog.d/**"
+
+planefence:
+  - "planefence/**"
+  - "!planefence/*.md"
+  - "!planefence/*.png"
+  - "!planefence/images/**"
+  - "!planefence/changelog.d/**"
+
+toogoodtogo-ha-mqtt-bridge:
+  - "toogoodtogo-ha-mqtt-bridge/**"
+  - "!toogoodtogo-ha-mqtt-bridge/*.md"
+  - "!toogoodtogo-ha-mqtt-bridge/*.png"
+  - "!toogoodtogo-ha-mqtt-bridge/images/**"
+  - "!toogoodtogo-ha-mqtt-bridge/changelog.d/**"
