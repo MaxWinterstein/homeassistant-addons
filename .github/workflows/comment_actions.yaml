@@ -61,7 +61,7 @@ jobs:
             echo "No valid add-on found"
             exit 1
           fi
-          echo "::set-output name=addon::$ADDON"
+          echo "addon=$ADDON" >> "$GITHUB_OUTPUT"
 
 
           echo "Extracting JSON from PR body..."
@@ -135,12 +135,6 @@ jobs:
 
           echo "new_version=$NEW_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Bump version in config.yaml
-        if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: mikefarah/yq@v4.54.1
-        with:
-          cmd: yq -i '.version = "${{ steps.increment_version.outputs.new_version }}"' ${{ steps.get_addon.outputs.addon }}/config.yaml
-
       - name: Install uv
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         uses: astral-sh/setup-uv@v10.2.0
@@ -156,12 +150,9 @@ jobs:
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
         run: uv sync --all-extras --dev
 
-      - name: Build towncrier
+      - name: Bump version and build CHANGELOG.md
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        run: |
-          #  mv "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md" CHANGELOG.md
-          uv run towncrier build --yes --dir "${{ steps.get_addon.outputs.addon }}/" --version "${{ steps.increment_version.outputs.new_version }}" --config pyproject.toml
-          # mv CHANGELOG.md "${{ steps.get_addon.outputs.addon }}/CHANGELOG.md"
+        run: ./scripts/release-addon.sh "${{ steps.get_addon.outputs.addon }}" "${{ steps.increment_version.outputs.new_version }}"
 
       - name: Push changes
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
@@ -170,7 +161,7 @@ jobs:
           commit_message: "[${{ steps.get_addon.outputs.addon }}] Bumped version to ${{ steps.increment_version.outputs.new_version }}"
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
           commit_user_name: MaxWintersteinBot # defaults to "github-actions[bot]"
-          commit_user_email: 208604358+MaxWintersteinBot@users.noreply.github.comg # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_user_email: 208604358+MaxWintersteinBot@users.noreply.github.com # defaults to "41898282+github-actions[bot]@users.noreply.github.com"
           commit_author: Max Winterstein Bot <208604358+MaxWintersteinBot@users.noreply.github.com> # defaults to "username <numeric_id+username@users.noreply.github.com>", where "numeric_id" and "username" belong to the author of the commit that triggered the run
 
       - name: Remove 'release' label

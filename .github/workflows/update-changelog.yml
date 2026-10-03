@@ -21,15 +21,19 @@ jobs:
 
       - name: Extract dependency info from PR title
         id: extract
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-
           PREFIX=$(echo "$PR_TITLE" | sed -E 's/^\[(.*)\].*/\1/')
-          DEP=$(echo "$PR_TITLE" | grep -ioP 'update \K[^ ]+')
-          VER=$(echo "$PR_TITLE" | grep -ioP 'to \Kv[0-9\.]+')
-
+          # "Update uv to v1.2.3" and "Update dependency foo to 1.2.3" alike
+          DEP=$(echo "$PR_TITLE" | grep -ioP 'update (dependency )?\K[^ ]+')
+          VER=$(echo "$PR_TITLE" | grep -ioP ' to \Kv?[0-9][0-9.]*[0-9]')
+          # One fragment per dependency, named after it, so later bumps
+          # overwrite it and a release lists only the newest version.
+          FRAGMENT="+$(echo "$DEP" | tr '/' '-' | tr -cd 'A-Za-z0-9._-').changed.md"
 
           echo "dep=$DEP" >> $GITHUB_OUTPUT
+          echo "fragment=$FRAGMENT" >> $GITHUB_OUTPUT
           echo "ver=$VER" >> $GITHUB_OUTPUT
           echo "prefix=$PREFIX" >> $GITHUB_OUTPUT
 
@@ -49,7 +53,7 @@ jobs:
           cd ${{ steps.extract.outputs.prefix }}
           test -f CHANGELOG.md && \
             mkdir -p changelog.d/ && \
-            echo "Updated ${{ steps.extract.outputs.dep }} to ${{ steps.extract.outputs.ver }}" >> changelog.d/${{ github.event.pull_request.number }}.changed.md
+            echo "Updated ${{ steps.extract.outputs.dep }} to ${{ steps.extract.outputs.ver }}" > "changelog.d/${{ steps.extract.outputs.fragment }}"
 
       - name: Commit and push changes
         if: steps.check.outputs.continue == 'true'
@@ -57,7 +61,7 @@ jobs:
           git config user.name "Renovate Bot"
           git config user.email "29139614+renovate[bot]@users.noreply.github.com"
 
-          git add ${{ steps.extract.outputs.prefix }}/changelog.d/${{ github.event.pull_request.number }}.changed.md
+          git add "${{ steps.extract.outputs.prefix }}/changelog.d/${{ steps.extract.outputs.fragment }}"
 
           # Get the original commit message from the PR
           COMMIT_MSG=$(git log origin/${{ github.base_ref }}..HEAD --format=%s | tail -1)
