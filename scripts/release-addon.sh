@@ -63,4 +63,8 @@ TOWNCRIER=(uvx --quiet towncrier)
 if [ -n "${CI:-}" ]; then TOWNCRIER=(uv run towncrier); fi
 "${TOWNCRIER[@]}" build --yes --dir "${ADDON}" --version "${VERSION}" --config pyproject.toml
 
+# towncrier's Markdown template leaves two blank lines after the new entry;
+# prettier (pre-commit) squashes them, so do it here instead of in a fix-up commit.
+cat -s "${ADDON}/CHANGELOG.md" >"${ADDON}/CHANGELOG.md.tmp" && mv "${ADDON}/CHANGELOG.md.tmp" "${ADDON}/CHANGELOG.md"
+
 echo "${ADDON}: ${CURRENT} -> ${VERSION} (${#fragments[@]} fragment(s))"
