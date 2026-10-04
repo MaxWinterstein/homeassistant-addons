@@ -66,7 +66,7 @@ ENV BATS_LIB_PATH=/usr/local/lib/bats
 # renovate: datasource=github-releases depName=go-task/task
 ARG TASK_VERSION=v3.53.1
 # renovate: datasource=github-releases depName=mikefarah/yq
-ARG YQ_VERSION=v4.53.6
+ARG YQ_VERSION=v4.54.1
 # renovate: datasource=github-releases depName=astral-sh/uv
 ARG UV_VERSION=0.12.23
 # renovate: datasource=github-releases depName=moby/moby
