@@ -1,0 +1,14 @@
+# Keys the planefence add-on writes into planefence.config that are NOT in the
+# upstream template (docker-planefence's planefence.config.RENAME-and-EDIT-me),
+# on purpose. Every other written key must exist in the template of the base
+# image in planefence/build.json, or tests/drift/planefence.sh fails.
+#
+# Format: KEY  [=>NEWKEY]  reason
+#   =>NEWKEY marks a renamed key kept for compatibility: the add-on must then
+#   also write NEWKEY, or the template's default for it would still win.
+
+FEEDER_LONG          =>FEEDER_LON   legacy name, upstream renamed it to FEEDER_LON (1249) but still falls back to it; kept for configs from older templates
+PF_PLANEALERT        =>PLANEALERT   legacy name, upstream now uses PLANEALERT but still falls back to PF_PLANEALERT
+PF_CHECKREMOTEDB     removed upstream (1249); option kept so existing add-on configs stay valid, no effect
+PA_MASTODON_MAXIMGS  removed upstream (1249); option kept so existing add-on configs stay valid, no effect
+TZ                   never in the template; set from the HA timezone and also applied to the container
