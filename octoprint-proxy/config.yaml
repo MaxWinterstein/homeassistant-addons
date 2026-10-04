@@ -1,5 +1,6 @@
 name: OctoPrint Proxy (NOT WORKING)
 version: 1.0.3
+stage: deprecated
 slug: octoprint_proxy
 description: Access OctoPrint from within Home Assistant
 url: https://github.com/MaxWinterstein/homeassistant-addons/
