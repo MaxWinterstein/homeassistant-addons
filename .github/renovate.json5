@@ -20,7 +20,7 @@
   customManagers: [
     {
       customType: "regex",
-      managerFilePatterns: ["//(^|/)build\\.json$//"],
+      managerFilePatterns: ["/(^|/)build\\.json$/"],
       matchStrings: [
         '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
       ],
@@ -28,7 +28,7 @@
     },
     {
       customType: "regex",
-      managerFilePatterns: ["//(^|/)build\\.json$//"],
+      managerFilePatterns: ["/(^|/)build\\.json$/"],
       matchStrings: [
         '"(?<depName>ghcr\\.io/sdr-enthusiasts/docker-planefence):(?<currentValue>[^"]+)"',
       ],
@@ -37,7 +37,9 @@
     },
     {
       customType: "regex",
-      managerFilePatterns: ["//Dockerfile$//", "//build\\.yaml$//"],
+      // Dockerfiles are already covered by Renovate's dockerfile manager (ARG
+      // BUILD_FROM); matching them here too would produce duplicate updates.
+      managerFilePatterns: ["/(^|/)build\\.yaml$/"],
       matchStringsStrategy: "any",
       matchStrings: [
         "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
