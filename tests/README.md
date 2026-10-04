@@ -160,9 +160,10 @@ upstream renames a key, the add-on keeps writing the old name, the template's
 default wins, and Planefence breaks, but only on fresh installs. That is what
 happened with `FEEDER_LONG` → `FEEDER_LON` in `latest-build-1249`.
 
-The check pulls the base image from `planefence/build.json` (the one CI and
-publishing use), copies the template out without starting the container, and
-fails if the add-on writes a key the template doesn't have. Deliberate
+The check pulls the base image of every architecture in `planefence/build.json`
+(the ones CI and publishing use), copies each template out without starting the
+container, and fails if the add-on writes a key any of the templates doesn't
+have. Deliberate
 exceptions live in `tests/drift/planefence-allowed.txt`, each with a reason; a
 renamed key kept for compatibility is marked `=>NEWKEY`, and the check then
 also requires the new name to be written. It runs as its own CI job, so a
