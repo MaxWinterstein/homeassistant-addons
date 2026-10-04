@@ -79,6 +79,9 @@
       // broken update fails the PR's own workflow run and so never merges.
       matchFileNames: [".github/workflows/**"],
       groupName: "github workflows",
+      // One PR, majors included, rather than a separate major PR that may even
+      // contradict the minor one (e.g. "pin to v6.1.0" next to "update to v7").
+      separateMajorMinor: false,
       schedule: ["* 0-3 1 * *"],
       automerge: true,
     },
