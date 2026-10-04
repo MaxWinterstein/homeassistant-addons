@@ -19,21 +19,14 @@
   commitMessageTopic: "{{depName}}",
   customManagers: [
     {
+      // Every base image in build.json. CI, publishing and the Supervisor
+      // build from these, not from the Dockerfile's ARG BUILD_FROM default.
       customType: "regex",
       managerFilePatterns: ["/(^|/)build\\.json$/"],
       matchStrings: [
-        '"(?<depName>thomx/fr24feed-piaware):(?<currentValue>[^"]+)"',
+        '"(aarch64|amd64|armhf|armv7|i386)":\\s*"(?<depName>[^"\\s]+):(?<currentValue>[^"\\s]+)"',
       ],
       datasourceTemplate: "docker",
-    },
-    {
-      customType: "regex",
-      managerFilePatterns: ["/(^|/)build\\.json$/"],
-      matchStrings: [
-        '"(?<depName>ghcr\\.io/sdr-enthusiasts/docker-planefence):(?<currentValue>[^"]+)"',
-      ],
-      datasourceTemplate: "docker",
-      versioningTemplate: "regex:^latest-build-(?<major>\\d+)$",
     },
     {
       customType: "regex",
@@ -60,6 +53,18 @@
     {
       matchFileNames: ["planefence/**"],
       groupName: "planefence dependencies",
+    },
+    {
+      // Tags are latest-build-<n>; compare <n> numerically.
+      matchDepNames: ["ghcr.io/sdr-enthusiasts/docker-planefence"],
+      versioning: "regex:^latest-build-(?<major>\\d+)$",
+    },
+    {
+      // One PR for the aarch64 and amd64 base images (build.json) and the
+      // Dockerfile default, so the architectures can't drift apart.
+      matchFileNames: ["toogoodtogo-ha-mqtt-bridge/**"],
+      matchDepNames: ["/-base-python$/"],
+      groupName: "toogoodtogo-ha-mqtt-bridge base image",
     },
     {
       matchFileNames: ["*.*", ".gitlab/**"],
@@ -97,7 +102,7 @@
       automerge: true,
     },
   ],
-  ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*", "ioBroker/*"],
+  ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*", "ioBroker/*", "eufy-ha-mqtt-bridge/*"],
   commitMessagePrefix: "[{{packageFileDir}}]",
   gitIgnoredAuthors: ["renovate[bot]", "github-actions"],
   prHeader: '{"prProperties": {"branchName": "{{branchName}}", "depName": "{{depName}}", "newVersion": "{{newValue}}"}}\n',
