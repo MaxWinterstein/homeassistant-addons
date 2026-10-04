@@ -11,8 +11,14 @@
 # Every start:  updates only the keys managed by HA add-on options; all other
 #              lines (custom settings added by the user) are left untouched.
 
+# Root prefix for every absolute path this script touches. Empty in
+# production, where the real container paths apply. The shell tests set it to
+# a temp directory so this script can run unprivileged and without a
+# container — see tests/planefence/cont-init.bats.
+HA_ROOT="${HA_ROOT:-}"
+
 # Source HA options as environment variables
-. /export-env-from-config.sh
+. "${HA_ROOT}/export-env-from-config.sh"
 
 # The Dockerfile created /usr/share/planefence/persist -> /var/lib/planefence-persist
 # so s6 services can start cleanly. Now re-point to the real persistent location.
@@ -21,14 +27,14 @@
 #   1. /addon_configs/planefence  – real HA with addon_config:rw mapping (also used by taskfile)
 #   2. /config/planefence         – legacy HA config mount
 #   3. /var/lib/planefence-persist – ephemeral stub (nothing else available)
-if [ -d /addon_configs ]; then
-    DATA_PERSIST="/addon_configs/planefence"
-    echo "[ha-planefence-config] Using /addon_configs/planefence for persistent storage"
-elif [ -d /config ]; then
-    DATA_PERSIST="/config/planefence"
-    echo "[ha-planefence-config] Using /config/planefence for persistent storage"
+if [ -d "${HA_ROOT}/addon_configs" ]; then
+    DATA_PERSIST="${HA_ROOT}/addon_configs/planefence"
+    echo "[ha-planefence-config] Using ${DATA_PERSIST} for persistent storage"
+elif [ -d "${HA_ROOT}/config" ]; then
+    DATA_PERSIST="${HA_ROOT}/config/planefence"
+    echo "[ha-planefence-config] Using ${DATA_PERSIST} for persistent storage"
 else
-    DATA_PERSIST="/var/lib/planefence-persist"
+    DATA_PERSIST="${HA_ROOT}/var/lib/planefence-persist"
     echo "[ha-planefence-config] WARNING: no persistent mount found, using ephemeral stub"
 fi
 
@@ -36,11 +42,11 @@ mkdir -p "${DATA_PERSIST}"
 mkdir -p "${DATA_PERSIST}/.internal"
 
 # Re-point the symlink if it's not already pointing to the right place.
-if [ "$(readlink /usr/share/planefence/persist)" != "${DATA_PERSIST}" ]; then
+if [ "$(readlink "${HA_ROOT}/usr/share/planefence/persist")" != "${DATA_PERSIST}" ]; then
     # Copy anything the early s6 services may have written to the stub.
-    cp -rn /var/lib/planefence-persist/. "${DATA_PERSIST}/" 2>/dev/null || true
-    ln -sfn "${DATA_PERSIST}" /usr/share/planefence/persist
-    echo "[ha-planefence-config] Re-pointed /usr/share/planefence/persist -> ${DATA_PERSIST}"
+    cp -rn "${HA_ROOT}/var/lib/planefence-persist/." "${DATA_PERSIST}/" 2>/dev/null || true
+    ln -sfn "${DATA_PERSIST}" "${HA_ROOT}/usr/share/planefence/persist"
+    echo "[ha-planefence-config] Re-pointed ${HA_ROOT}/usr/share/planefence/persist -> ${DATA_PERSIST}"
 fi
 
 CONFIG_FILE="${DATA_PERSIST}/planefence.config"
@@ -49,8 +55,8 @@ SAVED_TEMPLATE="${DATA_PERSIST}/planefence.config.RENAME-and-EDIT-me"
 # Copy the upstream template to the persistent dir on first start so the
 # user can edit it. The template was saved to /planefence.config.template
 # in the Dockerfile before the persist dir was replaced with a symlink.
-if [ ! -f "${SAVED_TEMPLATE}" ] && [ -f /planefence.config.template ]; then
-    cp /planefence.config.template "${SAVED_TEMPLATE}"
+if [ ! -f "${SAVED_TEMPLATE}" ] && [ -f "${HA_ROOT}/planefence.config.template" ]; then
+    cp "${HA_ROOT}/planefence.config.template" "${SAVED_TEMPLATE}"
     echo "[ha-planefence-config] Copied upstream template to ${SAVED_TEMPLATE}"
 fi
 
@@ -66,6 +72,9 @@ touch "${DATA_PERSIST}/.internal/plane-alert-db.txt"
 # If PF_ALERTLIST is missing from planefence.config but present in the
 # saved template, restore it so alertlist processing works again.
 if [ -f "${CONFIG_FILE}" ] && [ -f "${SAVED_TEMPLATE}" ]; then
+    # Single-element list on purpose: more keys can be added here if a future
+    # release turns out to have wiped them too.
+    # shellcheck disable=SC2043
     for _key in PF_ALERTLIST; do
         if ! grep -q "^${_key}=" "${CONFIG_FILE}" 2>/dev/null; then
             _default=$(grep -E "^[[:space:]]*${_key}=" "${SAVED_TEMPLATE}" 2>/dev/null | head -1 || true)
@@ -266,13 +275,13 @@ set_config_if "PA_RSS_FAVICONLINK"     "${PA_RSS_FAVICONLINK:-}"
 echo "[ha-planefence-config] Done."
 
 # Set system timezone so all planefence services use the correct time
-if [ -n "${TZ}" ] && [ -f "/usr/share/zoneinfo/${TZ}" ]; then
-    ln -sf "/usr/share/zoneinfo/${TZ}" /etc/localtime
-    echo "${TZ}" > /etc/timezone
+if [ -n "${TZ}" ] && [ -f "${HA_ROOT}/usr/share/zoneinfo/${TZ}" ]; then
+    ln -sf "${HA_ROOT}/usr/share/zoneinfo/${TZ}" "${HA_ROOT}/etc/localtime"
+    echo "${TZ}" > "${HA_ROOT}/etc/timezone"
     echo "[ha-planefence-config] Timezone set to ${TZ}"
 fi
 
 # Signal to 00-container-startup (patched in Dockerfile) that the real
 # planefence.config has been written and it is safe to proceed.
-touch /run/ha-planefence-ready
-echo "[ha-planefence-config] Signalled ready (/run/ha-planefence-ready)"
+touch "${HA_ROOT}/run/ha-planefence-ready"
+echo "[ha-planefence-config] Signalled ready (${HA_ROOT}/run/ha-planefence-ready)"
