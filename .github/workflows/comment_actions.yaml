@@ -116,7 +116,7 @@ jobs:
           DEP_NAME="${{ steps.get_addon.outputs.dep-name }}"
 
           # For deps where the addon version should mirror upstream, use the upstream version directly
-          if [[ "$DEP_NAME" == "thomx/fr24feed-piaware" ]]; then
+          if [[ "$DEP_NAME" == "thomx/fr24feed-piaware" || "$DEP_NAME" == "angryip/ipscan" ]]; then
             NEW_VERSION="${{ steps.get_addon.outputs.new-version }}"
             NEW_VERSION="${NEW_VERSION#v}"  # strip leading 'v' if present
             echo "Using upstream version: $NEW_VERSION"
