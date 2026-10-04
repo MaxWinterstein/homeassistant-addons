@@ -74,6 +74,15 @@
       automerge: true,
     },
     {
+      // Everything in the CI workflows: the actions themselves and tool versions
+      // pinned inside them (e.g. uv for setup-uv). Monthly and automerged; a
+      // broken update fails the PR's own workflow run and so never merges.
+      matchFileNames: [".github/workflows/**"],
+      groupName: "github workflows",
+      schedule: ["* 0-3 1 * *"],
+      automerge: true,
+    },
+    {
       // Dev-container tooling (task, yq, uv, docker, buildx, gh), pinned in the
       // VibePod overlay. Not part of any add-on, so one PR a month, merged
       // automatically once the checks pass.
