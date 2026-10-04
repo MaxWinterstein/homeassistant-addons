@@ -12,7 +12,6 @@
 
 - Builds work again: the upstream image is still Debian bullseye (EOL), so apt now fetches its security updates from archive.debian.org. ([#531](https://github.com/MaxWinterstein/homeassistant-addons/issues/531))
 
-
 ## [2.6.1.1] - 2026-04-06
 
 ### Fixed
