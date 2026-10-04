@@ -47,6 +47,19 @@ is_shell_script() {
     return 1
 }
 
+# The shell to force with -s, or nothing to let shellcheck read the shebang.
+# Forcing bash everywhere would hide real bugs: a #!/bin/sh script runs under
+# dash on Debian, and bash-isms like PIPESTATUS silently break there (#580).
+# Only bashio shebangs (#!/usr/bin/with-contenv bashio), which shellcheck
+# cannot parse, and files without a shebang get bash.
+dialect_of() {
+    case "$(head -1 "$1" 2>/dev/null)" in
+    '#!'*bashio*) echo bash ;;
+    '#!'*) ;;
+    *) echo bash ;;
+    esac
+}
+
 is_baselined() {
     [ -f "${BASELINE_FILE}" ] || return 1
     grep -vE '^\s*(#|$)' "${BASELINE_FILE}" | grep -qxF "$1"
@@ -65,7 +78,8 @@ for f in "${candidates[@]}"; do
     is_shell_script "$f" || continue
     checked=$((checked + 1))
 
-    if out="$(shellcheck -s bash -e "${EXCLUDES}" -f gcc "$f" 2>&1)" && [ -z "$out" ]; then
+    dialect="$(dialect_of "$f")"
+    if out="$(shellcheck ${dialect:+-s "$dialect"} -e "${EXCLUDES}" -f gcc "$f" 2>&1)" && [ -z "$out" ]; then
         continue
     fi
 
