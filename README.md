@@ -46,6 +46,22 @@ Track aircraft flying near your ADS-B receiver. Logs low-altitude and nearby fli
 
 Based on [docker-planefence](https://github.com/sdr-enthusiasts/docker-planefence) by kx1t / SDR-Enthusiasts.
 
+## Development
+
+Local development and testing runs against a disposable [OrbStack](https://orbstack.dev)
+VM, which provides a real Docker daemon and a real Home Assistant + Supervisor
+instance without granting either to your main machine:
+
+```bash
+./.orbstack/provision.sh   # create the throwaway test VM
+task vm:ha:up              # start Home Assistant + Supervisor in it
+task vm:doctor             # verify the setup
+task vm:destroy            # delete it and everything in it
+```
+
+Run `task --list` for all available tasks. See [`.orbstack/README.md`](.orbstack/README.md)
+for the setup, the security model and troubleshooting.
+
 ## Deprecated add-ons
 
 ### <img src="ioBroker/icon.png" width="40px"> ioBroker ([iobroker.net](http://iobroker.net))

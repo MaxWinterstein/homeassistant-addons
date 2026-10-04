@@ -1,0 +1,27 @@
+# Shell scripts that are not shellcheck-clean yet.
+#
+# These pre-date the linter being wired up. They are excused so the rest of the
+# repository can be gated — every script *not* listed here must stay clean, so
+# new and freshly touched scripts cannot regress.
+#
+# Remove entries as they are cleaned up. Never add new ones: if a script you
+# are editing shows up here, that is the moment to fix it instead.
+#
+# See the current state with:  tests/shellcheck.sh --all
+
+# Deprecated add-ons — large legacy scripts, low value to fix
+ioBroker/iobroker_startup.sh
+ioBroker/iobroker_startup_ori.sh
+ioBroker/helper-builder.sh
+eufy-ha-mqtt-bridge/helper-builder.sh
+eufy-ha-mqtt-bridge/run.sh
+eufy-ha-mqtt-bridge/version-updater.sh
+
+# Active add-ons — worth cleaning up
+adsb-multi-portal-feeder/export-env-from-config.sh
+awtrix/rootfs/etc/cont-init.d/awtrix.sh
+octoprint-proxy/nginxReloader.sh
+octoprint-proxy/root/etc/s6-overlay/s6-rc.d/nginx-reloader/run
+
+# Repo tooling
+helper-builder.sh
