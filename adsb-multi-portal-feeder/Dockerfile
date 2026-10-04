@@ -6,9 +6,12 @@ ENV TZ=UTC
 # add bashio (thx https://github.com/hassio-addons/addon-debian-base/blob/main/base/Dockerfile#L47)
 ADD https://github.com/hassio-addons/bashio/archive/v0.15.0.tar.gz /tmp/bashio.tar.gz
 # Debian bullseye is EOL: its security updates moved to archive.debian.org and
-# deb.debian.org no longer serves the package files. The upstream image is still
-# bullseye-based, so point apt at the archive.
-RUN sed -i 's|deb.debian.org/debian-security|archive.debian.org/debian-security|' /etc/apt/sources.list
+# deb.debian.org no longer serves the package files. While the upstream image is
+# bullseye-based, point apt at the archive. Bookworm and later images have no
+# /etc/apt/sources.list (deb822 sources) and don't need this.
+RUN if [ -f /etc/apt/sources.list ]; then \
+        sed -i 's|deb.debian.org/debian-security|archive.debian.org/debian-security|' /etc/apt/sources.list; \
+    fi
 
 RUN apt-get update && apt-get install -y curl jq bc && mkdir /tmp/bashio \
     && tar zxvf \
