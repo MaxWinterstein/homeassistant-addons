@@ -1,2 +1,13 @@
 # Created by pre-commit hooks (e.g. the prettier cache)
 node_modules/
+
+# macOS
+.DS_Store
+
+# Local Python environment created by uv. It is macOS-native, so it is also
+# unusable inside the dev containers — see .vibepod/README.md
+.venv/
+
+# Claude Code git worktrees: a full second checkout of this repo, which would
+# otherwise be picked up by tooling that scans untracked files.
+.claude/worktrees/

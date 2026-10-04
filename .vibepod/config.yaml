@@ -1,0 +1,19 @@
+version: 1
+agents:
+  claude:
+    enabled: true
+    image: vibepod/claude:latest
+    auto_pull: null
+    # Extra tooling is layered on top of the base image by
+    # .vibepod/overlay/claude/Dockerfile — see .vibepod/README.md
+    env:
+      # The sandbox has a docker *client* but no daemon; point it at the
+      # disposable OrbStack VM. Harmless when the VM is not running.
+      DOCKER_HOST: tcp://ha-dev.orb.local:2375
+      # `docker run` attaches via HTTP connection hijacking, which VibePod's
+      # inspecting proxy breaks (the CLI hangs instead of erroring). Exempt
+      # the local VM only — internet egress still goes through the proxy.
+      NO_PROXY: localhost,127.0.0.1,::1,.orb.local
+      no_proxy: localhost,127.0.0.1,::1,.orb.local
+    volumes: []
+    init: []

@@ -1,0 +1,12 @@
+# Keep the build context small. The Dockerfile only needs
+# export-env-from-config.sh and rootfs/.
+#
+# test/ matters most: after a `task planefence:run` it holds the downloaded
+# aircraft database and caches, which is over 100 MB of local runtime state
+# that would otherwise be uploaded to the Docker daemon on every build.
+test/
+
+# Docs and store artwork are not part of the image.
+*.md
+*.png
+translations/

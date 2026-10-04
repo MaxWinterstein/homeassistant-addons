@@ -1,16 +1,61 @@
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
 version: "3"
 
+vars:
+  # Name of the disposable OrbStack test VM. Keep in sync with .orbstack/common.sh
+  # (both honour an ORB_VM environment variable override).
+  ORB_VM:
+    sh: echo "${ORB_VM:-ha-dev}"
+
 tasks:
   # check*
   check:lint:
     desc: "🔍 Linting code: Running pre-commit"
     cmd: pre-commit run -a
 
+  check:shellcheck:
+    desc: "🔍 Lint all shell scripts (baselined legacy files excused)"
+    cmd: ./tests/shellcheck.sh {{.CLI_ARGS}}
+
   check:
     desc: "🔍 Run all checks"
     cmds:
       - task: check:lint
+      - task: check:shellcheck
+
+  # test:* — the fast layers. No Docker, no Home Assistant; these run
+  # anywhere, including inside the Claude sandbox. See tests/README.md.
+  test:bats:
+    desc: "🧪 Shell unit tests for the add-on cont-init scripts"
+    cmd: bats --recursive tests/
+
+  test:addons:
+    desc: "🧪 Add-on config consistency checks (schema, versions, changelogs)"
+    cmd: python3 tests/check_addons.py {{.CLI_ARGS}}
+
+  test:
+    desc: "🧪 Run the full fast test suite"
+    cmds:
+      - task: test:bats
+      - task: test:addons
+      - task: check:shellcheck
+
+  # test:smoke — needs a Docker daemon, so it is NOT part of `task test`.
+  # From the Claude sandbox this runs against the OrbStack VM via DOCKER_HOST.
+  test:smoke:planefence:
+    desc: "🚬 Build and boot the planefence add-on, then assert on it (needs Docker)"
+    cmd: ./tests/smoke/planefence.sh
+
+  test:smoke:
+    desc: "🚬 Run all container smoke tests (needs Docker)"
+    cmds:
+      - task: test:smoke:planefence
+
+  # test:ha — the top of the pyramid: install the add-on into a real Home
+  # Assistant and assert it runs. Needs `task ha:up` first.
+  test:ha:
+    desc: "🏠 Install an add-on into real Home Assistant and verify it runs"
+    cmd: ./tests/ha/addon-test.sh {{.CLI_ARGS}}
 
   ## build:docker:*
   build:docker:arm64:
@@ -84,3 +129,53 @@ tasks:
   release:
     desc: "🚀 Release an add-on: bump its version and build CHANGELOG.md from changelog.d/ (task release -- <addon> <version>)"
     cmd: ./scripts/release-addon.sh {{.CLI_ARGS}}
+
+  ## vm:* — disposable OrbStack test bench (see .orbstack/README.md)
+  # These run on the Mac, except vm:doctor and sandbox:* which also work from
+  # inside the Claude sandbox.
+  vm:up:
+    desc: "🖥️ Create/reprovision the OrbStack test VM"
+    cmds:
+      - ./.orbstack/provision.sh
+
+  vm:sync:
+    desc: "📤 Copy the working tree into the VM (no Mac mount is used)"
+    cmds:
+      - ./.orbstack/sync.sh
+
+  # ha:* drive the real Home Assistant test instance through Docker, so they
+  # work from the Mac and from the Claude sandbox alike (no orb needed).
+  ha:up:
+    desc: "🏠 Start the real Home Assistant + Supervisor test instance"
+    cmds:
+      - task: vm:sync
+      - ./tests/ha/supervisor-up.sh {{.CLI_ARGS}}
+
+  ha:logs:
+    desc: "📋 Follow the Home Assistant Supervisor logs"
+    cmd: docker logs -f ha-supervisor
+
+  ha:down:
+    desc: "🛑 Stop the Home Assistant test instance"
+    cmd: docker rm -f ha-supervisor
+
+  vm:shell:
+    desc: "🐚 Root shell inside the VM"
+    interactive: true
+    cmds:
+      - orb -m {{.ORB_VM}} -u root bash
+
+  vm:doctor:
+    desc: "🩺 Verify DNS → daemon → client → isolation → HA"
+    cmds:
+      - ./.orbstack/doctor.sh {{.CLI_ARGS}}
+
+  vm:destroy:
+    desc: "💥 Delete the VM and everything in it"
+    cmds:
+      - ./.orbstack/destroy.sh
+
+  sandbox:docker-cli:
+    desc: "🔌 Install the static docker client in the Claude sandbox"
+    cmds:
+      - ./.orbstack/sandbox-setup.sh

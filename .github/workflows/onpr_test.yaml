@@ -1,0 +1,50 @@
+# Fast test suite: shell unit tests, add-on config consistency, shellcheck.
+#
+# Runs unconditionally on every PR and push to main. These tests need no Docker
+# and no Home Assistant, so the whole job is a few seconds — cheap enough that
+# dependency-bump PRs are covered too.
+name: Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Fast test suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v6
+
+      - name: 🔧 Install bats and shellcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            bats bats-assert bats-support shellcheck
+
+      - name: 🔗 Expose the bats helper libraries
+        # Debian packages them under /usr/lib/bats; bats_load_library needs a
+        # directory containing <lib>/load.bash. Mirrors the sandbox image, see
+        # .vibepod/overlay/claude/Dockerfile
+        run: |
+          sudo mkdir -p /usr/local/lib/bats
+          for pkg in bats-support bats-assert; do
+            load="$(dpkg -L "$pkg" | grep -m1 '/load\.bash$')"
+            [ -n "$load" ] || { echo "no load.bash in $pkg" >&2; exit 1; }
+            sudo ln -sfn "$(dirname "$load")" "/usr/local/lib/bats/$pkg"
+          done
+          echo "BATS_LIB_PATH=/usr/local/lib/bats" >> "$GITHUB_ENV"
+
+      - name: 🧪 Shell unit tests
+        run: bats --recursive tests/
+
+      - name: 🧪 Add-on config consistency
+        run: python3 tests/check_addons.py
+
+      - name: 🔍 Shellcheck
+        run: ./tests/shellcheck.sh

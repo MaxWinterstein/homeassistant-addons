@@ -16,8 +16,13 @@ if [ -n "${_HA_CONFIG_EXPORTED:-}" ]; then
 fi
 export _HA_CONFIG_EXPORTED=1
 
-if [ ! -f '/data/options.json' ]; then
-    bashio::log.error "export-env: /data/options.json not found"
+# Path to the options file. Overridable so the shell tests can run this script
+# against a temporary directory instead of the real /data; unset in production,
+# where it resolves to the path the Supervisor actually writes.
+_HA_OPTIONS_FILE="${HA_OPTIONS_FILE:-/data/options.json}"
+
+if [ ! -f "${_HA_OPTIONS_FILE}" ]; then
+    bashio::log.error "export-env: ${_HA_OPTIONS_FILE} not found"
     return 1
 fi
 
@@ -27,7 +32,7 @@ _HA_LON=""
 _HA_TZ=""
 _HA_NEEDS_RESOLVE=false
 
-if grep -q 'HOMEASSISTANT_LATITUDE\|HOMEASSISTANT_LONGITUDE\|HOMEASSISTANT_TIMEZONE' /data/options.json 2>/dev/null; then
+if grep -q 'HOMEASSISTANT_LATITUDE\|HOMEASSISTANT_LONGITUDE\|HOMEASSISTANT_TIMEZONE' "${_HA_OPTIONS_FILE}" 2>/dev/null; then
     _HA_NEEDS_RESOLVE=true
 fi
 
@@ -83,7 +88,7 @@ else
 fi
 
 # Export all options as environment variables, replacing HA placeholders
-bashio::log.info "export-env: Exporting options from /data/options.json:"
+bashio::log.info "export-env: Exporting options from ${_HA_OPTIONS_FILE}:"
 while read -rd $'' line; do
     if [[ $line == *"HOMEASSISTANT_LATITUDE"* ]]; then
         if [ -n "$_HA_LAT" ]; then
@@ -110,6 +115,8 @@ while read -rd $'' line; do
         fi
     fi
     bashio::log.info "export-env:   export ${line%%=*}=***"
+    # $line is a literal KEY=value string, which is exactly what export takes.
+    # shellcheck disable=SC2163
     export "$line"
-done < <(jq -r 'to_entries | map("\(.key)=\(.value)\u0000")[]' /data/options.json)
+done < <(jq -r 'to_entries | map("\(.key)=\(.value)\u0000")[]' "${_HA_OPTIONS_FILE}")
 bashio::log.info "export-env: Done."

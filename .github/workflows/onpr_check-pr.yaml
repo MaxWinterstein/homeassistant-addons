@@ -43,9 +43,10 @@ jobs:
         run: |
           # Add-ons with a changed config.* are always included as well, so an
           # add-on missing from pr-build-filter.yml (e.g. a new one) is still
-          # checked rather than silently skipped.
+          # checked rather than silently skipped. Hidden directories are tooling
+          # (.vibepod/config.yaml is VibePod's), not add-ons.
           config_addons=$(git diff --name-only origin/main "${{ github.sha }}" \
-            | grep -E '^[^/]+/config\.(json|ya?ml)$' \
+            | grep -E '^[^/.][^/]*/config\.(json|ya?ml)$' \
             | awk -F/ '{print $1}' \
             | jq -R -s -c 'split("\n")[:-1]')
 
