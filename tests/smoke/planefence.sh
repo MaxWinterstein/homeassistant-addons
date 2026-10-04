@@ -86,11 +86,24 @@ pass "daemon reachable, publishing to ${HOST}:${PORT}"
 
 # ── Build ───────────────────────────────────────────────────────────────
 step "Build the add-on image"
-if dock 900 build -q -t "${IMAGE}" "${ADDON_DIR}" >/dev/null 2>&1; then
-    pass "image built"
+# Build on the base CI and publishing use: build.json's build_from for the
+# daemon's architecture. Without this, docker falls back to the Dockerfile's
+# ARG default, which Renovate does not keep current — the test would quietly
+# run against an old base.
+case "$(dock 30 version --format '{{.Server.Arch}}' 2>/dev/null)" in
+arm64 | aarch64) BUILD_ARCH=aarch64 ;;
+*) BUILD_ARCH=amd64 ;;
+esac
+BUILD_FROM="$(jq -r ".build_from.${BUILD_ARCH} // empty" "${ADDON_DIR}/build.json")"
+[ -n "${BUILD_FROM}" ] || {
+    fail "no build_from.${BUILD_ARCH} in ${ADDON_DIR}/build.json"
+    exit 1
+}
+if dock 900 build -q --build-arg "BUILD_FROM=${BUILD_FROM}" -t "${IMAGE}" "${ADDON_DIR}" >/dev/null 2>&1; then
+    pass "image built on ${BUILD_FROM}"
 else
-    fail "build failed"
-    dock 900 build -t "${IMAGE}" "${ADDON_DIR}" 2>&1 | tail -20
+    fail "build failed (base ${BUILD_FROM})"
+    dock 900 build --build-arg "BUILD_FROM=${BUILD_FROM}" -t "${IMAGE}" "${ADDON_DIR}" 2>&1 | tail -20
     exit 1
 fi
 
