@@ -72,7 +72,7 @@ ARG UV_VERSION=0.12.23
 # renovate: datasource=github-releases depName=moby/moby
 ARG DOCKER_VERSION=29.8.0
 # renovate: datasource=github-releases depName=docker/buildx
-ARG BUILDX_VERSION=v0.37.0
+ARG BUILDX_VERSION=v0.37.2
 # renovate: datasource=github-releases depName=cli/cli
 ARG GH_VERSION=v2.102.0
 
