@@ -49,9 +49,9 @@ else
 fi
 
 CONFIG=$(curl -s -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" -H "Content-Type: application/json" http://supervisor/core/api/config)
-LAT=$(echo $CONFIG | jq '.latitude')
-LON=$(echo $CONFIG | jq '.longitude')
-ELE=$(echo $CONFIG | jq '.elevation')
+LAT=$(echo "$CONFIG" | jq '.latitude')
+LON=$(echo "$CONFIG" | jq '.longitude')
+ELE=$(echo "$CONFIG" | jq '.elevation')
 
 # TODO: Find a way to use bashio and source together
 
@@ -65,10 +65,13 @@ fi
 while read -rd $'' line
 do
     if [[ $line == *"HOMEASSISTANT_LATITUDE" ]] || [[ $line == *"HOMEASSISTANT_LONGITUDE" ]] || [[ $line == *"HOMEASSISTANT_ELEVATION" ]]; then
-        line=$(echo $line | sed "s/HOMEASSISTANT_LATITUDE/$LAT/")
-        line=$(echo $line | sed "s/HOMEASSISTANT_LONGITUDE/$LON/")
-        line=$(echo $line | sed "s/HOMEASSISTANT_ELEVATION/$ELE/")
+        # Bash replacement instead of an unquoted `echo $line | sed`, which
+        # collapsed whitespace and glob-expanded values like "*/10 * * * *".
+        line="${line//HOMEASSISTANT_LATITUDE/$LAT}"
+        line="${line//HOMEASSISTANT_LONGITUDE/$LON}"
+        line="${line//HOMEASSISTANT_ELEVATION/$ELE}"
     fi
-    # echo $line
+    # $line is "KEY=VALUE", so exporting its expansion is the point here.
+    # shellcheck disable=SC2163
     export "$line"
 done < <(jq -r "$jq_filter" /data/options.json)

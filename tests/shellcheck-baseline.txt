@@ -9,19 +9,14 @@
 #
 # See the current state with:  tests/shellcheck.sh --all
 
-# Deprecated add-ons — large legacy scripts, low value to fix
+# Deprecated add-ons — legacy scripts, low value to fix. Every active add-on
+# is clean, so nothing may be added here.
 ioBroker/iobroker_startup.sh
 ioBroker/iobroker_startup_ori.sh
 ioBroker/helper-builder.sh
 eufy-ha-mqtt-bridge/helper-builder.sh
 eufy-ha-mqtt-bridge/run.sh
 eufy-ha-mqtt-bridge/version-updater.sh
-
-# Active add-ons — worth cleaning up
-adsb-multi-portal-feeder/export-env-from-config.sh
 awtrix/rootfs/etc/cont-init.d/awtrix.sh
 octoprint-proxy/nginxReloader.sh
 octoprint-proxy/root/etc/s6-overlay/s6-rc.d/nginx-reloader/run
-
-# Repo tooling
-helper-builder.sh
