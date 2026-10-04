@@ -297,3 +297,76 @@ EOF
     assert_success
     assert_output --partial "PF_LAT/PF_LON are still placeholders"
 }
+
+# ── Upstream template renames (docker-planefence latest-build-1249+) ────
+#
+# The assertions source the generated config the way upstream's
+# prep-planefence.sh does (set -o allexport) and evaluate upstream's own
+# expressions, so they check what Planefence actually sees.
+
+# Upstream's effective value of an expression after sourcing the config.
+upstream_sees() {
+    (
+        set -o allexport
+        # shellcheck source=/dev/null
+        . "$(config_file)"
+        eval "printf '%s' \"$1\""
+    )
+}
+
+@test "fresh install on a FEEDER_LON template gets the real longitude (upstream 1249+)" {
+    # 1249 renamed FEEDER_LONG to FEEDER_LON and checks ${FEEDER_LON:-$FEEDER_LONG}.
+    # Writing only FEEDER_LONG left the template's -70.12345 in FEEDER_LON, so
+    # upstream reported "SETUP REQUIRED" on every fresh install.
+    use_addon_configs
+    write_options <<<'{"PF_LAT":"50.12","PF_LON":"8.68"}'
+    write_template <<'EOF'
+FEEDER_LAT=90.12345
+FEEDER_LON=-70.12345
+EOF
+
+    run_cont_init
+    assert_success
+    [ "$(upstream_sees '$FEEDER_LAT')" = "50.12" ]
+    [ "$(upstream_sees '${FEEDER_LON:-$FEEDER_LONG}')" = "8.68" ]
+}
+
+@test "an older FEEDER_LONG template still gets the real longitude" {
+    use_addon_configs
+    write_options <<<'{"PF_LAT":"50.12","PF_LON":"8.68"}'
+    write_template <<'EOF'
+FEEDER_LAT=90.12345
+FEEDER_LONG=-70.12345
+EOF
+
+    run_cont_init
+    assert_success
+    [ "$(upstream_sees '${FEEDER_LON:-$FEEDER_LONG}')" = "8.68" ]
+    [ "$(config_value FEEDER_LONG)" = "8.68" ]
+}
+
+@test "PF_PLANEALERT=OFF beats the template's PLANEALERT=ON (upstream 1249+)" {
+    # Upstream reads ${PLANEALERT:-$PF_PLANEALERT}; the new template sets
+    # PLANEALERT=ON, which would win over the add-on option.
+    use_addon_configs
+    write_options <<<'{"PF_LAT":"50.0","PF_LON":"8.5","PF_PLANEALERT":"OFF"}'
+    write_template <<'EOF'
+PLANEALERT=ON
+EOF
+
+    run_cont_init
+    assert_success
+    [ "$(upstream_sees '${PLANEALERT:-$PF_PLANEALERT}')" = "OFF" ]
+}
+
+@test "without PF_PLANEALERT the template's PLANEALERT default is kept" {
+    use_addon_configs
+    write_options <<<'{"PF_LAT":"50.0","PF_LON":"8.5"}'
+    write_template <<'EOF'
+PLANEALERT=ON
+EOF
+
+    run_cont_init
+    assert_success
+    [ "$(upstream_sees '${PLANEALERT:-$PF_PLANEALERT}')" = "ON" ]
+}

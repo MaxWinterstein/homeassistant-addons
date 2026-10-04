@@ -139,6 +139,11 @@ set_config_if() {
 
 # ── Required: Station & Data Source ──────────────────────────────────
 set_config "FEEDER_LAT"            "${PF_LAT}"
+# Upstream renamed FEEDER_LONG to FEEDER_LON (latest-build-1249) and reads
+# ${FEEDER_LON:-$FEEDER_LONG}. Write both: a fresh config from the new template
+# would otherwise keep its FEEDER_LON=-70.12345 default ("SETUP REQUIRED"), and
+# configs from older templates still only know FEEDER_LONG.
+set_config "FEEDER_LON"            "${PF_LON}"
 set_config "FEEDER_LONG"           "${PF_LON}"
 _PF_HOST="${PF_SOCK30003HOST:-f1c878cb-adsb-multi-portal-feeder}"
 set_config "PF_SOCK30003HOST"      "${_PF_HOST}"
@@ -186,6 +191,9 @@ set_config_if "PF_OPENAIPKEY"      "${PF_OPENAIPKEY:-}"
 
 # ── Plane-Alert ──────────────────────────────────────────────────────
 set_config_if "PF_PLANEALERT"      "${PF_PLANEALERT:-}"
+# Upstream reads ${PLANEALERT:-$PF_PLANEALERT}, and its template (1249+) sets
+# PLANEALERT=ON, which would override the add-on option.
+set_config_if "PLANEALERT"         "${PF_PLANEALERT:-}"
 set_config_if "PF_PARANGE"         "${PF_PARANGE:-}"
 set_config_if "PF_PA_SQUAWKS"      "${PF_PA_SQUAWKS:-}"
 set_config_if "PF_ALERTLIST"       "${PF_ALERTLIST:-}"

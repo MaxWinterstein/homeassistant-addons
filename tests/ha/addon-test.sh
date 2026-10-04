@@ -5,6 +5,8 @@
 #
 #   tests/ha/addon-test.sh planefence
 #   KEEP=1 tests/ha/addon-test.sh planefence   # leave it installed afterwards
+#   KEEP_CONFIG=1 tests/ha/addon-test.sh planefence   # keep the add-on's persistent
+#                                                   # config: tests an update, not a fresh install
 #
 # This is the top of the pyramid — it exercises what nothing else does: the
 # Supervisor parsing config.yaml, building the image from the local Dockerfile,
@@ -119,6 +121,17 @@ if ha_cli 60 apps info "${APP}" 2>/dev/null | grep -qE '^version: [^n]'; then
     info "already installed, reinstalling for a clean run"
     ha_cli 300 apps uninstall "${APP}" >/dev/null 2>&1
 fi
+# Uninstalling keeps the add-on's persistent config folder, so without this
+# every run after the first would test an update rather than a fresh install
+# (that is how a fresh-install-only planefence bug went unnoticed).
+if [ "${KEEP_CONFIG:-0}" != "1" ]; then
+    if in_vm 60 sh -c "rm -rf '/mnt/supervisor/app_configs/${APP:?}' '/mnt/supervisor/addon_configs/${APP:?}'"; then
+        info "fresh install: removed any persistent config of ${APP}"
+    else
+        fail "could not remove the persistent config of ${APP}"
+        exit 1
+    fi
+fi
 
 if ha_cli 1800 apps install "${APP}" >/dev/null 2>&1; then
     pass "installed (Supervisor built the image from source)"
@@ -191,9 +204,11 @@ fi
 
 step "Add-on logs"
 logs="$(ha_cli 90 apps logs "${APP}" 2>&1)"
-if grep -qiE 's6-overlay-suexec: fatal|did not signal ready' <<<"${logs}"; then
+# "SETUP REQUIRED" is docker-planefence refusing to run with unusable
+# coordinates: the container stays up and healthy, so only the log shows it.
+if grep -qiE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED' <<<"${logs}"; then
     fail "fatal errors in the add-on log"
-    grep -iE 's6-overlay-suexec: fatal|did not signal ready' <<<"${logs}" | head -3
+    grep -iE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED' <<<"${logs}" | head -3
 else
     pass "no fatal errors"
 fi
