@@ -13,7 +13,6 @@
 - Builds work again: the upstream image is still Debian bullseye (EOL), so apt now fetches its security updates from archive.debian.org. ([#532](https://github.com/MaxWinterstein/homeassistant-addons/issues/532))
 - A failed Flightradar24 signup is now reported as a failure. The exit code was read from `tee` rather than from the signup wizard, so every run logged success regardless of what actually happened. ([#580](https://github.com/MaxWinterstein/homeassistant-addons/issues/580))
 
-
 ## [2.6.1] - 2026-03-14
 
 ### Changed
