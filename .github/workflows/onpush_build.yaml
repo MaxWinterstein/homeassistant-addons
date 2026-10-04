@@ -103,8 +103,8 @@ jobs:
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     permissions:
       contents: read
-      id-token: write  # Cosign signing
-      packages: write  # push to ghcr.io
+      id-token: write # Cosign signing
+      packages: write # push to ghcr.io
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
