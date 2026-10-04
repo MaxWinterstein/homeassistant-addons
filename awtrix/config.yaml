@@ -2,7 +2,6 @@ name: AWTRIX
 version: 1.0.1
 image: ghcr.io/maxwinterstein/homeassistant-addon-awtrix-{arch}
 arch:
-  - armv7
   - aarch64
   - amd64
 slug: awtrix

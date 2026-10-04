@@ -17,16 +17,45 @@ jobs:
   check-addon-changes:
     runs-on: ubuntu-latest
     outputs:
-      changedAddons: ${{ steps.filter.outputs.changes }}
+      changedAddons: ${{ steps.released.outputs.addons }}
     steps:
       - name: ↩️ Checkout
         uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
 
       - name: 📂 Detect changed files
         uses: dorny/paths-filter@v4.0.3
         id: filter
         with:
           filters: .github/paths-filter.yml
+
+      # Only a release publishes. A config.yaml change that keeps the version
+      # (e.g. a schema fix waiting for the next release) would otherwise push new
+      # contents under an already-published version, which existing installs
+      # never pick up.
+      - name: 🏷️ Keep only add-ons whose version changed
+        id: released
+        env:
+          CHANGED: ${{ steps.filter.outputs.changes }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          version_at() {
+            git show "$1:$2/config.yaml" 2>/dev/null \
+              | sed -n 's/^version:[[:space:]]*"\{0,1\}\([^"]*\)"\{0,1\}[[:space:]]*$/\1/p'
+          }
+          released=()
+          for addon in $(echo "${CHANGED:-[]}" | jq -r '.[]'); do
+            old=$(version_at "$BEFORE" "$addon")
+            new=$(version_at HEAD "$addon")
+            if [[ "$old" != "$new" ]]; then
+              echo "$addon: ${old:-<new>} -> $new, publishing"
+              released+=("$addon")
+            else
+              echo "$addon: config changed but version is still $new, not publishing"
+            fi
+          done
+          echo "addons=$(printf '%s\n' "${released[@]}" | jq -R -s -c 'split("\n") | map(select(. != ""))')" >> "$GITHUB_OUTPUT"
 
   lint_config:
     if: ${{ needs.check-addon-changes.outputs.changedAddons != '[]' }}
@@ -53,7 +82,8 @@ jobs:
     strategy:
       matrix:
         addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
-        arch: ["aarch64", "amd64", "armv7"]
+        # armv7 is gone: Home Assistant dropped it and the builder rejects --armv7.
+        arch: ["aarch64", "amd64"]
 
     steps:
       - name: Check out repository
@@ -70,16 +100,16 @@ jobs:
         env:
           HEAD: "${{ github.head_ref }}"
         run: |
-          # shellcheck disable=SC2157,SC2086 
+          # shellcheck disable=SC2157,SC2086
           if [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
-             echo "::set-output name=build_arch::true";
-             echo "::set-output name=image::$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)";
+             echo "build_arch=true" >> "$GITHUB_OUTPUT";
+             echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> "$GITHUB_OUTPUT";
              if [[ -z "$HEAD" ]] && [[ "${{ github.event_name }}" == "push" ]]; then
                  echo "BUILD_ARGS=" >> $GITHUB_ENV;
              fi
            else
              echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
-             echo "::set-output name=build_arch::false";
+             echo "build_arch=false" >> "$GITHUB_OUTPUT";
           fi
       - name: Login to GitHub Container Registry
         if: env.BUILD_ARGS != '--test'
@@ -91,7 +121,11 @@ jobs:
 
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@master
+        # Pinned by tag *name* on purpose: the action derives the builder image
+        # tag from its own ref, and 2026.02.1 is the last release that ships a
+        # builder image (@master silently mapped to it too). The action itself is
+        # deprecated in favour of home-assistant/builder's composable actions.
+        uses: home-assistant/builder@2026.02.1
         env:
           CAS_API_KEY: ${{ secrets.CAS_API_KEY }}
         with:

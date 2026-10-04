@@ -6,7 +6,6 @@ slug: tgtg-ha-mqtt-bridge
 description: Publish TooGoodToGo stock as MQTT messages
 arch:
   - amd64
-  - armv7
   - aarch64
 options:
   mqtt:

@@ -10,7 +10,6 @@ ingress_entry: login
 panel_title: OctoPrint
 panel_icon: mdi:printer-3d-nozzle
 arch:
-  - armv7
   - aarch64
   - amd64
 init: false
