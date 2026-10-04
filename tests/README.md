@@ -23,6 +23,7 @@ where the bugs are, and it can be tested in about a second.
 | -------------------------------------- | ------------------- | ---------------------------------- |
 | These tests                            | nothing             | anywhere, incl. the Claude sandbox |
 | Image builds, container smoke tests    | Docker              | the OrbStack VM, or CI             |
+| Upstream drift (`tests/drift/`)        | Docker              | CI on every PR, or the OrbStack VM |
 | Real HA + Supervisor, ingress, install | Docker + privileged | the OrbStack VM                    |
 
 The Docker-based layers live in [`../.orbstack/README.md`](../.orbstack/README.md).
@@ -150,6 +151,26 @@ become unnecessary:
    script, so it marks the system unhealthy and blocks every install. Handled
    with `ha jobs options --ignore-conditions healthy`, which is a supported
    escape hatch and safe in a throwaway VM.
+
+## `tests/drift/planefence.sh`
+
+The planefence add-on writes its options into docker-planefence's
+`planefence.config`, which starts as a copy of upstream's template. When
+upstream renames a key, the add-on keeps writing the old name, the template's
+default wins, and Planefence breaks, but only on fresh installs. That is what
+happened with `FEEDER_LONG` → `FEEDER_LON` in `latest-build-1249`.
+
+The check pulls the base image from `planefence/build.json` (the one CI and
+publishing use), copies the template out without starting the container, and
+fails if the add-on writes a key the template doesn't have. Deliberate
+exceptions live in `tests/drift/planefence-allowed.txt`, each with a reason; a
+renamed key kept for compatibility is marked `=>NEWKEY`, and the check then
+also requires the new name to be written. It runs as its own CI job, so a
+Renovate base-image bump that renames a key fails its own PR.
+
+```sh
+task test:drift
+```
 
 ## `tests/shellcheck.sh`
 

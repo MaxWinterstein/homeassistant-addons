@@ -48,3 +48,16 @@ jobs:
 
       - name: 🔍 Shellcheck
         run: ./tests/shellcheck.sh
+
+  drift:
+    name: Upstream drift
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️ Checkout
+        uses: actions/checkout@v7.0.1
+
+      # Compares the keys the planefence add-on writes with the config template
+      # in the base image from planefence/build.json, so a Renovate base-image
+      # bump that renames a key fails its own PR (see tests/drift/planefence.sh).
+      - name: 🔎 planefence config template
+        run: ./tests/drift/planefence.sh

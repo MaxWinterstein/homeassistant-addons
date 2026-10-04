@@ -51,6 +51,11 @@ tasks:
     cmds:
       - task: test:smoke:planefence
 
+  # test:drift — needs a Docker daemon (pulls the base image, never starts it).
+  test:drift:
+    desc: "🔎 Check the add-ons against upstream changes in their base images (needs Docker)"
+    cmd: ./tests/drift/planefence.sh
+
   # test:ha — the top of the pyramid: install the add-on into a real Home
   # Assistant and assert it runs. Needs `task ha:up` first.
   test:ha:
