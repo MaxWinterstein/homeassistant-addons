@@ -200,8 +200,11 @@ fi
 
 step "Web UI"
 port="$(grep -m1 '^ingress_port:' <(ha_cli 60 apps info "${APP}" 2>/dev/null) | awk '{print $2}')"
+running="$(in_vm 60 docker inspect "app_${APP}" --format '{{.State.Running}}' 2>/dev/null)"
 # `ha apps info` prints "ingress_port: null" for add-ons without ingress.
-if [[ "${port}" =~ ^[1-9][0-9]*$ ]]; then
+if [ "${running}" != "true" ]; then
+    info "container is not running, skipping the ingress check"
+elif [[ "${port}" =~ ^[1-9][0-9]*$ ]]; then
     # Probe the way ingress does: from the Supervisor (172.30.32.2 on the
     # hassio network). Add-ons commonly allow only that address in their web
     # server, so a request from 127.0.0.1 inside the add-on gets a 403.
