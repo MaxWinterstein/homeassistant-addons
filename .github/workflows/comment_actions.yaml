@@ -45,6 +45,9 @@ jobs:
           ISSUE_BODY: ${{ github.event_name == 'pull_request' && github.event.pull_request.body || github.event.issue.body }}
           PR_TITLE: ${{ github.event_name == 'pull_request' && github.event.pull_request.title || github.event.issue.title }}
           COMMENT_BODY: ${{ github.event.comment.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          GH_TOKEN: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
         run: |
 
           comment_body="$COMMENT_BODY"
@@ -54,7 +57,7 @@ jobs:
           if [[ "$PR_TITLE" =~ \[([a-zA-Z0-9_-]+)\] ]]; then
             ADDON="${BASH_REMATCH[1]}"
             echo "Mentioned Addon from PR Title: $ADDON"
-          elif [[ "$comment_body" =~ /release[[:space:]]([a-zA-Z0-9_-]+) ]]; then
+          elif [[ "$comment_body" =~ /release[[:space:]]+([a-zA-Z][a-zA-Z0-9_-]*) ]]; then
             ADDON="${BASH_REMATCH[1]}"
             echo "Mentioned Addon from Comment Body: $ADDON"
           else
@@ -64,26 +67,35 @@ jobs:
           echo "addon=$ADDON" >> "$GITHUB_OUTPUT"
 
 
-          echo "Extracting JSON from PR body..."
-
-          # Read the first line from the PR body file
-          FIRST_LINE=$(printf "%s\n" "$ISSUE_BODY" | head -n 1)
-
-          echo "Found JSON line:"
-          echo "$FIRST_LINE"
-
-          # Save to a file for jq parsing
-          echo "$FIRST_LINE" > data.json
-
-          # For label trigger, get branch name directly from PR context
-          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
-            BRANCH_NAME="${{ github.event.pull_request.head.ref }}"
-          else
-            BRANCH_NAME=$(jq -r '.prProperties.branchName' data.json)
+          # An explicit version wins: "/release 1.1.1" or "/release <addon> 1.1.1".
+          EXPLICIT_VERSION=""
+          if [[ "$comment_body" =~ /release([[:space:]]+[a-zA-Z][a-zA-Z0-9_-]*)?[[:space:]]+v?([0-9]+(\.[0-9]+)+) ]]; then
+            EXPLICIT_VERSION="${BASH_REMATCH[2]}"
+            echo "Explicit version from comment: $EXPLICIT_VERSION"
           fi
+          echo "explicit-version=$EXPLICIT_VERSION" >> "$GITHUB_OUTPUT"
 
-          DEP_NAME=$(jq -r '.prProperties.depName' data.json)
-          NEW_VERSION=$(jq -r '.prProperties.newVersion' data.json)
+          # Renovate PRs start with a JSON line carrying branch, dependency and
+          # its new version. Other PRs don't: take the branch from the PR itself
+          # and leave the dependency empty, so the default bump applies.
+          FIRST_LINE=$(printf "%s\n" "$ISSUE_BODY" | head -n 1)
+          if printf '%s' "$FIRST_LINE" | jq -e '.prProperties' >/dev/null 2>&1; then
+            echo "Renovate PR: reading branch and dependency from its JSON header"
+            BRANCH_NAME=$(printf '%s' "$FIRST_LINE" | jq -r '.prProperties.branchName')
+            DEP_NAME=$(printf '%s' "$FIRST_LINE" | jq -r '.prProperties.depName')
+            NEW_VERSION=$(printf '%s' "$FIRST_LINE" | jq -r '.prProperties.newVersion')
+          else
+            echo "Not a Renovate PR: reading the branch from PR #$PR_NUMBER"
+            DEP_NAME=""
+            NEW_VERSION=""
+            BRANCH_NAME="$PR_HEAD_REF"
+          fi
+          # Comment events don't carry the PR's branch.
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            BRANCH_NAME="$PR_HEAD_REF"
+          elif [[ -z "$BRANCH_NAME" || "$BRANCH_NAME" == "null" ]]; then
+            BRANCH_NAME=$(gh pr view "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --json headRefName --jq .headRefName)
+          fi
 
           echo "branchName: $BRANCH_NAME"
           echo "depName: $DEP_NAME"
@@ -114,9 +126,13 @@ jobs:
         id: increment_version
         run: |
           DEP_NAME="${{ steps.get_addon.outputs.dep-name }}"
+          EXPLICIT_VERSION="${{ steps.get_addon.outputs.explicit-version }}"
 
+          if [[ -n "$EXPLICIT_VERSION" ]]; then
+            NEW_VERSION="$EXPLICIT_VERSION"
+            echo "Using the version given in the comment: $NEW_VERSION"
           # For deps where the addon version should mirror upstream, use the upstream version directly
-          if [[ "$DEP_NAME" == "thomx/fr24feed-piaware" || "$DEP_NAME" == "angryip/ipscan" ]]; then
+          elif [[ "$DEP_NAME" == "thomx/fr24feed-piaware" || "$DEP_NAME" == "angryip/ipscan" ]]; then
             NEW_VERSION="${{ steps.get_addon.outputs.new-version }}"
             NEW_VERSION="${NEW_VERSION#v}"  # strip leading 'v' if present
             echo "Using upstream version: $NEW_VERSION"
