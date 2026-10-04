@@ -26,8 +26,9 @@ jobs:
         run: |
           PREFIX=$(echo "$PR_TITLE" | sed -E 's/^\[(.*)\].*/\1/')
           # "Update uv to v1.2.3" and "Update dependency foo to 1.2.3" alike
-          DEP=$(echo "$PR_TITLE" | grep -ioP 'update (dependency )?\K[^ ]+')
-          VER=$(echo "$PR_TITLE" | grep -ioP ' to \Kv?[0-9][0-9.]*[0-9]')
+          # `|| true`: an unexpected title must not abort the step under bash -e.
+          DEP=$(echo "$PR_TITLE" | grep -ioP 'update (dependency )?\K[^ ]+' || true)
+          VER=$(echo "$PR_TITLE" | grep -ioP ' to \Kv?[0-9]+(\.[0-9]+)*' || true)
           # One fragment per dependency, named after it, so later bumps
           # overwrite it and a release lists only the newest version.
           FRAGMENT="+$(echo "$DEP" | tr '/' '-' | tr -cd 'A-Za-z0-9._-').changed.md"
