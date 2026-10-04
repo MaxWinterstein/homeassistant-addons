@@ -1,7 +1,8 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM
 
-# Set the Angry IP Scanner version as a variable
+# Set the Angry IP Scanner version as a variable.
+# The add-on version mirrors it (3.10.0); add-on-only fixes append a 4th segment (3.10.0.1).
 # renovate: datasource=github-releases depName=angryip/ipscan versioning=semver
 ARG IP_SCAN_VERSION=3.10.0
 
