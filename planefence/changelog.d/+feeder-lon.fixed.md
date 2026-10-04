@@ -1,1 +1,0 @@
-Fresh installs work again: the add-on now also writes the longitude as FEEDER_LON, the name docker-planefence uses since latest-build-1249. Before, a new install kept the template's placeholder longitude and Planefence stopped with "SETUP REQUIRED".
