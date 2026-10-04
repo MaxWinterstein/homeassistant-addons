@@ -73,6 +73,15 @@
       matchUpdateTypes: ["minor", "patch"],
       automerge: true,
     },
+    {
+      // Dev-container tooling (task, yq, uv, docker, buildx, gh), pinned in the
+      // VibePod overlay. Not part of any add-on, so one PR a month, merged
+      // automatically once the checks pass.
+      matchFileNames: [".vibepod/**"],
+      groupName: "vibepod overlay tooling",
+      schedule: ["* 0-3 1 * *"],
+      automerge: true,
+    },
   ],
   ignorePaths: ["portainer/*", "awtrix/*", "octoprint-proxy/*", "ioBroker/*"],
   commitMessagePrefix: "[{{packageFileDir}}]",
