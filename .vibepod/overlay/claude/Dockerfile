@@ -64,7 +64,7 @@ ENV BATS_LIB_PATH=/usr/local/lib/bats
 #   gh      GitHub CLI for PRs, CI runs and releases
 #
 # renovate: datasource=github-releases depName=go-task/task
-ARG TASK_VERSION=v3.53.1
+ARG TASK_VERSION=v3.54.0
 # renovate: datasource=github-releases depName=mikefarah/yq
 ARG YQ_VERSION=v4.53.6
 # renovate: datasource=github-releases depName=astral-sh/uv
