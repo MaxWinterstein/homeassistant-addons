@@ -1,3 +1,5 @@
+# hadolint global ignore=DL3061
+# (FROM-less on purpose: VibePod prepends the FROM line, see below.)
 # VibePod overlay for the Claude sandbox.
 #
 # This is a FROM-less Dockerfile *fragment*: VibePod appends it to the

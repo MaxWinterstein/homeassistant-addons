@@ -17,9 +17,12 @@ bashio::log.error() { printf '[ERROR] %s\n' "$*" >&2; }
 bashio::log.debug() { printf '[DEBUG] %s\n' "$*" >&2; }
 bashio::log.notice() { printf '[NOTICE] %s\n' "$*" >&2; }
 bashio::log.fatal() { printf '[FATAL] %s\n' "$*" >&2; }
+bashio::log.magenta() { printf '[MAGENTA] %s\n' "$*" >&2; }
+bashio::log.cyan() { printf '[CYAN] %s\n' "$*" >&2; }
 
 # Some add-on scripts guard on these; keep them predictable in tests.
 bashio::config.true() { return 1; }
 bashio::config.false() { return 0; }
 bashio::var.has_value() { [ -n "${1:-}" ]; }
 bashio::var.is_empty() { [ -z "${1:-}" ]; }
+bashio::fs.file_exists() { [ -f "${1:-}" ]; }
