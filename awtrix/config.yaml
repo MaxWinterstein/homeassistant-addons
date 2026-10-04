@@ -23,7 +23,7 @@ ports_description:
   7000/tcp: REST API
   7001/tcp: communication matrix <-> server
   5568/udp: E1.31 Communication (premium only)
-stage: experimental
+stage: deprecated
 options:
   version: stable
   lang: en_EN
