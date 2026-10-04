@@ -10,7 +10,6 @@
 - The add-on version now follows Angry IP Scanner's own version, hence the jump from 1.4.0.1 to 3.10.0. Add-on-only fixes get a fourth segment, e.g. 3.10.0.1.
 - Updated angryip/ipscan to v3.10.0
 
-
 ## [1.4.0.1] - 2026-10-03
 
 ### Changed
