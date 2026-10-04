@@ -19,9 +19,6 @@ SCRIPT=planefence/rootfs/etc/cont-init.d/00-ha-planefence-config.sh
 ALLOWED=tests/drift/planefence-allowed.txt
 TEMPLATE_PATH=/usr/share/planefence/stage/persist/planefence.config.RENAME-and-EDIT-me
 
-base="$(jq -r '.build_from.amd64' planefence/build.json)"
-echo "base image: ${base}"
-
 tmp="$(mktemp -d)"
 cid=""
 cleanup() {
@@ -30,13 +27,42 @@ cleanup() {
 }
 trap cleanup EXIT
 
-docker pull -q --platform linux/amd64 "${base}" >/dev/null
-cid="$(docker create --platform linux/amd64 "${base}")"
-docker cp -q "${cid}:${TEMPLATE_PATH}" "${tmp}/template"
+# Check the template of every architecture in build.json; even one image
+# reference can resolve to different per-platform images. A key counts as
+# present only if every architecture's template has it.
+bases=""
+while read -r arch base; do
+    case "${arch}" in
+    amd64) platform=linux/amd64 ;;
+    aarch64) platform=linux/arm64 ;;
+    armv7) platform=linux/arm/v7 ;;
+    *)
+        echo "FAIL: no platform known for build.json architecture ${arch}"
+        exit 1
+        ;;
+    esac
+    echo "base image (${arch}): ${base}"
+    bases="${bases:+${bases}, }${base} (${arch})"
+    docker pull -q --platform "${platform}" "${base}" >/dev/null
+    cid="$(docker create --platform "${platform}" "${base}")"
+    docker cp -q "${cid}:${TEMPLATE_PATH}" "${tmp}/template.${arch}"
+    docker rm -f "${cid}" >/dev/null
+    cid=""
 
-# Keys defined in the template, commented-out examples included ("#KEY=").
-grep -oE '^[[:space:]]*#?[[:space:]]*[A-Z][A-Z0-9_]*=' "${tmp}/template" |
-    tr -d '# =' | sort -u >"${tmp}/template.keys"
+    # Keys defined in the template, commented-out examples included ("#KEY=").
+    grep -oE '^[[:space:]]*#?[[:space:]]*[A-Z][A-Z0-9_]*=' "${tmp}/template.${arch}" |
+        tr -d '# =' | sort -u >"${tmp}/template.${arch}.keys"
+    if [ -f "${tmp}/template.keys" ]; then
+        comm -12 "${tmp}/template.keys" "${tmp}/template.${arch}.keys" >"${tmp}/template.keys.new"
+        mv "${tmp}/template.keys.new" "${tmp}/template.keys"
+    else
+        cp "${tmp}/template.${arch}.keys" "${tmp}/template.keys"
+    fi
+done < <(jq -r '.build_from | to_entries[] | "\(.key) \(.value)"' planefence/build.json)
+if [ ! -f "${tmp}/template.keys" ]; then
+    echo "FAIL: no base images found in planefence/build.json"
+    exit 1
+fi
 
 # Keys the add-on writes: set_config / set_config_if "KEY".
 grep -oE '^[[:space:]]*set_config(_if)?[[:space:]]+"[A-Z][A-Z0-9_]*"' "${SCRIPT}" |
@@ -74,7 +100,7 @@ if [ -n "${unpaired}" ]; then
 fi
 
 if [ -n "${missing}" ]; then
-    echo "FAIL: the add-on writes keys that ${base} no longer has in its template:"
+    echo "FAIL: the add-on writes keys that are no longer in the template of ${bases}:"
     while read -r key; do echo "  ${key}"; done <<<"${missing}"
     echo "Upstream probably renamed or removed them. Write the new name in ${SCRIPT}"
     echo "(keep the old one if upstream still falls back to it), or, if the removal"
