@@ -126,7 +126,7 @@ if ! {
     ha_cli 60 supervisor options --channel "${HA_CHANNEL:-stable}" >/dev/null 2>&1 &&
         ha_cli 60 supervisor reload >/dev/null 2>&1
 }; then
-    warn "could not switch the Supervisor channel"
+    die "could not switch the Supervisor to the ${HA_CHANNEL:-stable} channel"
 fi
 
 # ── Make sure Core is running ───────────────────────────────────────────
@@ -170,14 +170,17 @@ wait_for_core_jobs() {
 core_version="$(ha_cli 60 core info --raw-json 2>/dev/null | jq -r '.data.version // empty')"
 core_latest="$(in_vm 60 sh -c "curl -fsS https://version.home-assistant.io/${HA_CHANNEL:-stable}.json" 2>/dev/null |
     jq -r '.homeassistant.default // empty')"
-if [ -n "${core_latest}" ] && [ "${core_version}" != "${core_latest}" ]; then
+[ -n "${core_latest}" ] ||
+    die "no Core version for the ${HA_CHANNEL:-stable} channel (version.home-assistant.io unreachable?)"
+if [ "${core_version}" != "${core_latest}" ]; then
     log "Core is ${core_version}, installing ${core_latest} from the ${HA_CHANNEL:-stable} channel"
     wait_for_core_jobs || warn "Core jobs still running, trying anyway"
     # Reports a failure when the previous start attempt timed out, even though
     # the new version comes up fine; check the version instead of the exit code.
     ha_cli "${CORE_TIMEOUT}" core update --version "${core_latest}" >/dev/null 2>&1
     core_version="$(ha_cli 60 core info --raw-json 2>/dev/null | jq -r '.data.version // empty')"
-    [ "${core_version}" = "${core_latest}" ] || warn "Core is ${core_version:-unknown}, expected ${core_latest}"
+    [ "${core_version}" = "${core_latest}" ] ||
+        die "Core is ${core_version:-unknown} after the update, expected ${core_latest}"
 fi
 log "Home Assistant Core ${core_version:-unknown}"
 
@@ -188,23 +191,30 @@ log "Home Assistant Core ${core_version:-unknown}"
 CORE_CONFIG=/mnt/supervisor/homeassistant/.storage/core.config
 if ! in_vm 30 test -f "${CORE_CONFIG}"; then
     log "seeding a test location (${TEST_LATITUDE:-50.0379}, ${TEST_LONGITUDE:-8.5622}, ${TEST_TIMEZONE:-Europe/Berlin})"
-    if ! {
-        jq -n \
-            --argjson lat "${TEST_LATITUDE:-50.0379}" \
-            --argjson lon "${TEST_LONGITUDE:-8.5622}" \
-            --argjson ele "${TEST_ELEVATION:-111}" \
-            --arg tz "${TEST_TIMEZONE:-Europe/Berlin}" \
-            '{version: 1, minor_version: 1, key: "core.config",
+    # Build and validate the JSON before touching the file: a bad TEST_*
+    # override must not leave an empty core.config, which later runs would
+    # see as "already seeded" and never repair.
+    if ! location="$(jq -n \
+        --argjson lat "${TEST_LATITUDE:-50.0379}" \
+        --argjson lon "${TEST_LONGITUDE:-8.5622}" \
+        --argjson ele "${TEST_ELEVATION:-111}" \
+        --arg tz "${TEST_TIMEZONE:-Europe/Berlin}" \
+        '{version: 1, minor_version: 1, key: "core.config",
           data: {latitude: $lat, longitude: $lon, elevation: $ele,
                  unit_system: "metric", location_name: "Add-on test bench",
                  time_zone: $tz, external_url: null, internal_url: null,
-                 currency: "EUR"}}' |
-            dock 30 exec -i "${CONTAINER}" sh -c "cat > '${CORE_CONFIG}'" &&
-            wait_for_core_jobs &&
-            ha_cli "${CORE_TIMEOUT}" core restart >/dev/null 2>&1
-    }; then
-        warn "could not seed the test location"
+                 currency: "EUR"}}')" ||
+        ! jq -e '.data | (.latitude | numbers) and (.longitude | numbers) and (.time_zone | length > 0)' >/dev/null <<<"${location}"; then
+        die "invalid test location (check TEST_LATITUDE/TEST_LONGITUDE/TEST_ELEVATION/TEST_TIMEZONE)"
     fi
+    # Write to a temporary name and rename, so an interrupted copy can't
+    # leave a partial file behind either.
+    printf '%s\n' "${location}" |
+        dock 30 exec -i "${CONTAINER}" sh -c "cat > '${CORE_CONFIG}.tmp' && mv '${CORE_CONFIG}.tmp' '${CORE_CONFIG}'" ||
+        die "could not write ${CORE_CONFIG}"
+    wait_for_core_jobs || die "Core jobs still running, cannot restart Core"
+    ha_cli "${CORE_TIMEOUT}" core restart >/dev/null 2>&1 ||
+        die "could not restart Core after seeding the test location"
 fi
 
 host="$(echo "${DOCKER_HOST:-localhost}" | sed -e 's|^tcp://||' -e 's|:.*||')"
