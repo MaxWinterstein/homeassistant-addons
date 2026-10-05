@@ -79,6 +79,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
+      manifests: ${{ steps.matrix.outputs.manifests }}
     steps:
       - name: ↩️ Checkout
         uses: actions/checkout@v7.0.1
@@ -89,13 +90,17 @@ jobs:
           ADDONS: ${{ needs.check-addon-changes.outputs.changedAddons }}
         run: |
           matrix="$(./scripts/publish-matrix.sh "$ADDONS")"
+          manifests="$(./scripts/publish-matrix.sh --manifests "$ADDONS")"
           echo "$matrix" | jq .
+          echo "$manifests" | jq .
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          echo "manifests=$manifests" >> "$GITHUB_OUTPUT"
 
   # Built with home-assistant/builder's composable actions (the monolithic
-  # home-assistant/builder action is deprecated and due for removal). Images
-  # keep their per-arch names (image: ...-{arch}), which Supervisor still
-  # supports; the base image still comes from build.json/build.yaml.
+  # home-assistant/builder action is deprecated and due for removal). Per-arch
+  # add-ons (image: ...-{arch}) push one image per architecture, with the base
+  # from build.json/build.yaml; generic ones push <arch>-name images with the
+  # Dockerfile's own FROM and get a manifest in the job below.
   build:
     needs: plan
     runs-on: ${{ matrix.os }}
@@ -103,8 +108,8 @@ jobs:
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     permissions:
       contents: read
-      id-token: write # Cosign signing
-      packages: write # push to ghcr.io
+      id-token: write  # Cosign signing
+      packages: write  # push to ghcr.io
     strategy:
       fail-fast: false
       matrix: ${{ fromJSON(needs.plan.outputs.matrix) }}
@@ -128,5 +133,34 @@ jobs:
           cache-gha-scope: ${{ matrix.addon }}-${{ matrix.arch }}
           push: "true"
           # Never overwrite an already published version.
+          skip-existing: ${{ matrix.version }}
+          container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+  # Add-ons with a generic image name (image: ghcr.io/owner/name, no {arch})
+  # get one multi-arch manifest combining the per-arch images built above.
+  # Per-arch add-ons (image: ...-{arch}) don't need one and are skipped.
+  manifest:
+    needs: [plan, build]
+    if: ${{ fromJSON(needs.plan.outputs.manifests).include[0] != null }}
+    runs-on: ubuntu-latest
+    environment: CR_PAT
+    name: Publish ${{ matrix.addon }} multi-arch manifest
+    permissions:
+      contents: read
+      id-token: write  # Cosign signing
+      packages: write  # push to ghcr.io
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.plan.outputs.manifests) }}
+    steps:
+      - name: 📦 Publish ${{ matrix.addon }} manifest
+        uses: home-assistant/builder/actions/publish-multi-arch-manifest@2026.09.0
+        with:
+          architectures: ${{ matrix.architectures }}
+          registry-prefix: ${{ matrix.registry_prefix }}
+          image-name: ${{ matrix.image_name }}
+          image-tags: |
+            ${{ matrix.version }}
+            latest
           skip-existing: ${{ matrix.version }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
