@@ -70,8 +70,14 @@ with sync_playwright() as pw:
     try:
         # The ingress iframe lives in the frontend's shadow DOM; Playwright's
         # CSS engine pierces it.
-        page.wait_for_selector("iframe[src*='/api/hassio_ingress/']", timeout=60_000)
-        frame = next(f for f in page.frames if "/api/hassio_ingress/" in f.url)
+        iframe = page.wait_for_selector("iframe[src*='/api/hassio_ingress/']", timeout=60_000)
+        # The element can exist before its frame has navigated: take the frame
+        # from the element and wait for the ingress URL instead of searching
+        # page.frames, which could still miss it.
+        frame = iframe.content_frame()
+        if frame is None:
+            raise PlaywrightTimeout("ingress iframe has no frame")
+        frame.wait_for_url("**/api/hassio_ingress/**", timeout=60_000)
         frame.wait_for_load_state("load", timeout=60_000)
         frame.wait_for_function(
             "e => document.body && document.body.innerText.includes(e) || document.title.includes(e)",
@@ -79,7 +85,7 @@ with sync_playwright() as pw:
             timeout=60_000,
         )
         result.update(ok=True, frame_url=frame.url, frame_title=frame.title())
-    except (PlaywrightTimeout, StopIteration) as err:
+    except PlaywrightTimeout as err:
         result["error"] = f"{type(err).__name__}: {str(err).splitlines()[0][:300]}"
         result["frames"] = [f.url for f in page.frames]
     page.wait_for_timeout(1_500)

@@ -258,7 +258,7 @@ if [ "${UI:-0}" = "1" ]; then
     else
         shot="${TMPDIR:-/tmp}/ui-${ADDON}.png"
         if out="$(./tests/ha/ui-test.sh "${ADDON}" "${shot}" 2>&1)"; then
-            pass "add-on UI loads in the HA frontend ($(jq -r '.frame_title // empty' <<<"$(tail -1 <<<"${out}")"))"
+            pass "add-on UI loads in the HA frontend ($(grep '^{' <<<"${out}" | tail -1 | jq -r '.frame_title // empty'))"
         else
             fail "add-on UI did not load in the HA frontend"
             tail -3 <<<"${out}" | while read -r line; do info "${line:0:200}"; done
