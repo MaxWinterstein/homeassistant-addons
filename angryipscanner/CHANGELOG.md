@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [3.10.0.1] - 2026-10-05
+
+### Changed
+
+- Published as one multi-arch image (ghcr.io/maxwinterstein/homeassistant-addon-angry-ip-scanner) instead of one image per architecture, as Home Assistant recommends. The base image is declared in the Dockerfile; build.json is gone. Nothing changes in the add-on itself.
+
 ## [3.10.0] - 2026-10-04
 
 ### Changed
