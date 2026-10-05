@@ -54,6 +54,10 @@ if ! jq -e . >/dev/null 2>&1 <<<"${result}"; then
     echo "browser test produced no result" >&2
     exit 1
 fi
-jq -r '.screenshot_png_b64 // empty' <<<"${result}" | base64 -d >"${SHOT}" 2>/dev/null && echo "screenshot: ${SHOT}"
 jq -c 'del(.screenshot_png_b64)' <<<"${result}"
+if ! jq -r '.screenshot_png_b64 // empty' <<<"${result}" | base64 -d >"${SHOT}" || [ ! -s "${SHOT}" ]; then
+    echo "could not save the screenshot to ${SHOT}" >&2
+    exit 1
+fi
+echo "screenshot: ${SHOT}"
 jq -e '.ok' >/dev/null <<<"${result}"
