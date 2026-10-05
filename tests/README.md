@@ -129,7 +129,7 @@ This is the only layer that exercises the Supervisor parsing `config.yaml`,
 building the image, the options round trip and ingress registration. Expect a
 few minutes; the first `ha:up` pulls ~2GB of devcontainer plus ~600MB of HA Core.
 
-### The devcontainer needs four workarounds
+### The devcontainer needs five workarounds
 
 The official devcontainer image and the dev Supervisor it pulls have drifted
 apart. `supervisor-up.sh` patches around each, marked `WORKAROUND` in the
@@ -151,6 +151,20 @@ become unnecessary:
    script, so it marks the system unhealthy and blocks every install. Handled
    with `ha jobs options --ignore-conditions healthy`, which is a supported
    escape hatch and safe in a throwaway VM.
+5. **Stable channel and the Core socket.** The devcontainer always runs the
+   dev channel (`dev.json`, plus `SUPERVISOR_DEV=1`). There, Supervisor and Core
+   never complete their token handshake, so every add-on call to
+   `/core/api/...` got a 502 and `HOMEASSISTANT_*` placeholders could not be
+   resolved. `supervisor-up.sh` pulls versions from `stable.json` (override
+   with `HA_CHANNEL`), switches the Supervisor's channel, and installs that
+   channel's Core. The Supervisor also reaches Core through
+   `/run/os/core.sock`; HA OS mounts `/run/supervisor` there, the
+   devcontainer's `supervisor_run` doesn't, so that mount is added too.
+
+On first start `supervisor-up.sh` also seeds a test location (Frankfurt
+airport, `Europe/Berlin`, override with `TEST_LATITUDE` / `TEST_LONGITUDE` /
+`TEST_ELEVATION` / `TEST_TIMEZONE`). Without onboarding Core reports 0/0/UTC,
+which placeholder tests couldn't tell apart from a failure.
 
 ## `tests/drift/planefence.sh`
 

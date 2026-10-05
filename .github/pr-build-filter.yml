@@ -2,8 +2,9 @@
 # which add-ons a pull request has to lint and test-build, so a Dockerfile-only change
 # (every Renovate base-image bump) gets built before it is merged.
 #
-# Everything under the add-on directory counts, except documentation, artwork and
-# pending changelog fragments. Needs `predicate-quantifier: some-with-excludes`: under
+# Everything under the add-on directory counts, except documentation, artwork,
+# pending changelog fragments and test fixtures (test/, kept out of the image).
+# Needs `predicate-quantifier: some-with-excludes`: under
 # the default `some`, a negated pattern matches every file it does not name, so every
 # filter would match everything.
 #
@@ -18,6 +19,7 @@ adsb-multi-portal-feeder:
   - "!adsb-multi-portal-feeder/*.png"
   - "!adsb-multi-portal-feeder/images/**"
   - "!adsb-multi-portal-feeder/changelog.d/**"
+  - "!adsb-multi-portal-feeder/test/**"
 
 angryipscanner:
   - "angryipscanner/**"
@@ -25,6 +27,7 @@ angryipscanner:
   - "!angryipscanner/*.png"
   - "!angryipscanner/images/**"
   - "!angryipscanner/changelog.d/**"
+  - "!angryipscanner/test/**"
 
 awtrix:
   - "awtrix/**"
@@ -32,6 +35,7 @@ awtrix:
   - "!awtrix/*.png"
   - "!awtrix/images/**"
   - "!awtrix/changelog.d/**"
+  - "!awtrix/test/**"
 
 cups:
   - "cups/**"
@@ -39,6 +43,7 @@ cups:
   - "!cups/*.png"
   - "!cups/images/**"
   - "!cups/changelog.d/**"
+  - "!cups/test/**"
 
 fr24-sharing-key-generator:
   - "fr24-sharing-key-generator/**"
@@ -46,6 +51,7 @@ fr24-sharing-key-generator:
   - "!fr24-sharing-key-generator/*.png"
   - "!fr24-sharing-key-generator/images/**"
   - "!fr24-sharing-key-generator/changelog.d/**"
+  - "!fr24-sharing-key-generator/test/**"
 
 octoprint-proxy:
   - "octoprint-proxy/**"
@@ -53,6 +59,7 @@ octoprint-proxy:
   - "!octoprint-proxy/*.png"
   - "!octoprint-proxy/images/**"
   - "!octoprint-proxy/changelog.d/**"
+  - "!octoprint-proxy/test/**"
 
 planefence:
   - "planefence/**"
@@ -60,6 +67,7 @@ planefence:
   - "!planefence/*.png"
   - "!planefence/images/**"
   - "!planefence/changelog.d/**"
+  - "!planefence/test/**"
 
 toogoodtogo-ha-mqtt-bridge:
   - "toogoodtogo-ha-mqtt-bridge/**"
@@ -67,3 +75,4 @@ toogoodtogo-ha-mqtt-bridge:
   - "!toogoodtogo-ha-mqtt-bridge/*.png"
   - "!toogoodtogo-ha-mqtt-bridge/images/**"
   - "!toogoodtogo-ha-mqtt-bridge/changelog.d/**"
+  - "!toogoodtogo-ha-mqtt-bridge/test/**"

@@ -56,13 +56,20 @@ else
     #
     # devcontainer_bootstrap is mode 0644 in the image, so it must be invoked
     # via `bash`, exactly as the official devcontainer.json does.
+    #
+    # WORKAROUND 5: give the Supervisor the /run/os mount it expects
+    # (PATCH_SUPERVISOR_RUN in common.sh), before supervisor_run starts it.
+    START_CMD="set -e
+${PATCH_SUPERVISOR_RUN}
+set +e
+bash /usr/bin/devcontainer_bootstrap && supervisor_run"
     dock 120 run -d -t --name "${CONTAINER}" --privileged \
         -v ha-supervisor-dind:/var/lib/docker \
         -v "${WORKSPACE}:/workspaces/addons" \
         -e WORKSPACE_DIRECTORY=/workspaces/addons \
         -p 8123:8123 -p 4357:4357 \
         "${IMAGE}" \
-        bash -lc 'bash /usr/bin/devcontainer_bootstrap && supervisor_run' >/dev/null ||
+        bash -lc "${START_CMD}" >/dev/null ||
         die "could not start ${CONTAINER}"
 fi
 
@@ -110,6 +117,18 @@ log "ignoring the 'healthy' job condition (docker_gateway_unprotected)"
 ha_cli 60 jobs options --ignore-conditions healthy >/dev/null 2>&1 ||
     warn "could not set ignore-conditions"
 
+# WORKAROUND 5, part 2: the devcontainer runs the Supervisor with
+# SUPERVISOR_DEV=1, which puts it on the dev channel and makes it install a dev
+# Core, even with a stable Supervisor (part 1 in common.sh). Switch the channel
+# to what real installs run; Core is brought in line further down.
+log "switching the Supervisor to the ${HA_CHANNEL:-stable} channel"
+if ! {
+    ha_cli 60 supervisor options --channel "${HA_CHANNEL:-stable}" >/dev/null 2>&1 &&
+        ha_cli 60 supervisor reload >/dev/null 2>&1
+}; then
+    warn "could not switch the Supervisor channel"
+fi
+
 # ── Make sure Core is running ───────────────────────────────────────────
 state="$(ha_cli 60 core info 2>/dev/null | awk '/^state:/{print $2}')"
 if [ "${state}" != "running" ]; then
@@ -131,6 +150,61 @@ if [ -n "${core_status}" ]; then
 else
     warn "Core is not running yet; add-on installs may still work"
     dock 60 logs "${CONTAINER}" 2>&1 | grep -iE "can't start home assistant|error" | grep -v DEBUG | tail -5
+fi
+
+# Wait until no Core job (start/update/restart) is running; a new one is
+# refused with "Another job is running for job group home_assistant_core".
+wait_for_core_jobs() {
+    for _ in $(seq 1 80); do
+        running="$(ha_cli 30 jobs info --raw-json 2>/dev/null |
+            jq '[.data.jobs[]? | select((.done | not) and (.name | startswith("home_assistant_core")))] | length' 2>/dev/null)"
+        [ "${running:-1}" = "0" ] && return 0
+        sleep 15
+    done
+    return 1
+}
+
+# ── Core on the channel's version ───────────────────────────────────────
+# The target comes from the channel file itself: right after the channel
+# switch, the Supervisor's own version_latest can still be the dev one.
+core_version="$(ha_cli 60 core info --raw-json 2>/dev/null | jq -r '.data.version // empty')"
+core_latest="$(in_vm 60 sh -c "curl -fsS https://version.home-assistant.io/${HA_CHANNEL:-stable}.json" 2>/dev/null |
+    jq -r '.homeassistant.default // empty')"
+if [ -n "${core_latest}" ] && [ "${core_version}" != "${core_latest}" ]; then
+    log "Core is ${core_version}, installing ${core_latest} from the ${HA_CHANNEL:-stable} channel"
+    wait_for_core_jobs || warn "Core jobs still running, trying anyway"
+    # Reports a failure when the previous start attempt timed out, even though
+    # the new version comes up fine; check the version instead of the exit code.
+    ha_cli "${CORE_TIMEOUT}" core update --version "${core_latest}" >/dev/null 2>&1
+    core_version="$(ha_cli 60 core info --raw-json 2>/dev/null | jq -r '.data.version // empty')"
+    [ "${core_version}" = "${core_latest}" ] || warn "Core is ${core_version:-unknown}, expected ${core_latest}"
+fi
+log "Home Assistant Core ${core_version:-unknown}"
+
+# ── A real location for HOMEASSISTANT_* placeholders ────────────────────
+# Without onboarding Core reports latitude/longitude 0 and UTC, so placeholder
+# resolution in add-ons can't be told apart from a failure. Seed a location
+# once (HA migrates the file to its current format on start).
+CORE_CONFIG=/mnt/supervisor/homeassistant/.storage/core.config
+if ! in_vm 30 test -f "${CORE_CONFIG}"; then
+    log "seeding a test location (${TEST_LATITUDE:-50.0379}, ${TEST_LONGITUDE:-8.5622}, ${TEST_TIMEZONE:-Europe/Berlin})"
+    if ! {
+        jq -n \
+            --argjson lat "${TEST_LATITUDE:-50.0379}" \
+            --argjson lon "${TEST_LONGITUDE:-8.5622}" \
+            --argjson ele "${TEST_ELEVATION:-111}" \
+            --arg tz "${TEST_TIMEZONE:-Europe/Berlin}" \
+            '{version: 1, minor_version: 1, key: "core.config",
+          data: {latitude: $lat, longitude: $lon, elevation: $ele,
+                 unit_system: "metric", location_name: "Add-on test bench",
+                 time_zone: $tz, external_url: null, internal_url: null,
+                 currency: "EUR"}}' |
+            dock 30 exec -i "${CONTAINER}" sh -c "cat > '${CORE_CONFIG}'" &&
+            wait_for_core_jobs &&
+            ha_cli "${CORE_TIMEOUT}" core restart >/dev/null 2>&1
+    }; then
+        warn "could not seed the test location"
+    fi
 fi
 
 host="$(echo "${DOCKER_HOST:-localhost}" | sed -e 's|^tcp://||' -e 's|:.*||')"
