@@ -253,7 +253,8 @@ jobs:
           # yq rather than jq: build files may be build.json or build.yaml
           # (octoprint-proxy). Only pass BUILD_FROM when there is a value, so an
           # empty one doesn't override the Dockerfile's own ARG default.
-          from() { [ -f "$BUILD_FILE" ] && yq -r ".build_from.$1 // \"\"" "$BUILD_FILE"; }
+          # No build file (base image via FROM in the Dockerfile): no BUILD_FROM.
+          from() { [ -f "$BUILD_FILE" ] || return 0; yq -r ".build_from.$1 // \"\"" "$BUILD_FILE"; }
           for arch in armhf armv7 aarch64 amd64 i386; do
             value=$(from "$arch")
             echo "$arch=${value:+BUILD_FROM=$value}"
