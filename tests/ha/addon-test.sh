@@ -205,10 +205,12 @@ fi
 step "Add-on logs"
 logs="$(ha_cli 90 apps logs "${APP}" 2>&1)"
 # "SETUP REQUIRED" is docker-planefence refusing to run with unusable
-# coordinates: the container stays up and healthy, so only the log shows it.
-if grep -qiE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED' <<<"${logs}"; then
+# coordinates, "Could not resolve HA location" is export-env failing to replace
+# HOMEASSISTANT_* placeholders: in both the container stays up and healthy, so
+# only the log shows it.
+if grep -qiE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED|Could not resolve HA location' <<<"${logs}"; then
     fail "fatal errors in the add-on log"
-    grep -iE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED' <<<"${logs}" | head -3
+    grep -iE 's6-overlay-suexec: fatal|did not signal ready|SETUP REQUIRED|Could not resolve HA location' <<<"${logs}" | head -3
 else
     pass "no fatal errors"
 fi
