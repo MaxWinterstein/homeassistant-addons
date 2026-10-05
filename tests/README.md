@@ -166,6 +166,28 @@ airport, `Europe/Berlin`, override with `TEST_LATITUDE` / `TEST_LONGITUDE` /
 `TEST_ELEVATION` / `TEST_TIMEZONE`). Without onboarding Core reports 0/0/UTC,
 which placeholder tests couldn't tell apart from a failure.
 
+### Browser tests of the add-on UIs
+
+`UI=1 task test:ha -- <addon>` additionally opens the add-on's ingress page in
+the real Home Assistant frontend with a headless Chromium and checks that the
+add-on's own UI loads inside it. `tests/ha/ui-test.sh <addon>` does the same
+for an add-on that is already installed (`task test:ui -- <addon>`).
+
+- `supervisor-up.sh` completes onboarding through HA's API, so there is a user
+  to log in with (`test` / `test-bench-only`, override with `TEST_HA_USER` /
+  `TEST_HA_PASSWORD`; it only ever exists inside the throwaway VM).
+- The browser is the official Playwright image (Python variant, plus the
+  `playwright` package), built inside the VM on first use and run on the HA
+  network. The test script goes in on stdin and the screenshot comes back the
+  same way, so nothing is mounted.
+- Login uses HA's login flow and hands the tokens to the frontend the way it
+  stores them itself (`localStorage.hassTokens`).
+- The page is `/app/<slug>/ingress`; the old `/hassio/ingress/<slug>` route
+  is gone since the add-ons → apps rename.
+- What has to appear in the iframe (page text or title) is listed per add-on in
+  `tests/ha/ui-expected.txt`. A screenshot is saved either way
+  (`$TMPDIR/ui-<addon>.png`).
+
 ## `tests/drift/planefence.sh`
 
 The planefence add-on writes its options into docker-planefence's

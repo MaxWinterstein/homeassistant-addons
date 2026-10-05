@@ -217,6 +217,32 @@ if ! in_vm 30 test -f "${CORE_CONFIG}"; then
         die "could not restart Core after seeding the test location"
 fi
 
+# ── Onboarding ──────────────────────────────────────────────────────────
+# Without it there is no user to log in with, so the frontend (and with it
+# every add-on's ingress page) can't be opened in a browser. Done through the
+# onboarding API, as the frontend does; the test location seeded above stays.
+# Core listens on 80 inside the VM; 8123 only redirects there.
+core_api() { in_vm 60 curl -fsS "$@"; }
+if core_api http://localhost:80/api/onboarding 2>/dev/null | jq -e '.[] | select(.step == "user" and (.done | not))' >/dev/null; then
+    log "onboarding: creating the test user '${TEST_HA_USER}'"
+    client_id="http://localhost/"
+    auth_code="$(core_api -X POST http://localhost:80/api/onboarding/users -H 'Content-Type: application/json' \
+        -d "$(jq -nc --arg c "${client_id}" --arg u "${TEST_HA_USER}" --arg p "${TEST_HA_PASSWORD}" \
+            '{client_id: $c, name: "Test", username: $u, password: $p, language: "en"}')" | jq -r '.auth_code // empty')"
+    [ -n "${auth_code}" ] || die "onboarding: could not create the test user"
+    token="$(core_api -X POST http://localhost:80/auth/token -d grant_type=authorization_code \
+        -d "code=${auth_code}" -d "client_id=${client_id}" | jq -r '.access_token // empty')"
+    [ -n "${token}" ] || die "onboarding: could not get a token for the test user"
+    for step in core_config analytics; do
+        core_api -X POST "http://localhost:80/api/onboarding/${step}" -H "Authorization: Bearer ${token}" \
+            -H 'Content-Type: application/json' -d '{}' >/dev/null || die "onboarding: step ${step} failed"
+    done
+    core_api -X POST http://localhost:80/api/onboarding/integration -H "Authorization: Bearer ${token}" \
+        -H 'Content-Type: application/json' \
+        -d "$(jq -nc --arg c "${client_id}" '{client_id: $c, redirect_uri: ($c + "?auth_callback=1")}')" >/dev/null ||
+        die "onboarding: step integration failed"
+fi
+
 host="$(echo "${DOCKER_HOST:-localhost}" | sed -e 's|^tcp://||' -e 's|:.*||')"
 cat <<EOF
 
@@ -225,6 +251,9 @@ $(log "ready")
   Home Assistant   http://${host}:8123
   Observer         http://${host}:4357
 
+  Login            ${TEST_HA_USER} / ${TEST_HA_PASSWORD}
+
   Install an add-on:  tests/ha/addon-test.sh planefence
+  ...with a browser:  UI=1 tests/ha/addon-test.sh planefence
   Stop everything:    docker rm -f ${CONTAINER}
 EOF

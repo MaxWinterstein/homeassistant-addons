@@ -35,3 +35,10 @@ PATCH_SUPERVISOR_RUN="
     sed -i "/-v \/run\/udev:\/run\/udev:ro/a\        -v /run/supervisor:/run/os:rw \\\\" "$f"
   grep -q "/run/supervisor:/run/os:rw" "$f"
 '
+
+# Login for the onboarded test HA (only ever exists inside the throwaway VM).
+TEST_HA_USER="${TEST_HA_USER:-test}"
+TEST_HA_PASSWORD="${TEST_HA_PASSWORD:-test-bench-only}"
+# Playwright image for the browser tests (built inside the VM on first use).
+PLAYWRIGHT_VERSION="1.63.0"
+PLAYWRIGHT_IMAGE="ha-test-playwright:${PLAYWRIGHT_VERSION}"

@@ -5,6 +5,8 @@
 #
 #   tests/ha/addon-test.sh planefence
 #   KEEP=1 tests/ha/addon-test.sh planefence   # leave it installed afterwards
+#   UI=1 tests/ha/addon-test.sh planefence     # also open its ingress page in a
+#                                               # real browser (tests/ha/ui-test.sh)
 #   KEEP_CONFIG=1 tests/ha/addon-test.sh planefence   # keep the add-on's persistent
 #                                                   # config: tests an update, not a fresh install
 #
@@ -247,6 +249,22 @@ elif [[ "${port}" =~ ^[1-9][0-9]*$ ]]; then
     fi
 else
     info "add-on has no ingress, skipping"
+fi
+
+if [ "${UI:-0}" = "1" ]; then
+    step "Browser"
+    if [[ ! "${port}" =~ ^[1-9][0-9]*$ ]]; then
+        info "add-on has no ingress, no page to open"
+    else
+        shot="${TMPDIR:-/tmp}/ui-${ADDON}.png"
+        if out="$(./tests/ha/ui-test.sh "${ADDON}" "${shot}" 2>&1)"; then
+            pass "add-on UI loads in the HA frontend ($(jq -r '.frame_title // empty' <<<"$(tail -1 <<<"${out}")"))"
+        else
+            fail "add-on UI did not load in the HA frontend"
+            tail -3 <<<"${out}" | while read -r line; do info "${line:0:200}"; done
+        fi
+        info "screenshot: ${shot}"
+    fi
 fi
 
 # ── Teardown ────────────────────────────────────────────────────────────
