@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bashio
 
-bashio::log.info "Strating Bridge..."
+bashio::log.info "Starting Bridge..."
 exec python /app/toogoodtogo_ha_mqtt_bridge/main.py

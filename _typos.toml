@@ -8,6 +8,13 @@
 #            rewrites core-mosquitto, which is a real add-on hostname.
 #
 # Both were caught after the hook had already rewritten them in a pull request.
+#
+# OpenskyNetowrk  quoted verbatim in the adsb-multi-portal-feeder changelog as
+#                 the (misspelled) tracker value upstream expects; the entry
+#                 itself says "the typo OpenskyNetowrk is intended".
 [default.extend-words]
 hass = "hass"
 mosquitto = "mosquitto"
+
+[default.extend-identifiers]
+OpenskyNetowrk = "OpenskyNetowrk"
