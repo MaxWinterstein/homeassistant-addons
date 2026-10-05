@@ -72,7 +72,7 @@
 ## [1.9.0] - 2021-02-05
 
 - Update `eufy-ha-mqtt-bridge` to `0.2.10` [Changelog](https://github.com/matijse/eufy-ha-mqtt-bridge/releases)
-- Add new configration option `mqtt.keepalive`
+- Add new configuration option `mqtt.keepalive`
 
 ## [1.8.0] - 2021-01-28
 
@@ -124,7 +124,7 @@
 
 - Improve image recration by adding some cache buster
 - Change to bashio logs
-- Add `log_level` cofiguration option
+- Add `log_level` configuration option
 - Add schema validation to configuration
 - Add some build date information
 
@@ -139,7 +139,7 @@
 
 ## [0.2.0] - 2020-12-31
 
-- Remove superflous `apt-get` part
+- Remove superfluous `apt-get` part
 - Added some 'do not edit' note to config.yml
 - Added some note about the rebuild button
 - Dirtypatched log level for console output

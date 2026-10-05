@@ -155,7 +155,7 @@ then
     echo ' '
     echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     echo "!!!!!                             IMPORTANT NOTE                             !!!!!"
-    echo "!!!!!        The sartup script restored iobroker from a backup file.         !!!!!"
+    echo "!!!!!        The startup script restored iobroker from a backup file.         !!!!!"
     echo "!!!!! Check /opt/iobroker/log/restore.log to see if restore was successful.  !!!!!"
     echo "!!!!! When ioBroker now starts it will reinstall all Adapters automatically. !!!!!"
     echo "!!!!!         This might be take a looooong time! Please be patient!         !!!!!"
@@ -324,7 +324,7 @@ then
 elif [ "$multihost" != "" ]
 then
   echo "Multihost is set but it seems like some configuration is missing."
-  echo "Please checke if you have configured the ENVs \"MULTIHOST\", \"IOB_OBJECTSDB_TYPE\", \"IOB_OBJECTSDB_HOST\" and \"IOB_OBJECTSDB_PORT\" correctly and start over."
+  echo "Please check if you have configured the ENVs \"MULTIHOST\", \"IOB_OBJECTSDB_TYPE\", \"IOB_OBJECTSDB_HOST\" and \"IOB_OBJECTSDB_PORT\" correctly and start over."
   echo "For more information see readme.md on Github (https://github.com/buanet/docker-iobroker)."
   exit 1
 fi
@@ -365,7 +365,7 @@ then
 elif [ "$multihost" != "" ]
 then
   echo "Multihost is set but it seems like some configuration is missing."
-  echo "Please checke if you have configured the ENVs \"MULTIHOST\", \"IOB_STATESDB_TYPE\", \"IOB_STATESDB_HOST\" and \"IOB_STATESTDB_PORT\" correctly and start over."
+  echo "Please check if you have configured the ENVs \"MULTIHOST\", \"IOB_STATESDB_TYPE\", \"IOB_STATESDB_HOST\" and \"IOB_STATESTDB_PORT\" correctly and start over."
   echo "For more information see readme.md on Github (https://github.com/buanet/docker-iobroker)."
   exit 1
 fi
@@ -500,7 +500,7 @@ echo "running" > /opt/scripts/.docker_config/.healthcheck
 # Function for graceful shutdown by SIGTERM signal
 shut_down() {
   echo ' '
-  echo "Recived termination signal (SIGTERM)."
+  echo "Received termination signal (SIGTERM)."
   echo "Shutting down ioBroker..."
   pid=$(ps -ef | awk '/[j]s.controller/{print $2}')
   kill -SIGTERM "$pid"

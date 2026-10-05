@@ -17,7 +17,7 @@
 
 ## [0.5.0] - 2021-01-04
 
-- Fix two superflous warnings
+- Fix two superfluous warnings
 
 ## [0.4.0] - 2020-12-30
 
