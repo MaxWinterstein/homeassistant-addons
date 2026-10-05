@@ -1,0 +1,13 @@
+# What the browser test (tests/ha/ui-test.sh) expects to see inside each
+# add-on's ingress iframe: text in the page body or its title. One line per
+# add-on directory; add-ons without ingress are skipped.
+#
+# Pick text that only appears when the UI really works: "noVNC" is on the
+# page even when the VNC connection fails, "Connected to" only after it
+# succeeds.
+#
+# Format: <add-on directory>  <expected text>
+
+planefence                 Planefence
+adsb-multi-portal-feeder   SkyAware
+angryipscanner             Connected to

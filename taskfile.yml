@@ -56,6 +56,10 @@ tasks:
     desc: "🔎 Check the add-ons against upstream changes in their base images (needs Docker)"
     cmd: ./tests/drift/planefence.sh
 
+  test:ui:
+    desc: "🖥️ Open an installed add-on's ingress page in a real browser (needs the test HA)"
+    cmd: ./tests/ha/ui-test.sh {{.CLI_ARGS}}
+
   # test:ha — the top of the pyramid: install the add-on into a real Home
   # Assistant and assert it runs. Needs `task ha:up` first.
   test:ha:
