@@ -1,1 +1,1 @@
-Updated ghcr.io/sdr-enthusiasts/docker-planefence to v1251
+Updated ghcr.io/sdr-enthusiasts/docker-planefence to v1252
