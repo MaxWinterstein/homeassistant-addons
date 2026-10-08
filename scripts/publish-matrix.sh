@@ -4,10 +4,23 @@
 # add-on and architecture it supports, with everything the build step needs.
 #
 #   scripts/publish-matrix.sh '["cups","angryipscanner"]'
+#   scripts/publish-matrix.sh --manifests '["cups","angryipscanner"]'
+#
+# Two image styles (config.yaml `image:`):
+#   per-arch  ghcr.io/owner/name-{arch}   each architecture is its own image
+#   generic   ghcr.io/owner/name          one multi-arch manifest; the
+#             per-arch images are pushed as ghcr.io/owner/<arch>-name, the
+#             naming home-assistant/builder's publish-multi-arch-manifest
+#             expects. --manifests lists these add-ons for the manifest job.
 #
 # Kept out of the workflow so it can be run and tested locally.
 set -euo pipefail
 
+MODE=builds
+if [ "${1:-}" = "--manifests" ]; then
+    MODE=manifests
+    shift
+fi
 ADDONS_JSON="${1:-[]}"
 
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
@@ -36,6 +49,27 @@ for addon in $(jq -r '.[]' <<<"${ADDONS_JSON}"); do
         continue
     }
 
+    if [[ "${image_template}" == *"{arch}"* ]]; then
+        generic=0
+    else
+        generic=1
+    fi
+    if [ "${MODE}" = manifests ]; then
+        if [ "${generic}" = 1 ]; then
+            entries+=("$(
+                jq -n -c \
+                    --arg addon "${addon}" \
+                    --arg prefix "${image_template%/*}" \
+                    --arg name "${image_template##*/}" \
+                    --arg version "$(yq -r '.version' "${config}")" \
+                    --argjson archs "$(yq -o=json -I=0 '[.arch[] | select(. == "aarch64" or . == "amd64")]' "${config}")" \
+                    '{addon: $addon, registry_prefix: $prefix, image_name: $name, version: $version,
+                      architectures: ($archs | tojson)}'
+            )")
+        fi
+        continue
+    fi
+
     build_file=""
     for candidate in "${addon}/build.yaml" "${addon}/build.json"; do
         [ -f "${candidate}" ] && build_file="${candidate}" && break
@@ -54,7 +88,7 @@ for addon in $(jq -r '.[]' <<<"${ADDONS_JSON}"); do
                 --arg addon "${addon}" \
                 --arg arch "${arch}" \
                 --arg os "${os}" \
-                --arg image "${image_template//\{arch\}/${arch}}" \
+                --arg image "$(if [ "${generic}" = 1 ]; then echo "${image_template%/*}/${arch}-${image_template##*/}"; else echo "${image_template//\{arch\}/${arch}}"; fi)" \
                 --arg version "$(yq -r '.version' "${config}")" \
                 --arg base "${base}" \
                 --arg name "$(yq -r '.name' "${config}")" \
