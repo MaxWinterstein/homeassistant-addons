@@ -1,1 +1,1 @@
-Updated uv to v0.12.24
+Updated uv to v0.13.0
