@@ -156,11 +156,34 @@ jobs:
       - name: ↩️ Checkout
         uses: actions/checkout@v7.0.1
 
+      # Replaces frenck/action-addon-information, which insists on a
+      # build.json/build.yaml. Add-ons that follow Home Assistant's builder
+      # migration declare the base image in the Dockerfile and have none.
       - name: ℹ️ Gather addon info
         id: information
-        uses: frenck/action-addon-information@v1.4.2
-        with:
-          path: "./${{ matrix.addon }}/"
+        env:
+          ADDON: ${{ matrix.addon }}
+        run: |
+          config=""
+          for ext in yaml yml json; do
+            [ -f "${ADDON}/config.${ext}" ] && config="${ADDON}/config.${ext}" && break
+          done
+          [ -n "${config}" ] || { echo "::error::no config.yaml/config.json in ${ADDON}"; exit 1; }
+          build=""
+          for ext in yaml yml json; do
+            [ -f "${ADDON}/build.${ext}" ] && build="${ADDON}/build.${ext}" && break
+          done
+          {
+            echo "image=$(yq -r '.image // ""' "${config}")"
+            echo "version=$(yq -r '.version' "${config}")"
+            echo "name=$(yq -r '.name' "${config}")"
+            echo "description=$(yq -r '.description // ""' "${config}")"
+            echo "build=${build}"
+            for arch in armhf armv7 aarch64 amd64 i386; do
+              echo "${arch}=$(yq -r "(.arch // []) | contains([\"${arch}\"])" "${config}")"
+            done
+          } >> "$GITHUB_OUTPUT"
+          cat "$GITHUB_OUTPUT"
 
       - name: 🗄️ Cache docker layers
         uses: actions/cache@v6.1.0
@@ -230,7 +253,8 @@ jobs:
           # yq rather than jq: build files may be build.json or build.yaml
           # (octoprint-proxy). Only pass BUILD_FROM when there is a value, so an
           # empty one doesn't override the Dockerfile's own ARG default.
-          from() { [ -f "$BUILD_FILE" ] && yq -r ".build_from.$1 // \"\"" "$BUILD_FILE"; }
+          # No build file (base image via FROM in the Dockerfile): no BUILD_FROM.
+          from() { [ -f "$BUILD_FILE" ] || return 0; yq -r ".build_from.$1 // \"\"" "$BUILD_FILE"; }
           for arch in armhf armv7 aarch64 amd64 i386; do
             value=$(from "$arch")
             echo "$arch=${value:+BUILD_FROM=$value}"

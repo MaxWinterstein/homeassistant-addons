@@ -1,5 +1,5 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+# One multi-arch base for every architecture; no build.json needed.
+FROM ghcr.io/home-assistant/base-debian:trixie
 
 # Set the Angry IP Scanner version as a variable.
 # The add-on version mirrors it (3.10.0); add-on-only fixes append a 4th segment (3.10.0.1).
