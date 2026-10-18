@@ -2,24 +2,6 @@
 
 <!-- towncrier release notes start -->
 
-## [3.6.0.0] - 2026-10-18
-
-### Removed
-
-- Dropped armv7 builds. Home Assistant no longer supports armv7 and its builder can no longer produce them; armv7 installs stay on the last published version.
-
-### Changed
-
-- The image build copies rootfs with COPY instead of ADD (no change to the image; satisfies hadolint).
-- Updated ghcr.io/home-assistant/amd64-base-python to v3.14
-- Updated toogoodtogo-ha-mqtt-bridge to v3.6.1
-- Updated uv to v0.13.1
-
-### Fixed
-
-- The MQTT password is now stored as a `password` field, so Home Assistant masks it in the add-on configuration instead of showing it in cleartext. ([#578](https://github.com/MaxWinterstein/homeassistant-addons/issues/578))
-- Fixed a typo in the bridge's startup log message.
-
 ## [3.5.0.0] - 2025-07-20
 
 ### Changed
