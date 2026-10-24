@@ -89,14 +89,14 @@ To feed [The OpenSky Network](https://opensky-network.org/):
    `[opensky-feeder] [INFO] [SERIAL] Got a new serial number: -16546546532`
 4. Copy that number into `OPENSKY_SERIAL` and restart the add-on. Without it, a new serial is generated on every start and your receiver will not be recognised as the same one.
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `SERVICE_ENABLE_OPENSKY` | `false` | Enable the OpenSky feeder |
-| `OPENSKY_USERNAME` | empty | OpenSky username (required when enabled) |
-| `OPENSKY_SERIAL` | empty | Serial from the first start (required afterwards) |
-| `OPENSKY_DEVICE_TYPE` | `default` | Device type |
-| `OPENSKY_INPUT_HOST` | `127.0.0.1` | Beast data source |
-| `OPENSKY_INPUT_PORT` | `30005` | Beast data port |
+| Option                   | Default     | Description                                       |
+| ------------------------ | ----------- | ------------------------------------------------- |
+| `SERVICE_ENABLE_OPENSKY` | `false`     | Enable the OpenSky feeder                         |
+| `OPENSKY_USERNAME`       | empty       | OpenSky username (required when enabled)          |
+| `OPENSKY_SERIAL`         | empty       | Serial from the first start (required afterwards) |
+| `OPENSKY_DEVICE_TYPE`    | `default`   | Device type                                       |
+| `OPENSKY_INPUT_HOST`     | `127.0.0.1` | Beast data source                                 |
+| `OPENSKY_INPUT_PORT`     | `30005`     | Beast data port                                   |
 
 Location is taken from `HTML_SITE_LAT` / `HTML_SITE_LON` / `HTML_SITE_ALT`. To link your receiver page from the web UI, set `HTML_RECEIVER_STATS_PAGE_OPENSKY_NETWORK`.
 
