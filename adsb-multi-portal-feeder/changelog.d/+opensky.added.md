@@ -1,0 +1,1 @@
+Added OpenSky Network feeding: new options `SERVICE_ENABLE_OPENSKY`, `OPENSKY_USERNAME` and `OPENSKY_SERIAL` (disabled by default), and `OPENSKY_INPUT_PORT` is now validated as a port. See the README for setup.

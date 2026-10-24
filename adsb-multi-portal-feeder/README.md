@@ -2,7 +2,7 @@
 
 <a href='https://ko-fi.com/MaxWinterstein' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
-Add-on to feed ADS-B data from a cheap USB ADS-B Stick (e.g. [Nooelec NESDR Mini](https://www.amazon.com/gp/product/B009U7WZCA)) to FlightRadar24, FlightAware, ADSBexchange and Plane Finder.
+Add-on to feed ADS-B data from a cheap USB ADS-B Stick (e.g. [Nooelec NESDR Mini](https://www.amazon.com/gp/product/B009U7WZCA)) to FlightRadar24, FlightAware, ADSBexchange, Plane Finder and OpenSky Network.
 
 ![screenshot](https://raw.githubusercontent.com/MaxWinterstein/homeassistant-addons/main/adsb-multi-portal-feeder/images/screenshot.png)
 
@@ -78,6 +78,27 @@ Either on your local machine, or e.g. the Home Assistant addon [SSH & Web Termin
 ](https://github.com/hassio-addons/addon-ssh).
 
 See [docker-fr24feed-piaware-dump1090](https://github.com/Thom-x/docker-fr24feed-piaware-dump1090) for more info.
+
+### OpenSky Network
+
+To feed [The OpenSky Network](https://opensky-network.org/):
+
+1. Create an account at opensky-network.org and note your username.
+2. In the add-on configuration set `SERVICE_ENABLE_OPENSKY: true` and `OPENSKY_USERNAME`.
+3. Start the add-on. As no serial is set yet, OpenSky requests a new one and prints it to the log:
+   `[opensky-feeder] [INFO] [SERIAL] Got a new serial number: -16546546532`
+4. Copy that number into `OPENSKY_SERIAL` and restart the add-on. Without it, a new serial is generated on every start and your receiver will not be recognised as the same one.
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `SERVICE_ENABLE_OPENSKY` | `false` | Enable the OpenSky feeder |
+| `OPENSKY_USERNAME` | empty | OpenSky username (required when enabled) |
+| `OPENSKY_SERIAL` | empty | Serial from the first start (required afterwards) |
+| `OPENSKY_DEVICE_TYPE` | `default` | Device type |
+| `OPENSKY_INPUT_HOST` | `127.0.0.1` | Beast data source |
+| `OPENSKY_INPUT_PORT` | `30005` | Beast data port |
+
+Location is taken from `HTML_SITE_LAT` / `HTML_SITE_LON` / `HTML_SITE_ALT`. To link your receiver page from the web UI, set `HTML_RECEIVER_STATS_PAGE_OPENSKY_NETWORK`.
 
 ### Latitude / Longitude
 
