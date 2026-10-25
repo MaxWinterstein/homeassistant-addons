@@ -28,7 +28,7 @@ need() {
 
 # True if the machine already exists.
 vm_exists() {
-    orb list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "${ORB_VM}"
+    orb list 2>/dev/null | awk '{print $1}' | grep -qx "${ORB_VM}"
 }
 
 # Run a command inside the VM as root.
