@@ -2,6 +2,17 @@
 
 <!-- towncrier release notes start -->
 
+## [3.7.1.0] - 2026-10-26
+
+### Changed
+
+- Updated toogoodtogo-ha-mqtt-bridge to v3.7.1
+- Updated uv to v0.13.5
+
+### Fixed
+
+- Logging in works again: Too Good To Go now emails a PIN, which you enter in the add-on's new Web UI. A rejected login no longer crash-loops the add-on; it asks for a new PIN and raises a Home Assistant notification and a Login required sensor.
+
 ## [3.6.1.0] - 2026-10-18
 
 ### Removed

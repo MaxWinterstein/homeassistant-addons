@@ -1,1 +1,0 @@
-Logging in works again: Too Good To Go now emails a PIN, which you enter in the add-on's new Web UI. A rejected login no longer crash-loops the add-on; it asks for a new PIN and raises a Home Assistant notification and a Login required sensor.
