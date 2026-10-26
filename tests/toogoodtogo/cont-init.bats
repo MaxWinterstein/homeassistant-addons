@@ -128,3 +128,14 @@ setting() {
     assert_output --partial "Saved tokens found."
     refute_output --partial "No saved tokens found."
 }
+
+@test "serves the login page on the ingress port, for the ingress proxy only" {
+    run_cont_init
+    assert_success
+
+    ingress_port="$(sed -n 's/^ingress_port:[[:space:]]*//p' "${REPO_ROOT}/toogoodtogo-ha-mqtt-bridge/config.yaml")"
+    [ -n "${ingress_port}" ]
+    [ "$(setting '.login_portal.port')" = "${ingress_port}" ]
+    [ "$(setting '.login_portal.enabled')" = "true" ]
+    [ "$(setting '.login_portal.allowed_ips | join(",")')" = "172.30.32.2" ]
+}
