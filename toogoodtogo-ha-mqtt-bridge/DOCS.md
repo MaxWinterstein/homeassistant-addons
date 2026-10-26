@@ -31,9 +31,9 @@ Too Good To Go logs you in with a PIN that it sends to the email address in `tgt
 2. Open the add-on's **Web UI**. It shows a form for the PIN.
 3. Enter the PIN from the email. The page confirms the login, and the add-on starts publishing.
 
-The add-on keeps the login afterwards. If Too Good To Go ever rejects it, the add-on requests a
-new email by itself and waits for the PIN instead of crash-looping. You will see this in three
-places:
+The add-on keeps the login afterwards. If Too Good To Go rejects the saved login as invalid
+(HTTP 401), the add-on requests a new email by itself and waits for the PIN instead of
+crash-looping. You will see this in three places:
 
 - a Home Assistant notification titled **Too Good To Go: login needed**, with a link to the login page,
 - the **Login required** problem sensor on the Too Good To Go device turning on,
