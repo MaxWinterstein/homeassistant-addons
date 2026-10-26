@@ -133,8 +133,9 @@ setting() {
     run_cont_init
     assert_success
 
+    # The add-on linter wants ingress_port left out when it is the default.
     ingress_port="$(sed -n 's/^ingress_port:[[:space:]]*//p' "${REPO_ROOT}/toogoodtogo-ha-mqtt-bridge/config.yaml")"
-    [ -n "${ingress_port}" ]
+    ingress_port="${ingress_port:-8099}"
     [ "$(setting '.login_portal.port')" = "${ingress_port}" ]
     [ "$(setting '.login_portal.enabled')" = "true" ]
     [ "$(setting '.login_portal.allowed_ips | join(",")')" = "172.30.32.2" ]

@@ -42,9 +42,9 @@ url: https://github.com/MaxWinterstein/toogoodtogo-ha-mqtt-bridge
 hassio_api: true
 # Posts the "login needed" notification through the Supervisor's Home Assistant API proxy.
 homeassistant_api: true
-# The Web UI is the bridge's login page for the PIN that Too Good To Go emails.
+# The Web UI is the bridge's login page for the PIN that Too Good To Go emails (ingress port: the
+# default 8099, which the startup script also gives the bridge).
 ingress: true
-ingress_port: 8099
 panel_icon: mdi:food
 panel_title: TooGoodToGo login
 environment:
