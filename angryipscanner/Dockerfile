@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 # Set the Angry IP Scanner version as a variable.
 # The add-on version mirrors it (3.10.0); add-on-only fixes append a 4th segment (3.10.0.1).
 # renovate: datasource=github-releases depName=angryip/ipscan versioning=semver
-ARG IP_SCAN_VERSION=3.10.0
+ARG IP_SCAN_VERSION=3.12.0
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
