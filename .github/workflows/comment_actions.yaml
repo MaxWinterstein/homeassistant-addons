@@ -153,10 +153,10 @@ jobs:
 
       - name: Install uv
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: astral-sh/setup-uv@v10.2.0
+        uses: astral-sh/setup-uv@v10.3.3
         with:
           # Install a specific version of uv.
-          version: "0.12.23"
+          version: "0.13.6"
 
       - name: Set up Python
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
@@ -172,7 +172,7 @@ jobs:
 
       - name: Push changes
         if: github.event_name == 'pull_request' || startsWith(github.event.comment.body, '/release')
-        uses: stefanzweifel/git-auto-commit-action@v7.2.0
+        uses: stefanzweifel/git-auto-commit-action@v7.2.1
         with:
           commit_message: "[${{ steps.get_addon.outputs.addon }}] Bumped version to ${{ steps.increment_version.outputs.new_version }}"
           token: ${{ secrets.GH_PAT_MAXWINTERSTEINBOT }}
