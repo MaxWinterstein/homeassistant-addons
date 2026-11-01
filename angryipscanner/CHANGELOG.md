@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [3.12.0] - 2026-11-01
+
+### Changed
+
+- Updated angryip/ipscan to v3.12.0
+
 ## [3.10.0] - 2026-10-04
 
 ### Changed
