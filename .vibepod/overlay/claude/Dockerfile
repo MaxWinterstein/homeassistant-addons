@@ -70,13 +70,13 @@ ARG TASK_VERSION=v3.54.0
 # renovate: datasource=github-releases depName=mikefarah/yq
 ARG YQ_VERSION=v4.54.1
 # renovate: datasource=github-releases depName=astral-sh/uv
-ARG UV_VERSION=0.12.23
+ARG UV_VERSION=0.13.6
 # renovate: datasource=github-releases depName=moby/moby
 ARG DOCKER_VERSION=29.8.0
 # renovate: datasource=github-releases depName=docker/buildx
-ARG BUILDX_VERSION=v0.37.2
+ARG BUILDX_VERSION=v0.38.1
 # renovate: datasource=github-releases depName=cli/cli
-ARG GH_VERSION=v2.102.0
+ARG GH_VERSION=v2.103.3
 
 RUN set -eux; \
     arch="$(dpkg --print-architecture)"; \
