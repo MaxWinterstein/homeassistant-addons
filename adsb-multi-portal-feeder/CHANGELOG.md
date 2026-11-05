@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [2.9.0] - 2026-11-05
+
+### Changed
+
+- Base image is now Debian bookworm (thomx/fr24feed-piaware 2.9.0); the bullseye archive workaround is gone.
+- Updated thomx/fr24feed-piaware to v2.9.0
+
 ## [2.8.0.1] - 2026-10-04
 
 ### Fixed
