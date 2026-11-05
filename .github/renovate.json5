@@ -55,6 +55,17 @@
       groupName: "planefence dependencies",
     },
     {
+      // Generic add-ons pin a docker-base release (trixie-2026.10.3) in their
+      // Dockerfile's ARG BUILD_FROM. Keep the Debian codename, bump the release
+      // part only; moving to a new codename is a deliberate change. Same rule as
+      // Home Assistant's own app repositories.
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/home-assistant/base-debian"],
+      matchCurrentValue: "/^trixie-/",
+      versionCompatibility: "^trixie-(?<version>\\d+\\.\\d+\\.\\d+)$",
+      versioning: "pep440",
+    },
+    {
       // Tags are latest-build-<n>; compare <n> numerically.
       matchDepNames: ["ghcr.io/sdr-enthusiasts/docker-planefence"],
       versioning: "regex:^latest-build-(?<major>\\d+)$",

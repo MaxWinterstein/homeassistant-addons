@@ -131,6 +131,10 @@ jobs:
           labels: ${{ matrix.labels }}
           # Several add-ons share this repository, so keep their caches apart.
           cache-gha-scope: ${{ matrix.addon }}-${{ matrix.arch }}
+          # Set for generic add-ons on a home-assistant/docker-base image: fail
+          # the build unless the base carries docker-base's release signature.
+          cosign-base-verify: ${{ matrix.base_verify }}
+          cosign-base-identity: ${{ matrix.base_verify && '^https://github\.com/home-assistant/docker-base/\.github/workflows/build-base-image\.yml@refs/tags/[0-9]+\.[0-9]+\.[0-9]+$' || '' }}
           push: "true"
           # Never overwrite an already published version.
           skip-existing: ${{ matrix.version }}
@@ -164,3 +168,16 @@ jobs:
             latest
           skip-existing: ${{ matrix.version }}
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
+
+      # The manifest must hold exactly the add-on's architectures, otherwise
+      # the Supervisor on a missing one has nothing to pull.
+      - name: 🔍 Check ${{ matrix.addon }} manifest platforms
+        env:
+          IMAGE: ${{ matrix.registry_prefix }}/${{ matrix.image_name }}:${{ matrix.version }}
+          ARCHITECTURES: ${{ matrix.architectures }}
+        run: |
+          expected=$(jq -r 'map({aarch64: "arm64", amd64: "amd64"}[.]) | sort | join(",")' <<<"${ARCHITECTURES}")
+          actual=$(docker buildx imagetools inspect --raw "${IMAGE}" \
+            | jq -r '[.manifests[].platform | select(.architecture != "unknown") | .architecture] | sort | join(",")')
+          echo "${IMAGE}: expected ${expected}, got ${actual}"
+          [ "${expected}" = "${actual}" ] || { echo "::error::${IMAGE} has platforms ${actual}, expected ${expected}"; exit 1; }

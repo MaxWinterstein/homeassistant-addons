@@ -1,5 +1,8 @@
-# One multi-arch base for every architecture; no build.json needed.
-FROM ghcr.io/home-assistant/base-debian:trixie
+# One multi-arch base for every architecture; no build.json needed. Pinned to
+# a docker-base release, which Renovate bumps (see .github/renovate.json5).
+# The ARG keeps the default overridable, the way Home Assistant's own apps do it.
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:trixie-2026.10.3
+FROM ${BUILD_FROM}
 
 # Set the Angry IP Scanner version as a variable.
 # The add-on version mirrors it (3.10.0); add-on-only fixes append a 4th segment (3.10.0.1).
