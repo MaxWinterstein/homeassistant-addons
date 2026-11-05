@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [1.1.2] - 2026-11-05
+
+### Changed
+
+- Updated ghcr.io/sdr-enthusiasts/docker-planefence to v1273
+
 ## [1.1.1] - 2026-10-04
 
 ### Changed
