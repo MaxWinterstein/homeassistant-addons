@@ -75,6 +75,18 @@ for addon in $(jq -r '.[]' <<<"${ADDONS_JSON}"); do
         [ -f "${candidate}" ] && build_file="${candidate}" && break
     done
 
+    # Generic add-ons declare their base as `ARG BUILD_FROM=<image>` in the
+    # Dockerfile. Bases from home-assistant/docker-base are Cosign-signed, so
+    # the build verifies them before building on top (same rule as Home
+    # Assistant's own app-deploy workflow); other bases have no known signer.
+    base_verify=""
+    if [ "${generic}" = 1 ] && [ -f "${addon}/Dockerfile" ]; then
+        dockerfile_base="$(sed -n 's/^ARG BUILD_FROM="\{0,1\}\([^"]*\)"\{0,1\}$/\1/p' "${addon}/Dockerfile" | head -n 1)"
+        if [[ "${dockerfile_base}" =~ ^ghcr\.io/home-assistant/(base|base-python|base-debian|base-ubuntu)(:|@) ]]; then
+            base_verify="${dockerfile_base}"
+        fi
+    fi
+
     for arch in $(yq -r '.arch[]' "${config}"); do
         os="$(runner_for "${arch}")" || {
             echo "${addon}: skipping unsupported architecture ${arch}" >&2
@@ -94,8 +106,10 @@ for addon in $(jq -r '.[]' <<<"${ADDONS_JSON}"); do
                 --arg name "$(yq -r '.name' "${config}")" \
                 --arg description "$(yq -r '.description // ""' "${config}")" \
                 --arg url "$(yq -r '.url // ""' "${config}")" \
+                --arg base_verify "${base_verify}" \
                 '{addon: $addon, arch: $arch, os: $os, image: $image, version: $version,
                   build_args: (if $base == "" then "" else "BUILD_FROM=\($base)" end),
+                  base_verify: $base_verify,
                   labels: ([
                     "io.hass.type=addon",
                     "io.hass.name=\($name)",
