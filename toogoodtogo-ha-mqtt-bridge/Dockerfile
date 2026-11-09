@@ -30,6 +30,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 RUN python toogoodtogo_ha_mqtt_bridge/main.py --version
 
 # Corrects permissions for s6 v3
-RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
-    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
-    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
+RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi \
+    && if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi \
+    && if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
