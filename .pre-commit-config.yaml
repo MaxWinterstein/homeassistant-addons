@@ -7,12 +7,12 @@ repos:
     # cached environment and different machines silently run different versions
     # with different dictionaries. pre-commit warns about it on every run.
     # Run `pre-commit autoupdate` to move it.
-    rev: v1.51.1
+    rev: v1.52.0
     hooks:
       - id: typos
   - repo: https://github.com/reteps/dockerfmt
     # run `pre-commit autoupdate` to pin the version
-    rev: v0.5.4
+    rev: v0.6.0
     hooks:
       - id: dockerfmt
         args:
