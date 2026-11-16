@@ -22,7 +22,6 @@ RUN uv sync --frozen --no-dev --index-strategy unsafe-best-match
 # install all the other stuff
 COPY rootfs /
 
-
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
@@ -30,6 +29,6 @@ ENV PATH="/app/.venv/bin:$PATH"
 RUN python toogoodtogo_ha_mqtt_bridge/main.py --version
 
 # Corrects permissions for s6 v3
-RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi && \
-    if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi && \
-    if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi
+RUN if [ -d /etc/cont-init.d ]; then chmod -R 755 /etc/cont-init.d; fi \
+    && if [ -d /etc/services.d ]; then chmod -R 755 /etc/services.d; fi \
+    && if [ -f /entrypoint.sh ]; then chmod 755 /entrypoint.sh; fi

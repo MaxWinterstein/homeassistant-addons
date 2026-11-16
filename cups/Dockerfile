@@ -42,12 +42,12 @@ COPY rootfs /
 
 # Add user and disable sudo password checking
 RUN useradd \
-    --groups=sudo,lp,lpadmin \
-    --create-home \
-    --home-dir=/home/print \
-    --shell=/bin/bash \
-    --password=$(mkpasswd print) \
-    print \
+        --groups=sudo,lp,lpadmin \
+        --create-home \
+        --home-dir=/home/print \
+        --shell=/bin/bash \
+        --password=$(mkpasswd print) \
+        print \
     && sed -i '/%sudo[[:space:]]/ s/ALL[[:space:]]*$/NOPASSWD:ALL/' /etc/sudoers
 
 EXPOSE 631

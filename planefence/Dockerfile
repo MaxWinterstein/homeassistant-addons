@@ -22,7 +22,7 @@ RUN if [ ! -f /usr/bin/with-contenv ] && [ -f /command/with-contenv ]; then \
         echo "with-contenv already at /usr/bin/with-contenv"; \
     else \
         echo "WARNING: with-contenv not found at /usr/bin or /command!"; \
-        find / -name with-contenv -not -path "/proc/*" 2>/dev/null; \
+        find / -name with-contenv -not -path "/proc/*" 2> /dev/null; \
     fi
 
 # Add cont-init.d script to generate planefence.config from HA options.
@@ -36,7 +36,7 @@ RUN chmod +x /etc/cont-init.d/00-ha-planefence-config.sh
 # at build time so all s6 services see the correct path from the very first moment.
 # Save the upstream template first so cont-init.d can copy it on first start.
 RUN cp /usr/share/planefence/stage/persist/planefence.config.RENAME-and-EDIT-me \
-    /planefence.config.template \
+        /planefence.config.template \
     && mkdir -p /var/lib/planefence-persist/.internal \
     # Do NOT pre-create planefence.config here. Leaving it absent means
     # socket30003's own native wait loop blocks until cont-init.d writes
