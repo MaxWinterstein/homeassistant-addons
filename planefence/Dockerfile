@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/sdr-enthusiasts/docker-planefence:latest-build-1276
+ARG BUILD_FROM=ghcr.io/sdr-enthusiasts/docker-planefence:latest-build-1280
 FROM $BUILD_FROM
 
 ENV TZ=UTC
