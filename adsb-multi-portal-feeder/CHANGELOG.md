@@ -2,6 +2,16 @@
 
 <!-- towncrier release notes start -->
 
+## [2.9.0.1] - 2026-11-18
+
+### Added
+
+- Added OpenSky Network feeding: new options `SERVICE_ENABLE_OPENSKY`, `OPENSKY_USERNAME` and `OPENSKY_SERIAL` (disabled by default), and `OPENSKY_INPUT_PORT` is now validated as a port. See the README for setup.
+
+### Changed
+
+- Dockerfile reformatted (dockerfmt 1.0.0); no functional change.
+
 ## [2.9.0] - 2026-11-05
 
 ### Changed
