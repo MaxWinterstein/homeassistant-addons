@@ -20,6 +20,7 @@ jobs:
       changedAddons: ${{ steps.find_addons.outputs.changed_addons }}
       changedChangelogFiles: ${{ steps.find_changelog.outputs.changed_changelog_files }}
       hasAddonChanges: ${{ steps.find_addons.outputs.has_addon_changes }}
+      buildAddons: ${{ steps.find_addons.outputs.build_addons }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7.0.1
@@ -56,6 +57,20 @@ jobs:
           echo "Changed configs: $config_addons"
           echo "Changed addons: $changed_addons"
           echo "changed_addons=$changed_addons" >> "$GITHUB_OUTPUT"
+
+          # Deprecated add-ons (stage: deprecated) get linted and need a
+          # changelog entry like any other, but are not test-built: they are
+          # no longer published, and their upstream downloads may be gone
+          # (awtrix's blueforcer.de, for one).
+          build_addons=$(for addon in $(jq -r '.[]' <<<"$changed_addons"); do
+            if [ "$(yq -r '.stage // ""' "$addon"/config.* 2>/dev/null | head -n 1)" = "deprecated" ]; then
+              echo "Skipping the test build of deprecated add-on $addon" >&2
+            else
+              echo "$addon"
+            fi
+          done | jq -R -s -c 'split("\n")[:-1]')
+          echo "Addons to test-build: $build_addons"
+          echo "build_addons=$build_addons" >> "$GITHUB_OUTPUT"
           if [[ "$changed_addons" == "[]" ]]; then
             echo "has_addon_changes=false" >> "$GITHUB_OUTPUT"
           else
@@ -146,12 +161,12 @@ jobs:
   check-build:
     name: Test addon build
     needs: check-addon-changes
-    if: ${{ needs.check-addon-changes.outputs.hasAddonChanges == 'true' }}
+    if: ${{ needs.check-addon-changes.outputs.buildAddons != '[]' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        addon: ${{ fromJSON(needs.check-addon-changes.outputs.changedAddons) }}
+        addon: ${{ fromJSON(needs.check-addon-changes.outputs.buildAddons) }}
     steps:
       - name: ↩️ Checkout
         uses: actions/checkout@v7.0.1
