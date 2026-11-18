@@ -24,13 +24,12 @@ COPY export-env-from-config.sh /export-env-from-config.sh
 RUN find /etc/s6-overlay/s6-rc.d/ -name script | xargs sed -i '1 a\source /export-env-from-config.sh'
 RUN find /etc/s6-overlay/s6-rc.d/ -name run | xargs sed -i '1 a\source /export-env-from-config.sh'
 
-
 # Add the nice banner
 
 ADD https://raw.githubusercontent.com/hassio-addons/addon-debian-base/v5.1.0/base/rootfs/etc/cont-init.d/00-banner.sh /etc/s6-overlay/s6-rc.d/banner/
 RUN mkdir -p /etc/s6-overlay/s6-rc.d/banner \
-    && echo "oneshot" >/etc/s6-overlay/s6-rc.d/banner/type \
-    && echo "/etc/s6-overlay/s6-rc.d/banner/script" >/etc/s6-overlay/s6-rc.d/banner/up \
+    && echo "oneshot" > /etc/s6-overlay/s6-rc.d/banner/type \
+    && echo "/etc/s6-overlay/s6-rc.d/banner/script" > /etc/s6-overlay/s6-rc.d/banner/up \
     && touch /etc/s6-overlay/s6-rc.d/user/contents.d/banner \
     && mv /etc/s6-overlay/s6-rc.d/banner/00-banner.sh /etc/s6-overlay/s6-rc.d/banner/script \
     && chmod +x /etc/s6-overlay/s6-rc.d/banner/script \
