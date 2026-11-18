@@ -2,6 +2,13 @@
 
 <!-- towncrier release notes start -->
 
+## [3.12.2] - 2026-11-18
+
+### Changed
+
+- Updated angryip/ipscan to v3.12.2
+- Updated ghcr.io/home-assistant/base-debian to trixie-2026.11.0
+
 ## [3.12.1] - 2026-11-05
 
 ### Changed
