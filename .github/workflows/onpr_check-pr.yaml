@@ -27,9 +27,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Fetch main branch
-        run: git fetch origin main
-
       - name: Find add-ons whose image inputs changed
         uses: dorny/paths-filter@v4.0.3
         id: filter
@@ -46,7 +43,12 @@ jobs:
           # add-on missing from pr-build-filter.yml (e.g. a new one) is still
           # checked rather than silently skipped. Hidden directories are tooling
           # (.vibepod/config.yaml is VibePod's), not add-ons.
-          config_addons=$(git diff --name-only origin/main "${{ github.sha }}" \
+          # github.sha is the PR's merge commit; its first parent is the main
+          # it was merged onto. Diffing against that, not the current
+          # origin/main, gives exactly the PR's changes even when the run
+          # starts later (approved fork PRs, re-runs): otherwise everything
+          # main gained since then counts as changed by this PR.
+          config_addons=$(git diff --name-only "${{ github.sha }}^1" "${{ github.sha }}" \
             | grep -E '^[^/.][^/]*/config\.(json|ya?ml)$' \
             | awk -F/ '{print $1}' \
             | jq -R -s -c 'split("\n")[:-1]')
@@ -86,7 +88,9 @@ jobs:
           # Deleted files don't count (a release deletes fragments but also
           # writes CHANGELOG.md), and towncrier only reads direct children of
           # changelog.d/, so nested files wouldn't record anything.
-          changed_changelog_files=$(git diff --diff-filter=d --name-only origin/main "${{ github.sha }}" \
+          # Against the merge commit's first parent, like the add-on list above,
+          # so CHANGELOG.md files released on main meanwhile don't count here.
+          changed_changelog_files=$(git diff --diff-filter=d --name-only "${{ github.sha }}^1" "${{ github.sha }}" \
             | grep -iE '^([^/]+/)?(changelog\.(md|txt|ya?ml|json)|changelog\.d/[^/]+\.md)$' || true)
           echo "Changed changelog files:"
           echo "$changed_changelog_files"
