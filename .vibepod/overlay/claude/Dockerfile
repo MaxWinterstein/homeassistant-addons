@@ -82,7 +82,7 @@ RUN set -eux; \
     arch="$(dpkg --print-architecture)"; \
     case "$arch" in \
         arm64) go_arch=arm64; uv_arch=aarch64-unknown-linux-gnu; docker_arch=aarch64 ;; \
-        amd64) go_arch=amd64; uv_arch=x86_64-unknown-linux-gnu;  docker_arch=x86_64 ;; \
+        amd64) go_arch=amd64; uv_arch=x86_64-unknown-linux-gnu; docker_arch=x86_64 ;; \
         *) echo "unsupported architecture: $arch" >&2; exit 1 ;; \
     esac; \
     tmp="$(mktemp -d)"; \
@@ -115,15 +115,15 @@ RUN set -eux; \
 # `uv tool install` at a root-owned directory.
 RUN set -eux; \
     UV_TOOL_DIR=/opt/uv/tools \
-    UV_TOOL_BIN_DIR=/usr/local/bin \
-    uv tool install --no-cache pre-commit; \
+        UV_TOOL_BIN_DIR=/usr/local/bin \
+        uv tool install --no-cache pre-commit; \
     chmod -R a+rX /opt/uv; \
     pre-commit --version
 
 # ── Sanity check: everything the tests rely on must be on PATH ──────────
 RUN set -eux; \
     for t in bats shellcheck shfmt task yq uv uvx docker gh pre-commit; do \
-        command -v "$t" >/dev/null || { echo "missing after build: $t" >&2; exit 1; }; \
+        command -v "$t" > /dev/null || { echo "missing after build: $t" >&2; exit 1; }; \
     done; \
     python3 -c 'import yaml; print("pyyaml", yaml.__version__)'; \
     bats --version; \
