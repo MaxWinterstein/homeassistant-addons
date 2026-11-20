@@ -2,6 +2,12 @@
 
 <!-- towncrier release notes start -->
 
+## [2.9.0.2] - 2026-11-20
+
+### Fixed
+
+- Fixed OpenStreetMap "Access blocked" map tiles in the web UI when opened through Home Assistant ([#713](https://github.com/MaxWinterstein/homeassistant-addons/issues/713))
+
 ## [2.9.0.1] - 2026-11-18
 
 ### Added
