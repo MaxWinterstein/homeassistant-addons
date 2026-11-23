@@ -1,4 +1,4 @@
-ARG BUILD_FROM=thomx/fr24feed-piaware:2.9.0
+ARG BUILD_FROM=thomx/fr24feed-piaware:2.11.0
 FROM $BUILD_FROM
 
 # Install expect
